@@ -4,11 +4,12 @@ import re
 import web
 import json
 
+from datetime import date
+
 import psycopg2 as pg
 from sqlobject import AND, OR
-from pymongo import MongoClient
 from models import TinggiMukaAir, CurahHujan, Flow, WadukDaily
-from models import Agent, MONGO_HOST, MONGO_PORT, conn
+from models import Agent, conn
 from helper import to_date
 from common_data import BSOLO_LOGGER
 
@@ -16,8 +17,8 @@ urls = (
     '$', 'Api',
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
+    '/curahhujan', 'ACurahHujan', # curah hujan manual
     '/logger', 'BsoloLogger',  # List of registered logger
-    '/bendungan/periodic', 'BendunganPeriodic' # Showing latest periodic data Bendungan
 )
 
 app_api = web.application(urls, locals())
@@ -25,8 +26,11 @@ session = web.session.Session(app_api, web.session.DiskStore('sessions'),
                               initializer={'username': None, 'role': None,
                                            'flash': None})
 
-#client = MongoClient(MONGO_HOST, MONGO_PORT)
-#db = client.bsolo3
+def json_serialize(obj):
+    """Json Serializer object"""
+    if isinstance(obj, (datetime.datetime, date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
 
 
 def ts(x):
@@ -58,38 +62,21 @@ def map_periodic(src):
     return ret
 
 
-class BendunganPeriodic:
-    '''API untuk Data Periodic Bendungan'''
+class ACurahHujan:
+    '''Untuk mengambil data curahhujan yang dikirim petugas'''
     def GET(self):
-        ''''''
         web.header('Content-Type', 'application/json')
         web.header('Access-Control-Allow-Origin', '*')
         inp = web.input()
         sampling = inp.get('sampling')
-        fields = 'curahhujan,tma6,vol6,tma12,vol12,tma18,vol18,inflow_q,inflow_v,intake_q,intake_v,spillway_q,spillway_v,vnotch_tin1,vnotch_q1,vnotch_tin2,vnotch_q2,vnotch_tin3,vnotch_q3,a1,b1,c1,a2,b2,c2,a3,b3,c3,a4,b4,c4,a5,b5,c5'.split(',')
         n = datetime.datetime.now()
-        waktu = datetime.datetime(n.year, n.month, n.day)
+        waktu = n.replace(hour=0, minute=0, second=0, microsecond=0).date()
         if sampling:
             d = to_date(sampling)
-            waktu = datetime.datetime(d.year, d.month, d.day)
-        wds = [d for d in WadukDaily.select(WadukDaily.q.waktu==waktu)]
-        out = []
-        for d in wds:
-            row = dict([(a, d.sqlmeta.asDict().get(a)) for a in fields])
-            row.update({'sampling': str(d.waktu), 'name': d.pos.table_name})
-            if d.pos and d.pos.prima_id:
-                sql = "SELECT CONCAT(SamplingDate, ' ', SamplingTime) \
-                AS sampling, WLevel * 0.01 \
-                FROM %s \
-                WHERE CONCAT(SamplingDate, ' ', SamplingTime) <= NOW() \
-                ORDER BY SamplingDate DESC, SamplingTime DESC \
-                LIMIT 0, 1" % d.pos.table_name
-                rst = conn.queryAll(sql)
-                if rst:
-                    row.update({'sampling_wlevel': rst[0][0], 'wlevel':
-                                float(rst[0][1] or 0)})
-            out.append(row)
-        return json.dumps(out)
+            waktu = datetime.datetime(d.year, d.month, d.day).date()
+        rst = [c.sqlmeta.asDict() for c in
+               CurahHujan.select(CurahHujan.q.waktu==waktu)]
+        return json.dumps(rst, default=json_serialize)
 
 
 class BsoloLogger:

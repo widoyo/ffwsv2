@@ -11,13 +11,7 @@ import json
 import re
 
 import web
-from models import MONGO_PORT, MONGO_HOST
 from helper import Struct, to_date
-
-import pymongo
-from pymongo import MongoClient
-#client = MongoClient(MONGO_HOST, MONGO_PORT)
-#db = client.bsolo3
 
 urls = (
     '$', 'Index',
@@ -42,17 +36,6 @@ def home_data():
     start = time.mktime(start.timetuple()) + 7 * 3600
     end = time.mktime(time.localtime())
     result = []
-    for device in db.sensors.distinct("device"):
-        sens_row = []
-        for sensing in db.sensors.find({"$and" : [{"device": device},
-                                       {"sampling": {"$gte": start}},
-                                       {"sampling": {"$lte": end}}]},
-                                        {'_id': 0}
-                                       ).sort([('sampling',
-                                                pymongo.DESCENDING)]):
-            sens_row.append(sensing)
-        row = dict(device=device, periodic=sens_row)
-        result.append(row)
     return result
 
 
@@ -65,10 +48,10 @@ class Proto1:
     def GET(self):
         device_id = web.input().get('id', '1710-1')
         regx = re.compile('.*' + device_id + '.*', re.IGNORECASE)
-        logger = [(l.get('device'), l.get('location'), l.get('tipping_factor')) for l in db.logger.find({'device': device_id}, {'_id': 0})]
+        logger = []
         if not logger:
             return web.notfound()
-        sens = [s for s in db.sensors.find({'device': regx}, {'_id': 0}).sort('_id', -1).limit(1)]
+        sens = []
         logger = map(str, logger[0])
         return render.sensor.proto1({'device': logger, 'sensor': sens})
 
