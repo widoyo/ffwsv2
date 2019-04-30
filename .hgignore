@@ -1,0 +1,15 @@
+syntax: glob
+
+*.pyc
+*.swp
+sessions
+local_settings.py
+env
+.env
+oauth2
+.DS_Store
+static/fontawesome
+static/plugins
+templates/bendungan
+static/bootstrap
+static/fonts
