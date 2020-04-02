@@ -748,7 +748,7 @@ class Index:
 def test_volume_bendungan():
     lines = open('/tmp/jombor.txt').readlines()
     for l in lines:
-        print l
+        print(l)
 
 
 if __name__ == '__main__':

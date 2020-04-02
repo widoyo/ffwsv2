@@ -2,7 +2,26 @@ $var extra_header:
     <style type="text/css">
     .affix-top { margin-bottom: 0px !important; }
     </style>
+    <style>
+        #berkedip {
+        animation: blink-animation 1s steps(5, start) infinite;
+        -webkit-animation: blink-animation 1s steps(5, start) infinite;
+        }
+        @keyframes blink-animation {
+        to {
+        visibility: hidden;
+        }
+        @-webkit-keyframes blink-animation {
+        to {
+        visibility: hidden;
+        }
+        }
+    </style>
 <!-- -->
+                $if session.get('username'):
+                    <div style="padding-left: 8px;padding-right: 8px;">
+                        <a href="/logout" class="btn btn-block btn-danger" style="margin-top:4px;margin-bottom: 4px;"><span id="berkedip">Admin is On, Logout</span></a>
+                    </div>
                 <div id="carousel-example-generic" class="carousel slide">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">

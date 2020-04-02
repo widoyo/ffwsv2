@@ -151,7 +151,7 @@ class AgentBd(SQLObject):
             rembesan = rs.vnotch_q1
         except:
             rembesan = None
-        print rembesan, self.batas_rembesan
+        print(rembesan, self.batas_rembesan)
         if self.batas_rembesan and rembesan:
             ret = (self.batas_rembesan > rembesan) and 1 or 2
         return statuses[ret]
@@ -165,7 +165,7 @@ class AgentBd(SQLObject):
             rembesan = rs.vnotch_q2
         except:
             rembesan = None
-        print rembesan, self.batas_rembesan
+        print(rembesan, self.batas_rembesan)
         if self.batas_rembesan and rembesan:
             ret = (self.batas_rembesan > rembesan) and 1 or 2
         return statuses[ret]
@@ -178,7 +178,7 @@ class AgentBd(SQLObject):
             rembesan = rs.vnotch_q3
         except:
             rembesan = None
-        print rembesan, self.batas_rembesan
+        print(rembesan, self.batas_rembesan)
         if self.batas_rembesan and rembesan:
             ret = (self.batas_rembesan > rembesan) and 1 or 2
         return statuses[ret]
@@ -320,7 +320,7 @@ class AgentCh(SQLObject):
                 '%(dari)s' AND '%(hingga)s' \
                 GROUP BY SamplingDate, HOUR(SamplingTime)" % dict(tipping_factor=self.TippingFactor,
                         table_name=self.table_name, dari=dari, hingga=hingga)
-        print sql
+        print(sql)
         def timedelta_to_time(td):
             secs = td.seconds
             hour = int(secs / 3600)
@@ -368,22 +368,22 @@ class Agent(SQLObject):
     siaga2 = FloatCol(dbName='SiagaLower')
     siaga3 = FloatCol(dbName='SiagaUpper')
     siaga4 = FloatCol(dbName='CriticalLower')
-    PRain1 = StringCol(length=25, default=None, dbName='PRain1')
-    PRain2 = StringCol(length=25, default=None, dbName='PRain2')
-    PRain3 = StringCol(length=25, default=None, dbName='PRain3')
-    PRain4 = StringCol(length=25, default=None, dbName='PRain4')
-    PWater1 = StringCol(length=25, default=None, dbName='PWater1')
-    PWater2 = StringCol(length=25, default=None, dbName='PWater2')
-    PWater3 = StringCol(length=25, default=None, dbName='PWater3')
-    PWater4 = StringCol(length=25, default=None, dbName='PWater4')
-    NRain1 = StringCol(length=25, default=None, dbName='NRain1')
-    NRain2 = StringCol(length=25, default=None, dbName='NRain2')
-    NRain3 = StringCol(length=25, default=None, dbName='NRain3')
-    NRain4 = StringCol(length=25, default=None, dbName='NRain4')
-    NWater1 = StringCol(length=25, default=None, dbName='NWater1')
-    NWater2 = StringCol(length=25, default=None, dbName='NWater2')
-    NWater3 = StringCol(length=25, default=None, dbName='NWater3')
-    NWater4 = StringCol(length=25, default=None, dbName='NWater4')
+    # PRain1 = StringCol(length=25, default=None, dbName='PRain1')
+    # PRain2 = StringCol(length=25, default=None, dbName='PRain2')
+    # PRain3 = StringCol(length=25, default=None, dbName='PRain3')
+    # PRain4 = StringCol(length=25, default=None, dbName='PRain4')
+    # PWater1 = StringCol(length=25, default=None, dbName='PWater1')
+    # PWater2 = StringCol(length=25, default=None, dbName='PWater2')
+    # PWater3 = StringCol(length=25, default=None, dbName='PWater3')
+    # PWater4 = StringCol(length=25, default=None, dbName='PWater4')
+    # NRain1 = StringCol(length=25, default=None, dbName='NRain1')
+    # NRain2 = StringCol(length=25, default=None, dbName='NRain2')
+    # NRain3 = StringCol(length=25, default=None, dbName='NRain3')
+    # NRain4 = StringCol(length=25, default=None, dbName='NRain4')
+    # NWater1 = StringCol(length=25, default=None, dbName='NWater1')
+    # NWater2 = StringCol(length=25, default=None, dbName='NWater2')
+    # NWater3 = StringCol(length=25, default=None, dbName='NWater3')
+    # NWater4 = StringCol(length=25, default=None, dbName='NWater4')
     RemoteID = StringCol(length=6, default='passwo', dbName='RemoteID')
     LocationID = StringCol(length=15, default=None, dbName='LocationID')
     Reference = StringCol(length=6, default='000000', dbName='Reference')
@@ -793,6 +793,11 @@ class Agent(SQLObject):
             if _tma > getattr(self, 'siaga%s' % (i,), None):
                 return 's%s' % (i, )
 
+    def status_tma_manual(self, mtma):
+        for i in (3, 2, 1):
+            if mtma > getattr(self, 'siaga%s' % (i,), None):
+                return 's%s' % (i, )
+
     def get_segmented_wl(self, tanggal=datetime.date.today()):
         '''
         mengambil data WL (Tinggi Muka), default hari ini
@@ -801,53 +806,56 @@ class Agent(SQLObject):
             return {}
         
         rst = TinggiMukaAir.selectBy(agent=self, waktu=tanggal)
-        tanggal_pb  = tanggal + datetime.timedelta(days=1)
+        #tanggal_pb  = tanggal + datetime.timedelta(days=1)
+        tanggal_pb  = tanggal 
         rst_pb = TinggiMukaAir.selectBy(agent=self, waktu=tanggal_pb)
 
         pagi = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
         siang = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
         sore = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
 
 
         jam20 = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
         jam22 = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
 
         jam00 = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
         jam02 = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
         jam04 = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
-                   ttg=None, lokal=None, manual_lokal=None))
+                   ttg=None, lokal=None, manual_lokal=None, origin = None))
 
 
         tmalam = Struct(
-            **dict(manual=None, mtime=None, mstatus='s1',
+            **dict(manual=None, mtime=None, mstatus='s0',
                    telemetri=None, ttime=None, tstatus='s0',
                    ttg=None, lokal=None, manual_lokal=None))
 
         for r in rst:
             if r.manual and self.DPL:
+                ttg_manual = r.manual + self.DPL
+            elif r.manual == 0 and self.DPL:
                 ttg_manual = r.manual + self.DPL
             else:
                 ttg_manual = r.manual
@@ -855,17 +863,31 @@ class Agent(SQLObject):
                 pagi.manual = commify('%.2f' % ttg_manual)
                 pagi.manual_lokal = r.manual
                 pagi.mtime = r.mtime
-                pagi.mstatus = r.status_tma()
+                pagi.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                pagi.origin = r.origin
+                # if r.manual >= self.siaga3:
+                #     pagi.mstatus = 's3'
+                # elif r.manual >= self.siaga2:
+                #     pagi.mstatus = 's2'
+                # elif r.manual >= self.siaga1:
+                #     pagi.mstatus = 's1'
+                # else:
+                #     pagi.mstatus = 's0'
             elif r.jam == '12':
                 siang.manual = commify('%.2f' % ttg_manual)
                 siang.manual_lokal = r.manual
                 siang.mtime = r.mtime
-                siang.mstatus = r.status_tma()
+                siang.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                siang.origin = r.origin
             elif r.jam == '18':
                 sore.manual = commify('%.2f' % ttg_manual)
                 sore.manual_lokal = r.manual
                 sore.mtime = r.mtime
-                sore.mstatus = r.status_tma()
+                sore.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                sore.origin = r.origin
 
 
 #--------- menampilkan jam 20, 22, 00, 02, 04----------------
@@ -873,27 +895,36 @@ class Agent(SQLObject):
                 jam20.manual = commify('%.2f' % ttg_manual)
                 jam20.manual_lokal = r.manual
                 jam20.mtime = r.mtime
-                jam20.mstatus = r.status_tma()
+                jam20.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                jam20.origin = r.origin
             elif r.jam == '22':
                 jam22.manual = commify('%.2f' % ttg_manual)
                 jam22.manual_lokal = r.manual
                 jam22.mtime = r.mtime
-                jam22.mstatus = r.status_tma()
-
+                jam22.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                jam22.origin = r.origin
             elif r.jam == '02':
                 jam02.manual = commify('%.2f' % ttg_manual)
                 jam02.manual_lokal = r.manual
                 jam02.mtime = r.mtime
-                jam02.mstatus = r.status_tma()
+                jam02.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                jam02.origin = r.origin
             elif r.jam == '04':
                 jam04.manual = commify('%.2f' % ttg_manual)
                 jam04.manual_lokal = r.manual
                 jam04.mtime = r.mtime
-                jam04.mstatus = r.status_tma()
+                jam04.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                jam04.origin = r.origin
 
 
         for r in rst_pb:
             if r.manual and self.DPL:
+                ttg_manual = r.manual + self.DPL
+            elif r.manual == 0 and self.DPL:
                 ttg_manual = r.manual + self.DPL
             else:
                 ttg_manual = r.manual
@@ -901,8 +932,9 @@ class Agent(SQLObject):
                 jam00.manual = commify('%.2f' % ttg_manual)
                 jam00.manual_lokal = r.manual
                 jam00.mtime = r.mtime
-                jam00.mstatus = r.status_tma()
-
+                jam00.mstatus = self.status_tma_manual(r.manual)
+                #origin untuk menandai apakah jika data manual petugas dikirim lewat sms
+                jam00.origin = r.origin
 
         # jam_dipilih = ('06:00:00', '12:00:00', '18:00:00', '23:55:00')
         jam_dipilih = (86100, 64800, 43200, 21600)
@@ -948,12 +980,15 @@ class Agent(SQLObject):
 
 
         # menampilkan tma terakhir yg terbaca oleh telemetri hari ini
+        #sql_last = "SELECT WLevel*0.01 AS WLevel, SamplingTime FROM %s \
+        #       WHERE SamplingDate='%s' ORDER BY SamplingDate DESC, SamplingTime DESC" % (self.table_name, tanggal)
         sql_last = "SELECT WLevel*0.01 AS WLevel, SamplingTime FROM %s \
-               WHERE SamplingDate='%s' ORDER BY SamplingDate DESC, SamplingTime DESC" % (self.table_name, tanggal)
+               WHERE SamplingDate='%s' ORDER BY SamplingDate DESC, SamplingTime DESC LIMIT 1" % (self.table_name, tanggal)
         rst_last = self._connection.queryAll(sql_last)
         hasil_last = {}
-        dict_rst_last = dict([(r[1].seconds, d[0]) for d in rst_last])
         try:
+            dict_rst_last = dict([(r[1].seconds, d[0]) for d in rst_last])
+            print(dict_rst_last)
             last = dict_rst_last.items()[0]
             jam = last[0]
             lastma = last[1]
@@ -961,15 +996,17 @@ class Agent(SQLObject):
             if last:
                 last_tma = commify('%.2f' % (float(lastma) + self.DPL))
                 jam = datetime.datetime.utcfromtimestamp(jam).strftime('%H:%M')
+                last = dict_rst_last.items()[0]
 
         except:
             last_tma = None
             jam = None
+            last = None
 
 
 
         return dict(waktu=tanggal, pagi=pagi, siang=siang, sore=sore,
-                    jam20=jam20, jam22=jam22, jam00=jam00, jam02=jam02, jam04=jam04, tmalam=tmalam, last_tma=last_tma, jam = jam )
+                    jam20=jam20, jam22=jam22, jam00=jam00, jam02=jam02, jam04=jam04, tmalam=tmalam, last_tma=last_tma, jam=jam, last=last)
 
     def sync_segmented_rain(self):
         '''
@@ -1207,17 +1244,38 @@ class Agent(SQLObject):
 
     def get_last_log(self):
         try:
-            return conn.queryAll("SELECT * FROM %s WHERE SamplingDate <= CURDATE() \
-                                 AND SamplingTime <= CURTIME() \
+            now = datetime.datetime.now()
+            sdate = now.strftime('%Y-%m-%d')
+            stime = now.strftime('%H:%M:00')
+            return conn.queryAll("SELECT * FROM %s WHERE SamplingDate <= '%s' \
+                                 AND SamplingTime <= '%s' \
                                  ORDER BY SamplingDate DESC, \
                                  SamplingTime DESC \
-                                 LIMIT 0, 1" % self.table_name)[0]
+                                 LIMIT 0, 1" % (self.table_name, sdate, stime))[0]
         except:
             return None
 
     class sqlmeta:
         idName = 'AgentID'
         defaultOrder = ('wilayah', 'AgentName')
+
+
+class Petugas(SQLObject):
+    nama = StringCol(length=35)
+    alamat = StringCol(length=100)
+    tp_lahir = StringCol(length=35)
+    tg_lahir = DateCol()
+    sms = StringCol(length=35)
+    wa = StringCol(length=35)
+    mulai = DateCol()
+    kode = StringCol(length=15)
+    agent = ForeignKey('Agent')
+    lulusan = StringCol(length=35)
+
+    class sqlmeta:
+        table = 'petugas'
+        defaultOrder = ('nama')
+
 
 
 class Gate(SQLObject):

@@ -8,11 +8,13 @@
 import datetime
 import web
 
-from models import Agent
+from models import Agent, WILAYAH
 
 
 urls = (
     '$', 'Index',
+    '/chart/(\d+)','Chart',
+    '/parameter/(\d+)','Parameter',
     '/(\d+)', 'Show',
     '/(\W)', 'ShowByName'
 )
@@ -43,6 +45,127 @@ class ShowByName:
         pos_name = pos_name.lower()
         return pos_name
 
+class Chart:
+    def GET(self,pid):
+        #return "test chart"
+        test = ""
+        conn = Agent._connection
+
+        sql3 = "SELECT YEAR(MAX(waktu)) FROM kualitas_air WHERE id_pos= %d" % (int(pid))
+        rst3 = conn.queryAll(sql3)
+        series = rst3[0][0]
+
+        s = 4
+        rows = []
+        row_keys = []
+        while s!=0:
+            sql = "SELECT waktu,ip from kualitas_air WHERE id_pos = %d and YEAR(waktu) = %d" % (int(pid),int(series))
+            rst = conn.queryAll(sql)
+            for d in rst:
+                if d[1] == None:
+                    rows.append([int(d[0].strftime('%m'))-1,int(0)])
+                else:
+                    rows.append([int(d[0].strftime('%m'))-1,d[1]])
+            row_keys.append({'name':str(series),'data':rows}) 
+            rows=[]
+            series-=1
+            s-=1
+
+        sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
+        rst2 = conn.queryAll(sql2) 
+        pos_name = rst2[0][0]
+
+        row_keys.reverse()
+        a = str(row_keys)
+        row_keys_str = a.replace("'","")
+
+        id_pos_ka = int(pid)
+        return render.kualitas_air.chart({'test':test,'data':row_keys_str,'pname':pos_name,'series':series,'id_pos_ka':id_pos_ka})
+
+class Parameter:
+    def GET(self,pid):
+        id_pos_ka = int(pid)
+        conn = Agent._connection
+        sql = "SELECT waktu,suhu,ph,tds,tss,ot,no3,no2,nh3,po4,cl,fe,mn,na,kok,kob,mbas,cl_2,m_n_l,kmno4,f,s,so4,cn,pb,cu,ni,cr,cr6,b_coli,lab FROM kualitas_air WHERE id_pos= %d and YEAR(waktu)=(SELECT MAX(YEAR(waktu)) from kualitas_air where id_pos = %d)" % (int(pid),int(pid))
+        rst = conn.queryAll(sql)
+
+        waktu = []
+        suhu = []
+        ph = []
+        tds = []
+        tss = []
+        ot = []
+        no3 = []
+        no2 = []
+        nh3 = []
+        po4 = []
+        cl = []
+        fe = []
+        mn = []
+        na = []
+        kok = []
+        kob = []
+        mbas = []
+        cl_2 = []
+        m_n_l = []
+        kmno4 = []
+        f = []
+        s = []
+        so4 = []
+        cn = []
+        pb = []
+        cu = []
+        ni = []
+        cr = []
+        cr6 = []
+        b_coli = []
+        lab = []
+        for d in rst:
+            waktu.append(d[0].strftime('%b %Y'))
+            suhu.append(d[1])
+            ph.append(d[2])
+            tds.append(d[3])
+            tss.append(d[4])
+            ot.append(d[5])
+            no3.append(d[6])
+            no2.append(d[7])
+            nh3.append(d[8])
+            po4.append(d[9])
+            cl.append(d[10])
+            fe.append(d[11])
+            mn.append(d[12])
+            na.append(d[13])
+            kok.append(d[14])
+            kob.append(d[15])
+            mbas.append(d[16])
+            cl_2.append(d[17])
+            m_n_l.append(d[18])
+            kmno4.append(d[19])
+            f.append(d[20])
+            s.append(d[21])
+            so4.append(d[22])
+            cn.append(d[23])
+            pb.append(d[24])
+            cu.append(d[25])
+            ni.append(d[26])
+            cr.append(d[27])
+            cr6.append(d[28])
+            b_coli.append(d[29])
+            lab.append(d[30])
+
+        sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
+        rst2 = conn.queryAll(sql2) 
+        pos_name = rst2[0][0]
+        #tbl_param = []
+        # for d in rst:
+        #     tbl_param.append([int(d[0].strftime('%b')),d[1],d[2],d[3]])
+
+
+        return render.kualitas_air.parameter({'id_pos_ka':id_pos_ka,'waktu':waktu,'suhu':suhu,'ph':ph,'tds':tds,'tss':tss,'ot':ot,'no3':no3,'no2':no2,'nh3':nh3,'po4':po4,'cl':cl,'fe':fe,'mn':mn,'na':na,'kok':kok,'kob':kob,'mbas':mbas,'cl_2':cl_2,'m_n_l':m_n_l,'kmno4':kmno4,'f':f,'s':s,'so4':so4,'cn':cn,'pb':pb,'cu':cu,'ni':ni,'cr':cr,'cr6':cr6,'b_coli':b_coli,'lab':lab,'pos_name':pos_name})
+
+    def POST(self,tahun):
+        tahun = int(tahun)
+        return "anda memilih tahun "+tahun
 
 class Index:
     def GET(self):
@@ -52,25 +175,20 @@ class Index:
         rst = conn.queryAll(sql)
         if not rst:
             return "Tidak ada data Kualitas Air"
-        sql = "SELECT k.waktu, k.ip, l.id, l.cname, l.ll \
+        # sql = "SELECT k.waktu, k.ip, l.id, l.cname, l.ll \
+        #         FROM kualitas_air k, lokasi l \
+        #         WHERE k.id_pos=l.id AND YEAR(k.waktu)=%s \
+        #         ORDER BY l.id, k.waktu" % rst[0][0]
+        sql = "SELECT MAX(k.waktu), k.ip, l.id, l.cname, l.ll, l.wilayah, l.urutan \
                 FROM kualitas_air k, lokasi l \
-                WHERE k.id_pos=l.id AND YEAR(k.waktu)=%s \
-                ORDER BY l.id, k.waktu" % rst[0][0]
+                WHERE k.id_pos=l.id GROUP BY l.id ORDER BY l.wilayah, l.urutan ASC"
         rst = conn.queryAll(sql)
         rows = []
-        row = {}
-        pos = 0
-        poses = {}
         waktu = datetime.date.today()
         for d in rst:
-            if pos != d[2]:
-                if row:
-                    rows.append((d[2], d[3], dict([r for r in row.get(pos)])))
-                    row = {}
-                pos = d[2]
-                poses[pos] = dict(cname=d[3], id=pos)
-                row[pos] = [(d[0].strftime('%m'), d[1])]
+            #kode untuk menyembunyikan pos tertentu di tabel kualitas air
+            if d[3] == "Embanmati" or d[3] == "Grompol":
                 continue
-            row[pos].append((d[0].strftime('%m'), d[1]))
-            waktu = d[0]
-        return render.kualitas_air.index({'data': rows, 'poses': poses, 'waktu': waktu})
+            rows.append((d[2], d[3], d[0].strftime('%b %Y'), d[0].strftime('%Y'), d[5]))
+
+        return render.kualitas_air.index({'data': rows,'wilayah':WILAYAH})

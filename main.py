@@ -6,7 +6,7 @@ import re
 import base64
 from hashlib import md5
 from threading import Thread
-import cPickle
+import pickle
 from web import form
 
 try:
@@ -170,10 +170,10 @@ class Incoming:
         """
 
     def import_input(self):
-        print 'import_input running'
+        print('import_input running')
         to_load = {}
         with open('/tmp/svrdata.pkl', 'rb') as f:
-            to_load = cPickle.load(f)
+            to_load = pickle.load(f)
         for d in to_load.get('pos_to_put', []):
             try:
                 agent = Agent.select(Agent.q.AgentName == d['name'])[0]
@@ -187,7 +187,7 @@ class Incoming:
                         Agent.q.AgentName == d['name'])[0]
             # Periksa apakah table pemuat Logs untuk
             # pos ini telah tersedia
-            print 'incoming:', agent.table_name
+            print('incoming:', agent.table_name)
             try:
                 rs = conn.queryAll("SELECT SamplingDate FROM %s \
                                    LIMIT 0, 1" % (agent.table_name))
@@ -290,7 +290,7 @@ class Login:
             redirect += '/' + dest[session.is_admin] + '/' + session.table_name
         else:
             redirect += '/' + dest[session.is_admin]
-        print 'redirect:', redirect
+        print('redirect:', redirect)
 
 
         try:

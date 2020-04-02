@@ -3,13 +3,13 @@ import time
 import re
 import web
 import json
-
-from datetime import date
+import decimal
 
 import psycopg2 as pg
 from sqlobject import AND, OR
+
 from models import TinggiMukaAir, CurahHujan, Flow, WadukDaily
-from models import Agent, conn
+from models import Agent, conn, HIDROLOGI, KLIMATOLOGI
 from helper import to_date
 from common_data import BSOLO_LOGGER
 
@@ -17,8 +17,9 @@ urls = (
     '$', 'Api',
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
-    '/curahhujan', 'MCurahHujan', # curah hujan manual
-    '/tma', 'MTinggiMukaAir', # Data TMA Manual
+    '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
+    '/tma', 'Tma', # Data TMA serupa /tma
+    '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
 )
 
@@ -26,12 +27,67 @@ app_api = web.application(urls, locals())
 session = web.session.Session(app_api, web.session.DiskStore('sessions'),
                               initializer={'username': None, 'role': None,
                                            'flash': None})
+globals = {'session': session}
+render = web.template.render('templates/', base='base', globals=globals)
+
+
 
 def json_serialize(obj):
-    """Json Serializer object"""
-    if isinstance(obj, (datetime.datetime, date)):
+    if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
+    if isinstance(obj, decimal.Decimal):
+        return float(obj)
     raise TypeError ("Type %s not serializable" % type(obj))
+
+
+class CurahHujanApi():
+    def GET(self):
+        tanggal = web.input().get('d')
+        if not tanggal:
+            tanggal = datetime.date.today() - datetime.timedelta(days=1)
+        else:
+            try:
+                tanggal = to_date(tanggal)
+            except:
+                tanggal = to_date(tanggal)
+        HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == KLIMATOLOGI, Agent.q.AgentType == 0.0), Agent.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = []
+        for a in agents:
+            rain = a.get_segmented_rain(tanggal)
+            row = {'pos': a.cname or a.AgentName, 'id': a.AgentId,
+                   'telemetri': rain.get('total'), 'manual': rain.get('manual')}
+            data.append(row)
+        return json.dumps({'tanggal': tanggal, 'curahhujan': data}, default=json_serialize)
+
+
+class Tma():
+    def GET(self):
+        tanggal = web.input().get('d')
+        if not tanggal:
+            tanggal = datetime.date.today()
+        else:
+            try:
+                tanggal = datetime.datetime.strptime(tanggal, "%Y-%m-%d").date()
+            except:
+                tanggal = datetime.datetime.strptime(tanggal, "%d %b %y").date()
+        HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
+                                     Agent.q.AgentType == 0),
+                                  Agent.q.expose == True)).orderBy(
+                                      ["wilayah", "urutan"])
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = []
+        for a in agents:
+            tma = a.get_segmented_wl(tanggal)
+            segments = ('pagi', 'siang', 'sore')
+            row = {'pos': a.cname, 'id': a.AgentId, 'dpl': a.DPL}
+            for s in segments:
+                row.update({s: {'manual': tma[s].manual, 'telemetri':
+                                tma[s].telemetri}})
+            data.append(row)
+        return json.dumps({'tanggal': tanggal, 'tma': data}, default=json_serialize)
 
 
 def ts(x):
@@ -46,13 +102,10 @@ def map_periodic(src):
         loc = BSOLO_LOGGER.get(src.get('device').split('/')[1])
     except KeyError:
         loc = src.get('device').split('/')[1]
+    data_keys = "tick;distance;wl_scale;wlevel;temperature_ambien_scale;humidity_ambien_scale;wind_speed_scale;wind_dir_scale;sun_radiation_scale".split(';')
     ret = {"up_since": ts(src.get('up_since') or 0),
             "sampling": ts(src.get('sampling') or 0),
             "time_set_at": ts(src.get("time_set_at") or 0),
-            "tick": src.get("tick"),
-            "distance": src.get("distance"),
-            "wl_scale": src.get("wl_scale"),
-            "wlevel": src.get("wlevel", None),
             "temperature": src.get("temperature"),
             "humidity": src.get("humidity"),
             "signal_quality": src.get("signal_quality"),
@@ -60,42 +113,12 @@ def map_periodic(src):
             "pressure": src.get("pressure", None),
             "altitude": src.get("altitude", None),
             "location": loc}
+    for i in data_keys:
+        if i in src:
+            ret.update({i: src.get(i)})
     return ret
 
 
-class MTinggiMukaAir:
-    '''Untuk mengambil data tma yang dikirim petugas'''
-    def GET(self):
-        web.header('Content-Type', 'application/json')
-        web.header('Access-Control-Allow-Origin', '*')
-        inp = web.input()
-        sampling = inp.get('sampling')
-        n = datetime.datetime.now()
-        waktu = n.replace(hour=0, minute=0, second=0, microsecond=0).date()
-        if sampling:
-            d = to_date(sampling)
-            waktu = datetime.datetime(d.year, d.month, d.day).date()
-        rst = [c.sqlmeta.asDict() for c in
-               TinggiMukaAir.select(TinggiMukaAir.q.waktu==waktu)]
-        return json.dumps(rst, default=json_serialize)
-
-
-
-class MCurahHujan:
-    '''Untuk mengambil data curahhujan yang dikirim petugas'''
-    def GET(self):
-        web.header('Content-Type', 'application/json')
-        web.header('Access-Control-Allow-Origin', '*')
-        inp = web.input()
-        sampling = inp.get('sampling')
-        n = datetime.datetime.now()
-        waktu = n.replace(hour=0, minute=0, second=0, microsecond=0).date()
-        if sampling:
-            d = to_date(sampling)
-            waktu = datetime.datetime(d.year, d.month, d.day).date()
-        rst = [c.sqlmeta.asDict() for c in
-               CurahHujan.select(CurahHujan.q.waktu==waktu)]
-        return json.dumps(rst, default=json_serialize)
 
 
 class BsoloLogger:
@@ -172,7 +195,143 @@ class Sensor:
             out = [r[0] for r in cursor.fetchall()]
         cursor.close()
         conn.close()
+
         return json.dumps(out)
+
+
+class SensorGraph:
+    def GET(self, did=None):
+        '''@params:
+            did: (str)device id
+            sampling: (datetime'''
+        conn = pg.connect(dbname="bsolo3", user="bsolo3", password="4545-id")
+        cursor = conn.cursor()
+
+        if did:
+            sql = "SELECT content FROM raw WHERE content->>'device' LIKE %s ORDER BY id DESC LIMIT 35"
+            cursor.execute(sql, ('%/' + did + '/%',))
+            '''
+            regx = re.compile('.*'+did+'/', re.IGNORECASE)
+            rst = [r for r in db.sensors.find({"device": regx},
+                                                {"_id": 0}).sort(
+                                                    "_id", -1).limit(25)]
+            '''
+            rst = [r[0] for r in cursor.fetchall()]
+            if not rst:
+                return web.notfound()
+            if web.input().get('sampling', None):
+                #try:
+                sampling = to_date(web.input().get('sampling'))
+                _dari = time.mktime(sampling.timetuple())
+                _hingga = _dari + 86400
+                    # satu hari = 86400 ms
+                '''
+                    rst = [r for r in db.sensors.find(
+                        {"$and": [{"device": regx},
+                                  {"sampling": {"$gte": _dari}},
+                                  {"sampling": {"$lt": _hingga}}]}, {_id: 0})]
+                '''
+                sql = "SELECT content FROM raw WHERE content->>'device' LIKE %s AND (content->>'sampling')::int >= %s AND (content->>'sampling')::int <= %s"
+                cursor.execute(sql, ('%/' + did + '/%', _dari, _hingga))
+                rst = [r[0] for r in cursor.fetchall()]
+                if not rst:
+                    return "Tidak Ada Data Pada Tanggal " + web.input().get('sampling')
+                rst.reverse()
+                #except Exception as e:
+                #    print e
+            out = {}
+            if web.input().get('raw'):
+                out['periodic'] = rst
+            else:
+                out['periodic'] = [map_periodic(r) for r in rst]
+            out["bsolo_logger"] = BSOLO_LOGGER.get(did)
+        else:
+            out = []
+            sql = "SELECT DISTINCT(content->>'device') FROM raw"
+            cursor.execute(sql)
+            out = [r[0] for r in cursor.fetchall()]
+        cursor.close()
+        conn.close()
+
+
+        #testing from asnan (data untuk kategori grafik) tinggal return untuk melihat
+        data=[]
+        kategori = []
+        battery = []
+        signal_quality = []
+        tick = []
+        are_tick = False
+        distance = []
+        are_distance = False
+        wl_scale = []
+        are_wl_scale = False
+
+        sun_radiation_scale = []
+        wind_dir_scale =[]
+        temperature_ambien_scale = []
+        humidity_ambien_scale = []
+        wind_speed_scale =[]
+        are_klimatologi = False
+
+        r = out["periodic"]
+        r.reverse()
+
+        for j in r:
+            if "distance" in j:
+                are_distance = True
+                distance.append(j.get("distance"))
+            if "wl_scale" in j:
+                are_wl_scale = True
+                wl_scale.append(j.get("wl_scale"))
+            if "tick" in j:
+                if "sun_radiation_scale" and "wind_dir_scale" and "temperature_ambien_scale" and "humidity_ambien_scale" and "wind_speed_scale" in j:
+                    are_klimatologi = True
+                    sun_radiation_scale.append(j.get("sun_radiation_scale"))
+                    wind_dir_scale.append(j.get("wind_dir_scale"))
+                    temperature_ambien_scale.append(j.get("temperature_ambien_scale"))
+                    humidity_ambien_scale.append(j.get("humidity_ambien_scale"))
+                    wind_speed_scale.append(j.get("wind_speed_scale"))
+                    tick.append(j.get("tick"))
+                else:
+                    are_tick = True
+                    tick.append(j.get("tick"))
+
+            kategori.append(j.get("sampling"))
+            battery.append(j.get("battery"))
+            signal_quality.append(j.get("signal_quality"))
+        #end
+        data.append({'name':'signal_quality','data':signal_quality})
+        data.append({'name':'battery','data':battery})
+        if are_distance == True:
+            data.append({'name':'distance','data':distance})
+            jenis_prima = "SONAR"
+        if are_wl_scale == True:
+            data.append({'name':'wl_scale','data':wl_scale})
+            jenis_prima = "PRESSURE"
+        if are_tick == True:
+            data.append({'name':'tick','data':tick})
+            jenis_prima = "ARR"
+        if are_klimatologi == True:
+            data.append({'name':'tick','data':tick})
+            data.append({'name':'sun_radiation_scale','data':sun_radiation_scale})
+            data.append({'name':'wind_dir_scale','data':wind_dir_scale})
+            data.append({'name':'temperature_ambien_scale','data':temperature_ambien_scale})
+            data.append({'name':'humidity_ambien_scale','data':humidity_ambien_scale})
+            data.append({'name':'wind_speed_scale','data':wind_speed_scale})
+            jenis_prima = "KLIMATOLOGI"
+
+        conn = Agent._connection
+        sql = "SELECT cname from agent where prima_id = %s" % ('"'+did+'"')
+        result = conn.queryAll(sql)
+        if result:
+            pname = result[0][0]
+        else:
+            pname = "--"
+        #print result
+
+        return render.sensor.sensor_graph({'data':str(data),'kategori':str(kategori),'did':did,'jenis_prima':jenis_prima,'pname':pname})
+        #return out["periodic"]
+        
 
 
 class Api:
@@ -248,3 +407,39 @@ class Api:
         if data["meta"]["table"] == "waduk_daily":
             self.post_waduk_daily(data)
         return json.dumps({"Ok": True})
+
+class MTinggiMukaAir:
+    '''Untuk mengambil data tma yang dikirim petugas'''
+    def GET(self):
+        web.header('Content-Type', 'application/json')
+        web.header('Access-Control-Allow-Origin', '*')
+        inp = web.input()
+        sampling = inp.get('sampling')
+        n = datetime.datetime.now()
+        waktu = n.replace(hour=0, minute=0, second=0, microsecond=0).date()
+        if sampling:
+            d = to_date(sampling)
+            waktu = datetime.datetime(d.year, d.month, d.day).date()
+        rst = [c.sqlmeta.asDict() for c in
+               TinggiMukaAir.select(TinggiMukaAir.q.waktu==waktu)]
+        return json.dumps(rst, default=json_serialize)
+
+
+
+class MCurahHujan:
+    '''Untuk mengambil data curahhujan yang dikirim petugas'''
+    def GET(self):
+        web.header('Content-Type', 'application/json')
+        web.header('Access-Control-Allow-Origin', '*')
+        inp = web.input()
+        sampling = inp.get('sampling')
+        n = datetime.datetime.now()
+        waktu = n.replace(hour=0, minute=0, second=0, microsecond=0).date()
+        if sampling:
+            d = to_date(sampling)
+            waktu = datetime.datetime(d.year, d.month, d.day).date()
+        rst = [c.sqlmeta.asDict() for c in
+               CurahHujan.select(CurahHujan.q.waktu==waktu)]
+        return json.dumps(rst, default=json_serialize)
+
+

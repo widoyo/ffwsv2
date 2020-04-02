@@ -5,7 +5,7 @@
     @author: Widoyo
     @date: 28 Nop 2017
 """
-import datetime
+import datetime, time
 import web
 from sqlobject import AND, OR
 from models import Agent, KLIMATOLOGI, WILAYAH, conn
@@ -14,7 +14,8 @@ from models import HIDROLOGI
 urls = (
     '/curahhujan', 'MapCurahhujan',
     '/tma', 'MapTma',
-    '/bendungan', 'MapBendungan'
+    '/bendungan', 'MapBendungan',
+    '/kualitasair','Ka'
 )
 
 app_map = web.application(urls, locals())
@@ -23,241 +24,6 @@ session = web.session.Session(app_map, web.session.DiskStore('sessions'),
                                            'flash': None})
 globals = {'session': session}
 render = web.template.render('templates/', base='base', globals=globals)
-
-
-class MapBendungan:
-    def GET(self):
-        agents = Agent.select(Agent.q.AgentType == 3)
-        agents = [a for a in agents]
-        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll} for a in agents]
-        js_foot = """
-        <script type="text/template" id="pos_infowindow">
-          <div class="item infowindow" id="pos_<%= index %>">
-            <span class="pos"><%= name %> </span>
-            <span class="meter">
-            </span>
-          </div>
-        </script>
-        <script>
-        function init_map() {
-            var my_options = {
-                center: new google.maps.LatLng(-7.49592,111.568909),
-                zoom: 9,
-                styles: [
-    {
-        "featureType": "all",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "weight": "2.00"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#9c9c9c"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.man_made",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#eeeeee"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#7b7b7b"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#46bcec"
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#88b6f2" /* "#c8d7d4" */
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#000000"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    }
-],
-          mapTypeId: google.maps.MapTypeId.TERRAIN };
-            var map = new google.maps.Map(document.getElementById('map'), my_options);
-            var lamong_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/lamong.kml?v=1',
-                preserveViewport: true, map: map});
-            var pantura_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/pantura.kml',
-                preserveViewport: true, map: map});
-            var hilir_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hilir.kml',
-                preserveViewport: true, map: map});
-            var madiun_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/madiun.kml',
-                preserveViewport: true, map: map});
-            var hulu_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hulu.kml',
-                preserveViewport: true, map: map});
-          var allPos = """ + str(all_pos) + """;
-          var markers = {};
-          var infoWindow = new google.maps.InfoWindow;
-          _.each(allPos, function(pos) {
-            var lat = parseFloat(pos.ll.split(',')[0]);
-            var lng = parseFloat(pos.ll.split(',')[1]);
-            var point = new google.maps.LatLng(lat, lng);
-            var marker = new google.maps.Marker({
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                map: map,
-                position: point
-            });
-            markers[pos.id] = marker;
-            bind_info_window(marker, map, infoWindow, "<a href='/tma/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>");
-          });
-        };
-        function bind_info_window(marker, map, infowindow, html) {
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(html);
-                infowindow.open(map, marker);
-            })
-        };
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
-        <script type="text/javascript">
-        </script>
-        """
-        return render.map.bendungan({'poses': agents, 'js_foot': js_foot})
 
 
 class MapCurahhujan:
@@ -282,7 +48,7 @@ class MapCurahhujan:
                 rst = None
             if rst:
                 rain, sampling = rst[0]
-                print rst[0]
+                print(rst[0])
                 sampling = datetime.datetime.strptime(sampling, '%Y-%m-%d %H:%M:%S')
                 if datetime.datetime.now() - sampling > datetime.timedelta(minutes=10):
                     rain = 0
@@ -522,24 +288,10 @@ class MapCurahhujan:
 ],
                 mapTypeId: google.maps.MapTypeId.TERRAIN };
             var map = new google.maps.Map(document.getElementById('map'), my_options);
-            var lamong_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/lamong.kml?v=1',
+            var batas_das = new google.maps.KmlLayer(
+                {url: 'http://hidrologi.bbws-bsolo.net/static/batas_das.kml',
                 preserveViewport: true, map: map});
-            var lamong_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/grindulu_lorog.kml?v=1',
-                preserveViewport: true, map: map});
-            var pantura_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/pantura.kml?v=2',
-                preserveViewport: true, map: map});
-            var hilir_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hilir.kml?v=2',
-                preserveViewport: true, map: map});
-            var madiun_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/madiun.kml?v=2',
-                preserveViewport: true, map: map});
-            var hulu_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hulu.kml?v=2',
-                preserveViewport: true, map: map});
+
           var allPos = """ + str(all_pos) + """;
           var infoWindow = new google.maps.InfoWindow;
           _.each(allPos, function(pos) {
@@ -579,25 +331,20 @@ class MapTma:
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
         all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll} for a in agents]
         js_foot = """
-        <script type="text/template" id="pos_infowindow">
-          <div class="item infowindow" id="pos_<%= index %>">
-            <span class="pos"><%= name %> </span>
-            <span class="meter">
-            </span>
-          </div>
-        </script>
         <script>
-        var ws = new WebSocket('ws://mqtt.bbws-bsolo.net:22286');
-        ws.onmessage = function (event) {
-            var data = JSON.parse(event.data);
-            if (data.device === undefined) { return; }
-            var device_id = data.device.split('/')[1];
-            var marker = undefined;
-            for (m in markers) {
-                if (markers[m].did == device_id) {
-                    marker = markers[m].markerObj;
-                    break;
-                }
+        var map;
+        var kmlSrc = [
+            { title: 'Bendungan', fname: 'bendungan' },
+            { title: 'Bendungan On Going', fname: 'bendungan_og'},
+            { title: 'Tanggul Pacitan', fname: 'tanggul_pacitan'},
+            { title: 'Tanggul Bojonegoro', fname: 'tanggul_bojonegoro'},
+            { title: 'Embung', fname: 'embung'},
+            { title: 'DAS WS BSolo', fname: 'ws_bsolo_das'}
+        ];
+        function toggleKml(checked, id){
+            if (checked){
+                map.data.addGeoJson('/static/gis/'+ kmlSrc[id].fname +'.json', {idPropertyName: kmlSrc[id].fname});
+            } else {
             }
         }
         function init_map() {
@@ -781,26 +528,37 @@ class MapTma:
     }
 ],
                 mapTypeId: google.maps.MapTypeId.TERRAIN };
-            var map = new google.maps.Map(document.getElementById('map'), my_options);
-            var lamong_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/lamong.kml?v=1',
+            map = new google.maps.Map(document.getElementById('map'), my_options);
+            var batas_das = new google.maps.KmlLayer(
+                '/static/ws_bsolo_das.kml', {
                 preserveViewport: true, map: map});
-            var pantura_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/pantura.kml?v=1',
-                preserveViewport: true, map: map});
-            var hilir_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hilir.kml?v=1',
-                preserveViewport: true, map: map});
-            var madiun_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/madiun.kml?v=1',
-                preserveViewport: true, map: map});
-            var hulu_line = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/hulu.kml?v=1',
-                preserveViewport: true, map: map});
+
           var allPos = """ + str(all_pos) + """;
           var markers = {};
           var infoWindow = new google.maps.InfoWindow;
+          let chk = "";
+          for (let e in kmlSrc){
+              chk += `<div class="checkbox"><label><input id="kml_${e}" onclick="toggleKml(this.checked, ${e})" type="checkbox" name="${kmlSrc[e].fname}">${kmlSrc[e].title}</label></div>`;
+          };
+          let ctrlForm = `<div class="panel panel-default"><div class="panel-body">
+          <form style="font-size: 1.4rem;">
+          ${chk}
+          </form></div></div>`;
+          var ctrlDiv = document.createElement('div');
+          ctrlDiv.innerHTML = ctrlForm;
+          map.controls[google.maps.ControlPosition.RIGHT_TOP].push(ctrlDiv);
           _.each(allPos, function(pos) {
+            var iw = `<div class="panel panel-default">
+                <div class="panel-heading">
+                <div class="panel-title"><h6>${pos.name}</h6></div></div>
+                <div class="panel-body">
+                <table class="table">
+                <tr><td>M</td><td></td></tr>
+                <tr><td>T</td><td></td></tr>
+                </table>
+                </div>
+                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas}</div>
+                </div>`
             var lat = parseFloat(pos.ll.split(',')[0]);
             var lng = parseFloat(pos.ll.split(',')[1]);
             var point = new google.maps.LatLng(lat, lng);
@@ -810,7 +568,7 @@ class MapTma:
                 position: point
             });
             markers[pos.id] = marker;
-            bind_info_window(marker, map, infoWindow, "<a href='/tma/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>");
+            bind_info_window(marker, map, infoWindow, iw);
           });
         };
         function bind_info_window(marker, map, infowindow, html) {
@@ -823,3 +581,294 @@ class MapTma:
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
         """
         return render.map.tma({'poses': agents, 'js_foot': js_foot})
+
+class Ka:
+    def GET(self):
+        conn = Agent._connection
+
+        #sql = "select k.waktu,k.ip,k.id_pos,a.cname,a.ll from kualitas_air k inner join (SELECT MAX(c.waktu) as max_date, c.ip, d.id,d.cname,d.ll FROM kualitas_air c, lokasi d WHERE c.id_pos=d.id GROUP BY d.id) a on a.max_date = k.waktu and a.id = k.id_pos order by k.id_pos ASC"
+        sql = "select k.waktu,k.ip,k.id_pos,a.cname,a.ll,a.show from kualitas_air k inner join (SELECT MAX(c.waktu) as max_date, c.ip, d.id,d.cname,d.ll,d.show FROM kualitas_air c, lokasi d WHERE c.id_pos=d.id GROUP BY d.id) a on a.max_date = k.waktu and a.id = k.id_pos and a.show = 1 order by k.id_pos ASC"
+        rst = conn.queryAll(sql)
+        all_pos=[]
+        for ka in rst:
+            a = ka[0].strftime("%b %Y")
+            if ka[1] == None:
+                ip_last_time = "Belum Tersedia"
+            else:
+                ip_last_time = ka[1]
+            all_pos.append({'id': str(ka[2]), 'name': ka[3], 'll': ka[4],'last_time':a,'ip_last_time':ip_last_time})
+        js_foot = """
+        <script type="text/template" id="pos_infowindow">
+          <div class="item infowindow" id="pos_<%= index %>">
+            <span class="pos"><%= name %> </span>
+            <span class="meter">
+            </span>
+          </div>
+        </script>
+        <script>
+
+        function init_map() {
+            var my_options = {
+                center: new google.maps.LatLng(-7.49592,111.568909),
+                zoom: 9,
+                styles: [
+                            {
+                                "featureType": "all",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "weight": "2.00"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "all",
+                                "elementType": "geometry.stroke",
+                                "stylers": [
+                                    {
+                                        "color": "#9c9c9c"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "all",
+                                "elementType": "labels.text",
+                                "stylers": [
+                                    {
+                                        "visibility": "on"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "landscape",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "color": "#f2f2f2"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "landscape",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "landscape.man_made",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "poi",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "visibility": "off"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "saturation": -100
+                                    },
+                                    {
+                                        "lightness": 45
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#eeeeee"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#7b7b7b"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road",
+                                "elementType": "labels.text.stroke",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.highway",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "visibility": "simplified"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "road.arterial",
+                                "elementType": "labels.icon",
+                                "stylers": [
+                                    {
+                                        "visibility": "off"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "transit",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "visibility": "off"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "all",
+                                "stylers": [
+                                    {
+                                        "saturation": 100
+                                    },
+                                    {
+                                        "lightness": 15
+                                    },
+                                    {
+                                        "color": "#88b6f2" /* "#466cec" */
+                                    },
+                                    {
+                                        "visibility": "on"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "geometry.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#88b6f2"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "labels.text.fill",
+                                "stylers": [
+                                    {
+                                        "color": "#000000"
+                                    }
+                                ]
+                            },
+                            {
+                                "featureType": "water",
+                                "elementType": "labels.text.stroke",
+                                "stylers": [
+                                    {
+                                        "color": "#ffffff"
+                                    }
+                                ]
+                            }
+                        ],
+                    
+
+        mapTypeId: google.maps.MapTypeId.TERRAIN };
+        var map = new google.maps.Map(document.getElementById('map'), my_options);
+        var batas_das = new google.maps.KmlLayer(
+            {url: 'http://hidrologi.bbws-bsolo.net/static/batas_das.kml',
+            preserveViewport: true, map: map});
+
+        /*
+        var s_bengawan_solo = new google.maps.KmlLayer(
+            {url: 'http://hidrologi.bbws-bsolo.net/static/s_bengawan_solo.kml',
+            preserveViewport: true, map: map});
+        */
+
+        var icons = {
+          memenuhi_mutu_baku: {
+            name: 'Memenuhi Mutu Baku',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+          },
+          cemar_ringan: {
+            name: 'Cemar Ringan',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
+          },
+          cemar_sedang: {
+            name: 'Cemar Sedang',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'
+          },
+          cemar_berat: {
+            name: 'Cemar Berat',
+            icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+          }
+        };
+
+        var legend = document.getElementById('legend');
+        for (var key in icons) {
+          var type = icons[key];
+          var name = type.name;
+          var icon = type.icon;
+          var div = document.createElement('div');
+          div.innerHTML = '<img src="' + icon + '"> ' + name;
+          legend.appendChild(div);
+        }
+
+        map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+
+
+          var allPos = """ + str(all_pos) + """;
+          var markers = {};
+          var infoWindow = new google.maps.InfoWindow;
+          _.each(allPos, function(pos) {
+            if(pos.ip_last_time <= 1){
+                    var icon = 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+            }else if(pos.ip_last_time > 1 && pos.ip_last_time <= 5){
+                    var icon = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+            }else if(pos.ip_last_time > 5 && pos.ip_last_time <= 10){
+                    var icon = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
+            }else if(pos.ip_last_time > 10){
+                    var icon = 'http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            }else{
+                var icon = 'http://maps.google.com/mapfiles/ms/icons/orange-dot.png';
+            }
+            var lat = parseFloat(pos.ll.split(',')[0]);
+            var lng = parseFloat(pos.ll.split(',')[1]);
+            var point = new google.maps.LatLng(lat, lng);
+            var marker = new google.maps.Marker({
+                icon:icon,
+                map: map,
+                position: point
+            });
+            markers[pos.id] = marker;
+            bind_info_window(marker, map, infoWindow, "<a href='/kualitasair/chart/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>"+"<br>"+"Data Terakhir : "+pos.last_time+"<br>"+"IP Terakhir : "+pos.ip_last_time);
+          });
+        };
+        function bind_info_window(marker, map, infowindow, html) {
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(html);
+                infowindow.open(map, marker);
+            })
+        };
+        </script>
+        
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
+        """
+
+        return render.map.kualitasair({'js_foot': js_foot})

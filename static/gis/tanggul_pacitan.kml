@@ -1,0 +1,1823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Brangkal</SimpleData>
+            <SimpleData name="Sungai">Semarmendem</SimpleData>
+            <SimpleData name="Kerusakan">Sayap kiri berlubang dan retak</SimpleData>
+            <SimpleData name="Usulan_Per">Perbaikan pasangan batu</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.087083333332,-7.19799999944964,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Brangkal</SimpleData>
+            <SimpleData name="Sungai">Semarmendem</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.091388888888,-7.18983333278364,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Sugihwaras</SimpleData>
+            <SimpleData name="Sungai">Semarmendem</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.120694444443,-7.14036111056511,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Gunungsari</SimpleData>
+            <SimpleData name="Sungai">Semarmendem</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.135138888887,-7.12463888834408,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kauman</SimpleData>
+            <SimpleData name="Sungai">Ingas</SimpleData>
+            <SimpleData name="Kerusakan">Tanggul longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Urugan Pasir</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.109583333332,-7.09891666612378,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Lebaksari</SimpleData>
+            <SimpleData name="Sungai">Ingas</SimpleData>
+            <SimpleData name="Kerusakan">Tanggul longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Urugan Pasir</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.109583333332,-7.09891666612378,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kadungrejo</SimpleData>
+            <SimpleData name="Sungai">Ingas</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Sandbag</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.097194444443,-7.09958333279044,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Seranak</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.877444444444,-7.13647222167649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Guyangan</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.863916666666,-7.12769444389937,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Guyangan</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.861777777777,-7.1297499994548,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Bedrek</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.859638888888,-7.12619444389945,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Bedrek</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.859638888888,-7.12538888834395,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Selogabus</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.865888888888,-7.12516666612182,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Selogabus</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.86711111111,-7.12599999945502,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Selogabus</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.856444444444,-7.11766666612236,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Suciharjo</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.858166666666,-7.09949999945711,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kedungjambangan</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.696444444444,-6.94130555502449,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Rayung</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.780138888888,-7.03433333279526,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Asri</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.810333333333,-7.06308333279312,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Brangkal</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.847027777777,-7.08247222168053,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Banjarsari</SimpleData>
+            <SimpleData name="Sungai">Kening</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pmasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.880194444444,-7.14363888834265,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kedungsumber</SimpleData>
+            <SimpleData name="Sungai">Pacal (Waduk)</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Kanan Kiri Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.87147709992,-7.36156566302079,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kedungsari</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.911273899914,-7.34851366302088,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kedungsari</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.910599299915,-7.34293856304885,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pandantoyo</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.923609799913,-7.33076096308521,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Belun</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Ground Seal Rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab Beton Bertulang</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.919796499914,-7.31730786315659,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Glagahan</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Bronjong Ikut Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Perbaikan Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.919773099914,-7.31733886315648,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pancur</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.919084899914,-7.28702576330368,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pancur</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.918761699914,-7.28820256329856,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Sukosewu</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.938620299913,-7.23735676350881,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Sitobandung</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.943874199912,-7.22847016354212,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Ngadiluhur</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Bronjong Ikut Longsor,Jalan Desa Hampir Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Perbaikan Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.929594899914,-7.2141496636369,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kedaton</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.930083599914,-7.20569126367688,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Semenpinggir</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Jalan Desa Longsor, Revetment Kanan Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.936719899914,-7.19081996373693,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Bogo</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Bronjong Ikut Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Perbaikan Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.933976099915,-7.16611686386115,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Mulyoagung</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.937334399914,-7.16192816387543,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Mulyoagung</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.939204099914,-7.16805306384247,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Mulyoagung</SimpleData>
+            <SimpleData name="Sungai">Sungai Pacal</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.939663499914,-7.17087826382799,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pandanwangi</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.009836999903,-7.17374396367268,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Samberan</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.010500499903,-7.16185206372889,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pesen</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.004531199904,-7.15749336376329,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pesen</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.004944999904,-7.15664646376649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pesen</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.004955099904,-7.15559656377156,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Simbatan</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.002359299905,-7.13895516385797,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Piyak</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.000531999905,-7.1326967638923,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Kabalan</SimpleData>
+            <SimpleData name="Sungai">Sungai Merkuris</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            112.002614499905,-7.13090206389649,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Ngraho</SimpleData>
+            <SimpleData name="Sungai">Sungai Gandong</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.663616699946,-7.16514846417285,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Pojok</SimpleData>
+            <SimpleData name="Sungai">Sungai Gandong</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.670371299945,-7.18308506408254,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Sedah Kidul</SimpleData>
+            <SimpleData name="Sungai">Sungai Gandong</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Hampir Mengenai Rumah Penduduk</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.681145999944,-7.19009576404176,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian">
+            <SimpleData name="Desa">Sedah Kidul</SimpleData>
+            <SimpleData name="Sungai">Sungai Gandong</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor, Jalan Desa Hampir Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.684377999944,-7.19303356402545,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Folder>
+    <Document id="Tanggul_Perlu_Perhatian">
+      <name>Tanggul Perlu Perhatian</name>
+      <Placemark id="Tanggul_Perlu_Perhatian.1">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Beton Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.187137331962,-8.09370962204689,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.2">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Boton Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.196527777775,-8.09330555499484,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.3">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Sedimen dan Pintu rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Pemeliharaan</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.186555555906,-8.08963888517551,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.4">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Termas</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.148555555555,-8.11977777715277,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.5">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Termas</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.147944444805,-8.11608333102654,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.6">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Gayuhan</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.146126999985,-8.11763195976348,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.7">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Arjowinangun</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.114222222384,-8.19747222233869,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.8">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Arjowinangun</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.114222222384,-8.19747222233869,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.9">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Kembang</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">-</SimpleData>
+            <SimpleData name="Usulan_Per">Pengerjaan Parapet dan Bolder</SimpleData>
+            <SimpleData name="Kerusakan1">-</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.109999999885,-8.21433333104784,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.10">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Gunungsari</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.123125999988,-8.17544695949233,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.11">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Mentoro</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Pelindunt Tebing</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.125888999987,-8.19233695941313,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.12">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Purworejo</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.129778999987,-8.18978695942507,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.13">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Sukoharjo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Retak dan Ambles</SimpleData>
+            <SimpleData name="Usulan_Per">Diberi kolom</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.133583333317,-8.21511111292744,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.14">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Sukoharjo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Retak</SimpleData>
+            <SimpleData name="Usulan_Per">Pemeliharaan</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.132055555497,-8.21588889137064,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.15">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Kembang</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Tergerowong</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Batu</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.124444444563,-8.21708333369862,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.16">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Sirnoboyo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">-</SimpleData>
+            <SimpleData name="Usulan_Per">Penelitian Balai Sungai Beton Pracetak</SimpleData>
+            <SimpleData name="Kerusakan1">-</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.120638888837,-8.21108333169313,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.17">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Hadiluwuh</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.306944444282,-8.23644444069095,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.18">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Wiyoro</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.321749999727,-8.22291666939418,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.19">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Ngadirojo</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Tergerowong</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Batu</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.331416666494,-8.21294443981462,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.20">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Hadiwarno</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Roboh</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Parapet</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.309072999968,-8.24503295916126,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.21">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Wiyoro</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.324643999967,-8.21686795929204,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.22">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Ngadirojo</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.332015999966,-8.20483095934783,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.23">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Tulakan,Melati</SimpleData>
+            <SimpleData name="Sungai">Melati</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.112365999989,-8.10744495981143,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.24">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Karangrejo</SimpleData>
+            <SimpleData name="Sungai">Brungkah</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.130771299987,-8.09310355987872,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.25">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Gayuhan</SimpleData>
+            <SimpleData name="Sungai">Brungkah</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.135122999987,-8.08921795989695,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Perhatian.26">
+        <Style>
+          <LineStyle>
+            <color>ff8f8b7d</color>
+            <width>5.66928</width>
+          </LineStyle>
+        </Style>
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Perhatian.schema">
+            <SimpleData name="Desa">Widoro</SimpleData>
+            <SimpleData name="Sungai">Ponggok</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.116560999988,-8.17559195949167,0
+          </coordinates>
+        </Point>
+      </Placemark>
+    </Document>
+    <Document id="Tanggul_Perlu_Diperhatikan">
+      <name>Tanggul Perlu Diperhatikan</name>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.1">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">0.00000000000</SimpleData>
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Beton Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.187137331962,-8.09370962204689,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.2">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">1.00000000000</SimpleData>
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Boton Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.196527777775,-8.09330555499484,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.3">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">2.00000000000</SimpleData>
+            <SimpleData name="Desa">Jetis Kidul</SimpleData>
+            <SimpleData name="Sungai">Prada</SimpleData>
+            <SimpleData name="Kerusakan">Sedimen dan Pintu rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Pemeliharaan</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.186555555906,-8.08963888517551,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.4">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">3.00000000000</SimpleData>
+            <SimpleData name="Desa">Termas</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.148555555555,-8.11977777715277,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.5">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">4.00000000000</SimpleData>
+            <SimpleData name="Desa">Termas</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.147944444805,-8.11608333102654,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.6">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">5.00000000000</SimpleData>
+            <SimpleData name="Desa">Gayuhan</SimpleData>
+            <SimpleData name="Sungai">Asam Gondok</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.146126999985,-8.11763195976348,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.7">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">6.00000000000</SimpleData>
+            <SimpleData name="Desa">Arjowinangun</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.114222222384,-8.19747222233869,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.8">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">7.00000000000</SimpleData>
+            <SimpleData name="Desa">Arjowinangun</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.114222222384,-8.19747222233869,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.9">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">8.00000000000</SimpleData>
+            <SimpleData name="Desa">Kembang</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">-</SimpleData>
+            <SimpleData name="Usulan_Per">Pengerjaan Parapet dan Bolder</SimpleData>
+            <SimpleData name="Kerusakan1">-</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.109999999885,-8.21433333104784,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.10">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">9.00000000000</SimpleData>
+            <SimpleData name="Desa">Gunungsari</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.123125999988,-8.17544695949233,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.11">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">10.00000000000</SimpleData>
+            <SimpleData name="Desa">Mentoro</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Pelindunt Tebing</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.125888999987,-8.19233695941313,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.12">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">11.00000000000</SimpleData>
+            <SimpleData name="Desa">Purworejo</SimpleData>
+            <SimpleData name="Sungai">Grindulu</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.129778999987,-8.18978695942507,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.13">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">12.00000000000</SimpleData>
+            <SimpleData name="Desa">Sukoharjo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Retak dan Ambles</SimpleData>
+            <SimpleData name="Usulan_Per">Diberi kolom</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.133583333317,-8.21511111292744,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.14">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">13.00000000000</SimpleData>
+            <SimpleData name="Desa">Sukoharjo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Retak</SimpleData>
+            <SimpleData name="Usulan_Per">Pemeliharaan</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.132055555497,-8.21588889137064,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.15">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">14.00000000000</SimpleData>
+            <SimpleData name="Desa">Kembang</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Tergerowong</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Batu</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.124444444563,-8.21708333369862,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.16">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">15.00000000000</SimpleData>
+            <SimpleData name="Desa">Sirnoboyo</SimpleData>
+            <SimpleData name="Sungai">Jelok</SimpleData>
+            <SimpleData name="Kerusakan">-</SimpleData>
+            <SimpleData name="Usulan_Per">Penelitian Balai Sungai Beton Pracetak</SimpleData>
+            <SimpleData name="Kerusakan1">-</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.120638888837,-8.21108333169313,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.17">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">16.00000000000</SimpleData>
+            <SimpleData name="Desa">Hadiluwuh</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Revetment Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.306944444282,-8.23644444069095,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.18">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">17.00000000000</SimpleData>
+            <SimpleData name="Desa">Wiyoro</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.321749999727,-8.22291666939418,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.19">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">18.00000000000</SimpleData>
+            <SimpleData name="Desa">Ngadirojo</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Tergerowong</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Batu</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.331416666494,-8.21294443981462,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.20">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">19.00000000000</SimpleData>
+            <SimpleData name="Desa">Hadiwarno</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Roboh</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Parapet</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.309072999968,-8.24503295916126,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.21">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">20.00000000000</SimpleData>
+            <SimpleData name="Desa">Wiyoro</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.324643999967,-8.21686795929204,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.22">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">21.00000000000</SimpleData>
+            <SimpleData name="Desa">Ngadirojo</SimpleData>
+            <SimpleData name="Sungai">Lorog</SimpleData>
+            <SimpleData name="Kerusakan">Parapet Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.332015999966,-8.20483095934783,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.23">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">22.00000000000</SimpleData>
+            <SimpleData name="Desa">Tulakan,Melati</SimpleData>
+            <SimpleData name="Sungai">Melati</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.112365999989,-8.10744495981143,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.24">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">23.00000000000</SimpleData>
+            <SimpleData name="Desa">Karangrejo</SimpleData>
+            <SimpleData name="Sungai">Brungkah</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RS</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.130771299987,-8.09310355987872,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.25">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">24.00000000000</SimpleData>
+            <SimpleData name="Desa">Gayuhan</SimpleData>
+            <SimpleData name="Sungai">Brungkah</SimpleData>
+            <SimpleData name="Kerusakan">Cek Dam rusak</SimpleData>
+            <SimpleData name="Usulan_Per">Rehab</SimpleData>
+            <SimpleData name="Kerusakan1">RB</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.135122999987,-8.08921795989695,0
+          </coordinates>
+        </Point>
+      </Placemark>
+      <Placemark id="Tanggul_Perlu_Diperhatikan.26">
+        <ExtendedData>
+          <SchemaData schemaUrl="#Tanggul_Perlu_Diperhatikan.schema">
+            <SimpleData name="No">25.00000000000</SimpleData>
+            <SimpleData name="Desa">Widoro</SimpleData>
+            <SimpleData name="Sungai">Ponggok</SimpleData>
+            <SimpleData name="Kerusakan">Tebing Longsor</SimpleData>
+            <SimpleData name="Usulan_Per">Pemasangan Bronjong</SimpleData>
+            <SimpleData name="Kerusakan1">RR</SimpleData>
+          </SchemaData>
+        </ExtendedData>
+        <Point>
+          <coordinates>
+            111.116560999988,-8.17559195949167,0
+          </coordinates>
+        </Point>
+      </Placemark>
+</kml>

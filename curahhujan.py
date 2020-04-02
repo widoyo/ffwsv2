@@ -17,6 +17,7 @@ from helper import Struct, to_date
 
 urls = (
     '$', 'Index',  # Tampilkan daftar pos
+    '/info','Info', #Tampilkan pos yang hanya terjadi hujan
     '/(\d+)', 'Jamjaman',  # (pos_id) Tampilkan satu pos jam-jaman
     '/(\d+)/bulanan', 'Index',  # (pos_id) Tampilkan satu pos jan-des bbrp tahun, (Tahunan)
     '/(\d+)/(\d+)', 'Index',  # (pos_id/th) Tampilkan satu pos, tahun terpilih
@@ -25,7 +26,6 @@ urls = (
     '/(\d+)/tertinggi', 'CurahHujanTertinggi', # (pos_id/tertingi/th) Chart curah hujan tertinggi pos per tahun
     '/wilayah/rerata', 'WilayahRerata',
     '/data', 'ExploreData'
-
 )
 
 app_ch = web.application(urls, locals())
@@ -293,7 +293,100 @@ class Index:
             data = Struct(**{'series': series, 'categories': [s+1 for s in range(len(series))],'bulan': datetime.date(tahun, int(bulan), 1)})
             to_render = render.curahhujan.harian
         elif data:
-            print data
+            print(data)
+            # hujan per bulan pada 'tahun'
+            th = data[0][0].year
+            series[th] = [0 for r in range(0, 12)]
+            for d in data:
+                if d[0].year != th:
+                    th = d[0].year
+                    series[th] = [0 for r in range(0, 12)]
+                    series[th][d[0].month-1] = d[1]
+                else:
+                    series[th][d[0].month-1] = d[1]
+            data = [Struct(**{'tahun': k, 'series': v})
+                    for k, v in sorted(series.items())]
+        ctx = {'pos': agent, 'data': data}
+        return to_render(ctx)
+
+
+class Info:
+    '''
+    Untuk menampilkan informasi Curah Hujan
+    '''
+    def GET(self, pos_id='', tahun='', bulan=''):
+        if not pos_id:
+            tanggal = web.input().get('d')
+            paper = web.input().get('paper', False)
+            return self.curah_hujan_home(tanggal, paper)
+        else:
+            try:
+                tahun = int(tahun)
+            except:
+                tahun = datetime.date.today().year
+            return self.curah_hujan_pos(pos_id, tahun, bulan)
+
+    def curah_hujan_home(self, tanggal=None, paper=False):
+        if not tanggal:
+            tanggal = datetime.date.today()
+        else:
+            try:
+                tanggal = to_date(tanggal)
+            except:
+                tanggal = to_date(tanggal)
+        HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
+        agents = AgentCh.select(AND(OR(AgentCh.q.AgentType == KLIMATOLOGI, AgentCh.q.AgentType == 0.0), AgentCh.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = [{'pos': a, 'ch': a.get_segmented_rain(tanggal)} for a in agents]
+        sebelum = tanggal - datetime.timedelta(days=1)
+        sesudah = tanggal + datetime.timedelta(days=1)
+        template_render = render.curahhujan.info_hujan
+        if paper:
+            template_render = render_plain.curahhujan.harian_paper
+        return template_render(
+            curah_hujan=data,
+            meta={'now': tanggal,
+                  'before': sebelum,
+                  'after': sesudah},
+            wilayah=WILAYAH)
+
+    def curah_hujan_pos(self, pos_id, tahun=datetime.date.today().year,
+                        bulan=''):
+        '''
+        Jika bulan valid, otomatis tahun juga valid,
+          tampilkan curah hujan setiap hari pada bulan terpilih
+          sumbu mendatar berisi tanggal
+        Jika tahun valid, bulan kosong, tampilkan curah hujan 3 tahun lalu,
+          dari tahun terpilih, sumbu mendatar berisi bulan-bulan
+        '''
+        try:
+            agent = AgentCh.get(pos_id)
+        except SQLObjectNotFound:
+            return web.notfound()
+        if agent.AgentType not in (1.0, 0.0):
+            return web.notfound()
+        ch = agent.get_ch(tahun, bulan)
+        data = []
+        for a in ch:
+            try:
+                data.append((a[0], a[2] or 0))
+            except:
+                data.append((a[0], 0))
+        series = {}
+        to_render = render.curahhujan.bulanan
+        if bulan:
+            # hujan per hari pada 'bulan'
+            series = [0 for r in range(
+                calendar.monthrange(tahun, int(bulan))[1])]
+            sql = "SELECT waktu, manual, pagi, sore, malam, tmalam FROM curahhujan \
+                    WHERE agent_id=%s AND YEAR(waktu)=%s AND MONTH(waktu)=%s" % (pos_id, tahun, bulan)
+
+            for d in conn.queryAll(sql):
+                series[d[0].day-1] = d[1]
+            data = Struct(**{'series': series, 'categories': [s+1 for s in range(len(series))],'bulan': datetime.date(tahun, int(bulan), 1)})
+            to_render = render.curahhujan.harian
+        elif data:
+            print(data)
             # hujan per bulan pada 'tahun'
             th = data[0][0].year
             series[th] = [0 for r in range(0, 12)]

@@ -41,8 +41,8 @@ def test_segmented_klimatologi():
     tgl = datetime.date(2017, 9, 23)
     pabelan = Agent.get(9)
     jurug = Agent.get(2)
-    print 'Pabelan', pabelan.get_segmented_klimatologi(tgl)
-    print 'Jurug', jurug.get_segmented_klimatologi(tgl)
+    print('Pabelan', pabelan.get_segmented_klimatologi(tgl))
+    print('Jurug', jurug.get_segmented_klimatologi(tgl))
 
 
 

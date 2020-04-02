@@ -24,7 +24,9 @@ urls = (
     '/debit', 'DebitList',
     '/add', 'Add',
     '/list', 'TAdmin',
-    '/pb', 'PiketBanjir'
+    '/pb', 'PiketBanjir',
+    '/graph', 'GrafikPerbandinganTma',
+    '/graph/(\d+)','GrafikTmaPos'
 )
 
 app_tma = web.application(urls, locals())
@@ -192,6 +194,7 @@ class ShowTmaCh:
                 ftp = FTP(FTP_HOST)
                 ftp.login()
                 ftp.cwd(CCTV_IMG_DIR + '/' + pos.table_name)
+                #ftp.cwd(CCTV_IMG_DIR + '/' + pos.table_name + '/' +datetime.datetime.today().strftime("%Y%m%d") + '/images')
                 nlst = ftp.nlst()
                 pics = nlst[-3:]
             except:
@@ -218,7 +221,7 @@ class ShowTmaCh:
             t += 60 * 60  # 60 * 60 = 60 menit/1 jam
         ch_patt = dict(ch_patt)
         series = [[a[0], a[1], float(a[2] or 0)*0.01] for a in tma_trend]
-        print len(ch_patt), len(series)
+        print(len(ch_patt), len(series))
         data_series = [{'nama': pos.cname,
                         'series': series,
                         'satuan': 'M'}]
@@ -258,7 +261,7 @@ class ShowTmaCh:
             ch_list = CAUSE_TABLE.get(pos.table_name)
             AGENT_TABLE = dict([(a.table_name, a.AgentId) for a in Agent.select(OR(Agent.q.AgentType == 0, Agent.q.AgentType == 1, Agent.q.AgentType == 2))])
             for ch in ch_list:
-                print 'CH', ch
+                print('CH', ch)
                 pos_ch = Agent.get(AGENT_TABLE.get(ch))
                 ch_trend = pos_ch.get_log(dari, hingga, False)
                 series = [(int(a[0].strftime('%s')) + a[1].seconds, float(a[2] or 0)) for a in ch_trend]
@@ -270,13 +273,13 @@ class ShowTmaCh:
                         ch_patt[s[0]] = nilai > s[1] and nilai or s[1]
                 _t = {'nama': pos_ch.cname,
                       'series': series}
-                #print ch, _t['series']
+                #print(ch, _t['series'])
                 if not _t.get('series'):
                     _t['series'] = []
                 data_ch['nama'] += ', ' + pos_ch.cname
             data_ch['series'] = '[' + ','.join(['{x: %s, y: %s}' %(k, v) for k, v in ch_patt.items()]) + ']'
         data_series.append(data_ch)
-#        print len(data_series[0]['series'])
+#        print(len(data_series[0]['series']))
 
         return render.tma.show_tma_ch({'pos': pos, 'data': data_series,
                                 'dari': dari, 'hingga': hingga,
@@ -347,12 +350,13 @@ class PiketBanjir:
                 tanggal = datetime.datetime.strptime(tanggal, "%Y-%m-%d").date()
             except:
                 tanggal = datetime.datetime.strptime(tanggal, "%d %b %y").date()
-        HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        #HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        PIKET_BANJIR = [a.strip() for a in open('PIKET_BANJIR.txt').read().split(',')]
         agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
                                      Agent.q.AgentType == 0),
                                   Agent.q.expose == True)).orderBy(
                                       ["wilayah", "urutan"])
-        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        agents = [a for a in agents if a.table_name in PIKET_BANJIR]
         data = [Struct(**{'pos': a,
                           'tma': Struct(**a.get_segmented_wl(tanggal))}) for a
                 in agents]
@@ -390,6 +394,106 @@ class PiketBanjir:
                             'after': sesudah.strftime('%d %b %y'),
                             'tertinggi': tertinggi},
             wilayah=WILAYAH, js=js)
+
+class GrafikPerbandinganTma:
+    def GET(self):
+        #return "development test"
+        tanggal = web.input().get('d')
+        if not tanggal:
+            tanggal = datetime.date.today()
+        else:
+            try:
+                tanggal = datetime.datetime.strptime(tanggal, "%Y-%m-%d").date()
+            except:
+                tanggal = datetime.datetime.strptime(tanggal, "%d %b %y").date()
+        HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
+                                     Agent.q.AgentType == 0),
+                                  Agent.q.expose == True)).orderBy(
+                                      ["wilayah", "urutan"])
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = [Struct(**{'pos': a,
+                          'tma': Struct(**a.get_segmented_wl(tanggal))}) for a
+                in agents]
+        js = """
+        <script type="text/javascript">
+        $(function(){
+            $('.tanggal').datepicker({dateFormat: 'd M y'});
+            $('.show-current-date').bind('change', function () {
+             $(this).parent().submit()});
+        });
+        </script>"""
+        sebelum = tanggal - datetime.timedelta(days=1)
+        sesudah = tanggal + datetime.timedelta(days=1)
+
+        # water level tertinggi
+        sql = "SELECT MAX(pagi), agent_id, waktu FROM tma"
+        res = Agent._connection.queryAll(sql)
+        if res:
+            try:
+                (total, agent_id, waktu) = res[0]
+                tertinggi = Struct(**{'agent': Agent.get(agent_id),
+                                      'total': total, 'waktu': waktu})
+            except IndexError:
+                tertinggi = Struct()
+
+        return render.tma.tma_diff(
+            tma=data, meta={'now': tanggal.strftime('%d %b %y'),
+                            'before': sebelum.strftime('%d %b %y'),
+                            'after': sesudah.strftime('%d %b %y'),
+                            'tertinggi': tertinggi},
+            wilayah=WILAYAH, js=js)
+
+
+class GrafikTmaPos:
+    def GET(self,pid):
+        return "tes grafik pos tma "+pid
+        # tanggal = web.input().get('d')
+        # if not tanggal:
+        #     tanggal = datetime.date.today()
+        # else:
+        #     try:
+        #         tanggal = datetime.datetime.strptime(tanggal, "%Y-%m-%d").date()
+        #     except:
+        #         tanggal = datetime.datetime.strptime(tanggal, "%d %b %y").date()
+        # HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        # agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
+        #                              Agent.q.AgentType == 0),
+        #                           Agent.q.expose == True)).orderBy(
+        #                               ["wilayah", "urutan"])
+        # agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        # data = [Struct(**{'pos': a,
+        #                   'tma': Struct(**a.get_segmented_wl(tanggal))}) for a
+        #         in agents]
+        # js = """
+        # <script type="text/javascript">
+        # $(function(){
+        #     $('.tanggal').datepicker({dateFormat: 'd M y'});
+        #     $('.show-current-date').bind('change', function () {
+        #      $(this).parent().submit()});
+        # });
+        # </script>"""
+        # sebelum = tanggal - datetime.timedelta(days=1)
+        # sesudah = tanggal + datetime.timedelta(days=1)
+
+        # # water level tertinggi
+        # sql = "SELECT MAX(pagi), agent_id, waktu FROM tma"
+        # res = Agent._connection.queryAll(sql)
+        # if res:
+        #     try:
+        #         (total, agent_id, waktu) = res[0]
+        #         tertinggi = Struct(**{'agent': Agent.get(agent_id),
+        #                               'total': total, 'waktu': waktu})
+        #     except IndexError:
+        #         tertinggi = Struct()
+
+        # return render.tma.tma_diff(
+        #     tma=data, meta={'now': tanggal.strftime('%d %b %y'),
+        #                     'before': sebelum.strftime('%d %b %y'),
+        #                     'after': sesudah.strftime('%d %b %y'),
+        #                     'tertinggi': tertinggi},
+        #     wilayah=WILAYAH, js=js) 
+
 
 if __name__ == '__main__':
     pass

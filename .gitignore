@@ -1,0 +1,9 @@
+*~
+venv
+*.gz
+*.log
+__pycache__
+sessions
+ffwsv2
+local_settings
+*.swp

@@ -47,7 +47,7 @@ $var js_foot:
             <td>$loop.index</td>
             <td><a href="/curahhujan/$c['pos'].AgentId">$c['pos'].cname</a>
             $if c['pos'].prima_id and '-' in c['pos'].prima_id:
-                <span title="$c['pos'].prima_id">*)</span>
+                <span title="$c['pos'].prima_id" style="color:red">*)</span>
             $if c['pos'].kab:
                 ($c['pos'].kab)
             </td>
@@ -56,11 +56,14 @@ $var js_foot:
             <td class="text-right ch malam">${'%.1f' % c['ch']['malam']}</td>
             <td class="text-right ch tmalam">${'%.1f' % c['ch']['tmalam']}</td>
             <td class="text-right ch total">${'%.1f' % c['ch']['total']}</td>
-            <td class="text-right ch manual" data-mtime="$c['ch'].get('mtime_manual')" title="Diterima: $c['ch'].get('mtime_manual'), HP: $c['ch'].get('origin_manual')">$c['ch'].get('manual')</td>
+            $if c['ch'].get('origin_manual'):
+                <td class="text-right ch manual" data-mtime="$c['ch'].get('mtime_manual')" title="Diterima: $c['ch'].get('mtime_manual'), HP: $c['ch'].get('origin_manual')"><span style="color:red">*</span>$c['ch'].get('manual')</td>
+            $else:
+                <td class="text-right ch manual">$c['ch'].get('manual')</td>
         </tr>
     <!-- -->
              </tbody>
          </table>
-         *) = PrimaBot
+         <span style="color:red">*)</span> = PrimaBot
     </div>
 

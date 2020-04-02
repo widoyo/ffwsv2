@@ -6,8 +6,8 @@
     <description>Batas Wilayah Sungai Bengawan Solo</description>
     <Style id="hulu">
       <LineStyle>
-        <color>64143CA0</color>
-        <width>2</width>
+        <color>64A0143C</color>
+        <width>1</width>
       </LineStyle>
     </Style>
   

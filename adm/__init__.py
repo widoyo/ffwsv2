@@ -4,7 +4,6 @@ import datetime
 import calendar
 import json
 sys.path.append('../')
-from memory_profiler import profile
 
 #from collections import OrderedDict
 
@@ -19,7 +18,6 @@ MQTT_TOPIC = 'data_manual'
 from models import AgentCh, AgentTma, conn, Authuser, WadukDaily, TinggiMukaAir, BendungAlert
 from models import NO_VNOTCH, FAIL_VNOTCH
 from models import CurahHujan
-from adm.bendungan import app_admbd
 
 from helper import to_date, json_serializer
 
@@ -30,7 +28,6 @@ urls = (
     '/ch/(\w+\.*\-*\w+)', 'ChShow',
     '/tma', 'TmaIndex',
     '/tma/(\w+)', 'TmaShow',
-    '/bendungan', app_admbd,
     '/user', 'Users'
 )
 
@@ -63,8 +60,8 @@ def pub_object(obj):
 def csrf_protected(func):
     def decorated(*args, **kwargs):
         inp = web.input()
-        print 'CSRF_TOKEN', inp.csrf_token
-        print 'SESSION_CSRF_TOKEN', session.get('csrf_token')
+        print('CSRF_TOKEN', inp.csrf_token)
+        print('SESSION_CSRF_TOKEN', session.get('csrf_token'))
         if not (inp.has_key('csrf_token') and inp.csrf_token==session.pop('csrf_token', None)):
             raise web.HTTPError(
                     '400 Bad Request',
@@ -150,20 +147,19 @@ class ChShow:
 
 class TmaShow:
     @login_required
-    @profile
     def GET(self, table_name):
         pos = [a for a in AgentTma.select(OR(AgentTma.q.AgentType==2, AgentTma.q.AgentType==0)) if a.table_name == table_name][0]
         webinput = web.input(sampling=str(datetime.date.today()))
         tg = datetime.datetime.strptime(webinput.sampling, '%Y-%m-%d').date()
         rs = get_tma_daily_on_pos(pos.table_name, tg)
         ordered_date = sorted(rs.keys(), reverse=True)
-        print pos
-        print ''
-        print rs
-        print ''
-        print ordered_date
-        print ''
-        print tg
+        print(pos)
+        print('')
+        print(rs)
+        print('')
+        print(ordered_date)
+        print('')
+        print(tg)
         return render.adm.tma.show({'pos': pos, 'data': rs, 'dated': ordered_date, 'tg': tg})
 
     @login_required
@@ -175,12 +171,12 @@ class TmaShow:
         inp = web.input()
         sql = "SELECT id FROM tma WHERE agent_id=%s AND waktu='%s' AND jam='%s'" % (pos.id, to_date(inp.waktu), inp.jam)
         rs = conn.queryAll(sql)
-        print 'pos.id: ', pos.id
+        print('pos.id: ', pos.id)
         if pos.id >= 200 and pos.id not in [231, 233]:
             inp_manual = float(inp.tma) - pos.DPL
         else:
             inp_manual = float(inp.tma)
-        print pos.sqlmeta.asDict()
+        print(pos.sqlmeta.asDict())
         if not rs:
             tma = TinggiMukaAir(agent=pos, waktu=to_date(inp.waktu), jam=inp.jam, manual=inp_manual)
             #pub_object(tma)
@@ -247,5 +243,5 @@ class Ompong:
 
 if __name__ == "__main__":
     #print export_rtow(81)
-    print import_rtow('/tmp/bd_ngancar.csv')
+    print(import_rtow('/tmp/bd_ngancar.csv'))
     #print get_tma_daily_on_pos('jarum', datetime.date(2016, 4, 24))

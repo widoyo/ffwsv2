@@ -1,0 +1,53 @@
+Suyanto	Wonogiri, 4 Oktober 1958	Pendem RT 01/RW 01, Selopuro, Batuwarno, Wonogiri	S 1	Batuwarno	Penjaga/ Pengamat Pos	082135619310	2014	Penatagunaan SDA	P.H.1.1
+Mulyono	Klaten, 5 April 1973	Dk. Bometen RT 11/RW05, Ngandong, Gantiwarno, Klaten	STM	Dengkeng Hulu	Penjaga/ Pengamat Pos	081350072809	2019	Penatagunaan SDA	P.H.1.2
+Winahyu Wuri Hartanti	Wonogiri, 21 Juli 1973	Ngrembang, RT 1/RW 5 Giriwoyo, Wonogiri	D 3	Giriwoyo	Penjaga/ Pengamat Pos	08112645994	2012	Penatagunaan SDA	P.H.1.3
+Agus Sutopo	Surakarta, 12 Agustus 1976	Dk. Gunungan RT 01/RW 02, Gunungan, Manyaran, Wonogiri	SMA	Gunungan	Penjaga/ Pengamat Pos	082322604276	2019	Penatagunaan SDA	P.H.1.4
+Tukino	Karanganyar, 28 Juli 1965	Trombol Wetan, RT 09/RW 03, Jatipurwo, Jatipuro, Karanganyar	SMA	Jatipuro	Penjaga/ Pengamat Pos	081329940755	2014	Penatagunaan SDA	P.H.1.5
+Sri Hartini	Wonogiri, 8 Juni 1967	Jatisrono, RT 01/RW 01, Jatisrono, Wonogiri	SMA	Jatisrono	Penjaga/ Pengamat Pos	081226151512	2005	Penatagunaan SDA	P.H.1.6
+Menik Sri Hartanti	Sragen, 20 Juni 1972	Tanjungsari RT 01/RW 02, Blagung, Simo, Boyolali	SMA	Kalijambe	Penjaga/ Pengamat Pos	085728217091	2016	Penatagunaan SDA	P.H.1.8
+Sutarto	Karanganyar, 14 Mei 1964	Popongan RT 02/RW 08 Popongan, Karanganyar, Karanganyar	SLTA	Karangpandan	Penjaga/ Pengamat Pos	081227307375	2014	Penatagunaan SDA	P.H.1.9
+Surati	Sragen, 13 November 1973	Prayunan, RT 03/RW 01, Kedungupit, Kedungupit, Sragen	SMA	Kedungupit ARR	Penjaga/ Pengamat Pos	085728748027	2017	Penatagunaan SDA	P.H.1.10
+Sri Rahayu	Boyolali, 19 April 1975	Dk. Karangsari RT 01/RW01, Kiringan, Boyolali, Boyolali	SMA	Kiringan	Penjaga/ Pengamat Pos	081393404468	2019	Penatagunaan SDA	P.H.1.11
+Agus Santoso	Klaten, 11 Agustus 1984	Dk. Sobrah Gede RT 03/RW 10 Buntalan, Klaten Tengah, Klaten	SLTP	Klaten	Penjaga/ Pengamat Pos	085743119595	2012	Penatagunaan SDA	P.H.1.12
+Novi Ariyanti	Boyolali, 13 Mei 1992	Magangrejo RT 09/RW 02, Nepen, Teras, Boyolali	SMA	Nepen	Penjaga/ Pengamat Pos	085807487465	2017	Penatagunaan SDA	P.H.1.13
+Darti	Wonogiri, 31 Januari 1996	Dk. Sekanem RT 01/RW 15, Gedong, Pracimantoro, Wonogiri	SMP	Parangjoho	Penjaga/ Pengamat Pos	082136356130	2019	Penatagunaan SDA	P.H.1.15
+Mulyadi	Wonogiri, 7 Oktober 1951	Sambiroto, RT 03/RW 03, Purwantoro, Wonogiri	SD	Pracimantoro	Penjaga/ Pengamat Pos	087736408699	2011	Penatagunaan SDA	P.H.1.17
+Walyanto	Klaten, 29 April 1980	Cetok, RT 02/RW 03 Baturan, Gantiwarno, Klaten	SMP	Rejoso	Penjaga/ Pengamat Pos	085729400222	2016	Penatagunaan SDA	P.H.1.18
+Budhi Andoko	Wonogiri, 21 Agustus 1983	Dk. Song Putri Wetan RT 01/RW 01, Sindukarto, Eromoko, Wonogiri	SMA	Song Putri	Penjaga/ Pengamat Pos	081326969600	2019	Penatagunaan SDA	P.H.1.19
+Dwi Maryanto	Sragen, 28 Maret 2017	Gilis, RT 07/RW-, Katelan, Tangen, Sragen	SMA	Tangen  Bridge	Penjaga/ Pengamat Pos	085327579711	2017	Penatagunaan SDA	P.H.1.20
+Lilik Mujianto	Karanganyar, 22 Januari 1962	Ngunut RT 04/RW 06 Tawangmangu, Karanganyar	S 1	Tawangmangu	Penjaga/ Pengamat Pos	081336536218	2011	Penatagunaan SDA	P.H.1.21
+Anton Setiawan	Karanganyar, 18 April 1990	Tempuran RT 04/RW 06 Bolon, Colomadu, Karanganyar	SMK	Tritis	Penjaga/ Pengamat Pos	085727410073	2011	Penatagunaan SDA	P.H.1.22
+Wildan Aljundi	Karanganyar, 12 Februari 1996	Pojok RT 01/RW 01, Delingan, Karanganyar, Karanganyar	S 1	Waduk Delingan	Penjaga/ Pengamat Pos	082323188574	2014	Penatagunaan SDA	P.H.1.23
+Esti Winanti	Wonogiri, 10 Oktober 1996	Nawangan Kidul RT 01/RW07 Platarejo, Giriwoyo, Wonogiri	SMP	Waduk Nawangan	Penjaga/ Pengamat Pos	085220445052	2016	Penatagunaan SDA	P.H.1.24
+Aris Sugiyarto	Pacitan, 16 Juli 1996	Jl. Mukhiyar RT 002/RW 001, Lengkong, Sukorejo, Ponorogo	SLTP	Bangunsari	Penjaga/ Pengamat Pos	0895393313089	2017	Penatagunaan SDA	P.H.2.25
+Yudi Pratama	Oku, 16 Agustus 1975	Ds. Kresek RT 001/RW 001, Wungu, Madiun	SLTP	Jatirogo	Penjaga/ Pengamat Pos	081333209425	2014	Penatagunaan SDA	P.H.2.26
+Wiwid Krysdianto	Ngawi, 26 Oktober 1983	Jl. Kyai Mojo Gg. Laos, Ketanggi, Ngawi		Jururejo	Penjaga/ Pengamat Pos	085815090002		Penatagunaan SDA	P.H.2.27
+Purwahyudi Imam Widagdo	Pacitan, 28 Mei 1986	Bolo RT 003/RW 004 Kebonagung, Kebonagung, Pacitan	SLTA	Kebonagung	Penjaga/ Pengamat Pos	085332001866	2009	Penatagunaan SDA	P.H.2.28
+Sugeng Widodo	Pacitan, 10 Juli 1977	Dk. Krajan, RT 002/RW 001 Sempu, Nawangan, Pacitan	SLTA	Nawangan - Grindulu	Penjaga/ Pengamat Pos	085326680211	2012	Penatagunaan SDA	P.H.2.29
+Suliyawati Hartini	Ngawi, 7 Mei 1965	Jl. MP.H. Thamrin Gang Delima No. 8, Ngawi	SLTA	Ngawi	Penjaga/ Pengamat Pos	085331911949	2007	Penatagunaan SDA	P.H.2.30
+Dwi Agus Jainuri	Ngawi, 10 Januari 1982	Pule,RT  002/RW 001, Ngrambe, Ngawi	SLTA	Ngrambe	Penjaga/ Pengamat Pos	085229988899	1998	Penatagunaan SDA	P.H.2.31
+Assep Ichwahyudi	Pacitan, 9 Februari 1984	Tegalrejo, RT 001/RW 001, Nanggungan, Pacitan, Pacitan	S 1	Pacitan ARR	Penjaga/ Pengamat Pos	081245274303	2016	Penatagunaan SDA	P.H.2.32
+Sundoyo	Ponorogo, 10 Desember 1980	Dukuh Kresek Badegan	SLTA	Purwantoro	Penjaga/ Pengamat Pos	085229528027	2010	Penatagunaan SDA	P.H.2.33
+Muhammad Yogi Oktavian	Ponorogo, 9 Oktober 1996	Dk. Krajan, RT 02/RW 01 Menggare, Slahung, Ponorogo	SLTA	Slahung	Penjaga/ Pengamat Pos	082234869609	2017	Penatagunaan SDA	P.H.2.34
+Wahyuhadi Fakturohman	Ponorogo, 19 Agustus 1996	Dk. Dalangan RT 02/RW 02, Ds. Sooko, Sooko, Ponorogo	SMK	Sooko	Penjaga/ Pengamat Pos	081333690123	2018	Penatagunaan SDA	P.H.2.35
+Kadam	Pacitan, 16 Januari 1968	Dk. Ringin Asri RT 04/RW05, Tegalombo, Tegalombo, Pacitan	SLTA	Tegalombo	Penjaga/ Pengamat Pos	081938703270	2019	Penatagunaan SDA	P.H.2.36
+Kukuh Budiono	Ponorogo, 27 April 1985	Dk. Sahang  RT 02/ RW01, Sahang, Ngebel, Ponorogo	SLTA	Telaga Ngebel	Penjaga/ Pengamat Pos	085604479468	2018	Penatagunaan SDA	P.H.2.37
+Dwi Wahyuningrum	Madiun, 1 Oktober 1995	Sidomulyo RT 23/RW 04, Wonoasri,  Madiun	SLTA	Waduk Dawuhan	Penjaga/ Pengamat Pos	081259844035	2016	Penatagunaan SDA	P.H.2.38
+Nurmawati	Magetan, 22 Oktober	Dk. Ngrejeng RT 04/RW 01, Puntukdoro, Plaosan, Magetan	SMP	Waduk Gonggang	Penjaga/ Pengamat Pos	081804448981	2019	Penatagunaan SDA	P.H.2.39
+Surono	Madiun, 6 Mei 1978	Kedungbrubus Baru, Bulu, Pilangkenceng, Madiun		Waduk Kedung Brubus	Penjaga/ Pengamat Pos	082332098509		Penatagunaan SDA	P.H.2.40
+Yeni Murdianti	Madiun, 22 September 1998	Dawuhan, RT 09/RW 02, Dawuhan, Pilangkenceng, Madiun	SMA	Waduk Notopuro	Penjaga/ Pengamat Pos	081259698754	2019	Penatagunaan SDA	P.H.2.41
+Purwanto	Ngawi, 12 Oktober 1981	Dampit RT 04/RW 01, Bringin, Ngawi	SD	Waduk Pondok	Penjaga/ Pengamat Pos	085749039647	2014	Penatagunaan SDA	P.H.2.42
+Agus Widayat	Ngawi, 16 April 1988	Kedungceleng RT 021/RW 008, Sumber Bening, Bringin, Ngawi	SLTP	Waduk Sangiran	Penjaga/ Pengamat Pos	081226099011	2015	Penatagunaan SDA	P.H.2.43
+Rokim	Gresik, 8 Maet 1972	Mojopuro, RT 01/ RW 01 Babatan, Balongpanggang	SLTP	Balongpanggang - Gresik	Penjaga/ Pengamat Pos	087752183900	2010	Penatagunaan SDA	P.H.3.44
+Sudarim	Blora, 17 Mei 1957	Dk. Doplang, RT 08/ RW 01 Doplang, Jati, Blora	S 1	Doplang - Blora	Penjaga/ Pengamat Pos	081325634090	1980	Penatagunaan SDA	P.H.3.47
+Yuni Astutik	Lamongan, 1 Februari 1983	Telaga, RT 02/RW 02, Sambopinggir, Krangbinangun, Lamongan		Karangbinangun	Penjaga/ Pengamat Pos		2019	Penatagunaan SDA	P.H.3.48
+Yudi Dwi Susanto	Bojonegoro, 18 Mei 1963	Maderejo Gg. XI No. 22 RT 02/ RW 10 Made, Lamongan	S 1	Lamongan	Penjaga/ Pengamat Pos	085648311719		Penatagunaan SDA	P.H.3.49
+Chusairi	Gresik, 30 Juni 1976	Putat Lor RT 05/ RW 02, Putat Lor, Menganti, Gresik	SLTP	Menganti	Penjaga/ Pengamat Pos	081331242014	2017	Penatagunaan SDA	P.H.3.50
+Agus Prastiono	Tuban, 29 Agustus 1992	Dk. Krajan RT 01/RW 02, Tingkis, Singgahan, Tuban	SMA	Nglirip - Tuban	Penjaga/ Pengamat Pos	082330436042	2018	Penatagunaan SDA	P.H.3.51
+Samsul Sugianto	Bojonegoro, 28 Oktober 1993	Dk. Tretes RT 09/RW 03, Kedungsumber, Temayang, Bojonegoro	SMP	Pacal Dam	Penjaga/ Pengamat Pos	082352006624	2019	Penatagunaan SDA	P.H.3.52
+Slamet Sugiarto	Blora, 11  Mei 1954	JL. Dr. Soetomo RT 18/ RW 06, Padangan, Bojonegoro	S 1	Padangan	Penjaga/ Pengamat Pos	081259666568	2020	Penatagunaan SDA	P.H.3.53
+Dedy Kristiawan	Nganjuk, 22 Juli 1979	Dk. Dodol, RT 20/RW 04, Pajeng, Gondang, Bojonegoro	SMK	Pajeng	Penjaga/ Pengamat Pos	081230634082	2012	Penatagunaan SDA	P.H.3.54
+Agus Dino Hariyanto	Blora, 10 Agustus 1998	Dk. Pulo, Ds. Pilang, RT 01/RW 04, Kec. Randublatung, Blora	SMK	Randublatung	Penjaga/ Pengamat Pos	085290248857	2019	Penatagunaan SDA	P.H.3.55
+Patemi	Lamongan, 7 Agustus 1978	Kalangan RT 02/ RW 01 Sembung, Sukorame, Lamongan	SLTP	Sembung	Penjaga/ Pengamat Pos	085733184773	2019	Penatagunaan SDA	P.H.3.56
+Tamat	Bojonegoro, 13 Juni 1968	Dk. Turi RT 02/ RW 01, Turi, Tambakrejo, Bojonegoro	SLTA	Turi	Penjaga/ Pengamat Pos	085231863596	2013	Penatagunaan SDA	P.H.3.57
+Titiek Rahayu	Lamongan, 16 November 2000	Dk. Gondang, RT 02/RW 04, Gondanglor, Sugio, Lamongan	SMA	Waduk Gondang	Penjaga/ Pengamat Pos	085812454363	2019	Penatagunaan SDA	P.H.3.58

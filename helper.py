@@ -72,16 +72,16 @@ def f5(seq, idfun=None):
 
 
 def usage():
-    print "Penggunaan:"
-    print "  python " + sys.argv[0] + " <option>\n   option:\
-        \n    -h : Help\n    -U : Update table grafik"
+    print("Penggunaan:")
+    print("  python " + sys.argv[0] + " <option>\n   option:\
+        \n    -h : Help\n    -U : Update table grafik")
 
 
 def main():
     try:
         opts, args = getopt.getopt(sys.argv[1:], "hU", ["help", "update"])
-    except getopt.GetoptError, err:
-        print str(err)
+    except (getopt.GetoptError, err):
+        print(str(err))
         usage()
         sys.exit()
     for o, a in opts:

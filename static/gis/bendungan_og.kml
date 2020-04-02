@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document id="root_doc">
+<Schema name="bendungan_on_going" id="bendungan_on_going">
+	<SimpleField name="NAMA" type="string"></SimpleField>
+	<SimpleField name="DESA" type="string"></SimpleField>
+	<SimpleField name="KECAMATAN" type="string"></SimpleField>
+	<SimpleField name="KABUPATEN" type="string"></SimpleField>
+	<SimpleField name="PROPINSI" type="string"></SimpleField>
+	<SimpleField name="PULAU" type="string"></SimpleField>
+	<SimpleField name="THN_KONST" type="string"></SimpleField>
+	<SimpleField name="SUNGAI" type="string"></SimpleField>
+	<SimpleField name="LUAS_IRIGA" type="string"></SimpleField>
+	<SimpleField name="MANF_LAIN" type="string"></SimpleField>
+	<SimpleField name="MA_BANJIR" type="string"></SimpleField>
+	<SimpleField name="MA_NORMAL" type="string"></SimpleField>
+	<SimpleField name="MA_MIN" type="string"></SimpleField>
+	<SimpleField name="VOL_EFEKT" type="string"></SimpleField>
+	<SimpleField name="TIPE_BENDU" type="string"></SimpleField>
+	<SimpleField name="VOL_SEDI" type="string"></SimpleField>
+	<SimpleField name="PENGELOLA" type="string"></SimpleField>
+	<SimpleField name="VOL_RET_BJ" type="float"></SimpleField>
+	<SimpleField name="ID" type="string"></SimpleField>
+</Schema>
+<Folder><name>bendungan_on_going</name>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Gongseng</SimpleData>
+		<SimpleData name="KABUPATEN">Bojonegoro</SimpleData>
+		<SimpleData name="VOL_EFEKT">14,75</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>111.901482,-7.36292100000027</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Pidekso</SimpleData>
+		<SimpleData name="KABUPATEN">Wonogiri</SimpleData>
+		<SimpleData name="VOL_EFEKT">17,22</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>110.995953315642,-8.03585757169369</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Gondang</SimpleData>
+		<SimpleData name="KABUPATEN">Karanganyar</SimpleData>
+		<SimpleData name="VOL_EFEKT">6,13</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>111.077670249305,-7.56776692693524</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Bendo</SimpleData>
+		<SimpleData name="KABUPATEN">Ponorogo</SimpleData>
+		<SimpleData name="VOL_EFEKT">33,45</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>111.526823574937,-7.95372723230216</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Tukul</SimpleData>
+		<SimpleData name="KABUPATEN">Pacitan</SimpleData>
+		<SimpleData name="VOL_EFEKT">4,89</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>111.142999972235,-8.05699996429293</coordinates></Point>
+  </Placemark>
+  <Placemark>
+	<ExtendedData><SchemaData schemaUrl="#bendungan_on_going">
+		<SimpleData name="NAMA">Wd. Jlantah</SimpleData>
+		<SimpleData name="KABUPATEN">Karanganyar</SimpleData>
+		<SimpleData name="VOL_RET_BJ">0</SimpleData>
+	</SchemaData></ExtendedData>
+      <Point><coordinates>111.080257642735,-7.71101764071105</coordinates></Point>
+  </Placemark>
+</Folder>
+</Document></kml>
