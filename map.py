@@ -313,6 +313,7 @@ class MapCurahhujan:
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                 map: map,
                 optimized: false,
+                title: pos.name + ' (' + pos.device + ')',
                 position: point
             })
             markers.push({id: pos.id, did: pos.device, markerObj: marker});
