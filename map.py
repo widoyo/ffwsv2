@@ -56,7 +56,7 @@ class MapCurahhujan:
                     rain = float(rain or 0)
             else:
                 rain = 0
-            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname, 'll': a.ll, 'tname': a.table_name}
+            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname, 'll': a.ll, 'tname': a.table_name,'petugas':[p.nama for p in a.petugas]}
             if a.table_name in all_prima.keys():
                 p_.update({'device': all_prima.get(a.table_name)})
             all_pos.append(p_)
@@ -295,6 +295,17 @@ class MapCurahhujan:
           var allPos = """ + str(all_pos) + """;
           var infoWindow = new google.maps.InfoWindow;
           _.each(allPos, function(pos) {
+            var iw = `<div class="panel panel-default">
+                <div class="panel-heading">
+                <div class="panel-title"><h6>${pos.name}</h6></div></div>
+                <div class="panel-body">
+                <table class="table">
+                <tr><td>M</td><td></td></tr>
+                <tr><td>T</td><td></td></tr>
+                </table>
+                </div>
+                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas}</div>
+                </div>`
             var lat = parseFloat(pos.ll.split(',')[0]);
             var lng = parseFloat(pos.ll.split(',')[1]);
             var point = new google.maps.LatLng(lat, lng);
@@ -302,11 +313,10 @@ class MapCurahhujan:
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                 map: map,
                 optimized: false,
-                title: pos.name + ' (' + pos.device + ')',
                 position: point
             })
             markers.push({id: pos.id, did: pos.device, markerObj: marker});
-            bind_info_window(marker, map, infoWindow, "<a href='/curahhujan/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>");
+            bind_info_window(marker, map, infoWindow, iw);
           });
         };
         function bind_info_window(marker, map, infowindow, html) {
@@ -329,7 +339,7 @@ class MapTma:
                                   Agent.q.expose == True)).orderBy(
                                       ["wilayah", "-DPL", "-siaga3"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
-        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll} for a in agents]
+        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'petugas': [p.nama for p in a.petugas]} for a in agents]
         js_foot = """
         <script>
         var map;

@@ -9,6 +9,7 @@ sys.path.append('../')
 
 import web
 from sqlobject import OR, AND, SQLObjectNotFound
+from sqlobject import *
 import paho.mqtt.publish as publish
 
 MQTT_HOST = 'mqtt.bbws-bsolo.net'
@@ -18,6 +19,7 @@ MQTT_TOPIC = 'data_manual'
 from models import AgentCh, AgentTma, conn, Authuser, WadukDaily, TinggiMukaAir, BendungAlert
 from models import NO_VNOTCH, FAIL_VNOTCH
 from models import CurahHujan
+from models import Petugas
 
 from helper import to_date, json_serializer
 
@@ -28,7 +30,9 @@ urls = (
     '/ch/(\w+\.*\-*\w+)', 'ChShow',
     '/tma', 'TmaIndex',
     '/tma/(\w+)', 'TmaShow',
-    '/user', 'Users'
+    '/user', 'Users',
+    '/petugas','DataPetugas',
+    '/klimatologi/add','InputData'
 )
 
 
@@ -47,6 +51,16 @@ def csrf_token():
 globals = {'session': session, 'csrf_token': csrf_token}
 render = web.template.render('templates/', base='base_adm', globals=globals)
 
+class DataPetugas:
+    def GET(self):
+        petugas = Petugas.select()
+        return render.adm.petugas.petugas({'petugas': petugas})
+
+class InputData:
+    def GET(self):
+        webinput = web.input(sampling=str(datetime.date.today() - datetime.timedelta(days=1)))
+        tg = datetime.datetime.strptime(webinput.sampling, '%Y-%m-%d').date()
+        return render.adm.klimatologi.add({'tg': tg})
 
 def pub_object(obj):
     if type(obj) == TinggiMukaAir:
