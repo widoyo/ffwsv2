@@ -55,21 +55,25 @@ class Chart:
         rst3 = conn.queryAll(sql3)
         series = rst3[0][0]
 
-        s = 4
+        s = 10
         rows = []
         row_keys = []
         while s!=0:
             sql = "SELECT waktu,ip from kualitas_air WHERE id_pos = %d and YEAR(waktu) = %d" % (int(pid),int(series))
             rst = conn.queryAll(sql)
-            for d in rst:
-                if d[1] == None:
-                    rows.append([int(d[0].strftime('%m'))-1,int(0)])
-                else:
-                    rows.append([int(d[0].strftime('%m'))-1,d[1]])
-            row_keys.append({'name':str(series),'data':rows}) 
-            rows=[]
-            series-=1
-            s-=1
+            if rst:
+                for d in rst:
+                    if d[1] == None:
+                        rows.append([int(d[0].strftime('%m'))-1,int(0)])
+                    else:
+                        rows.append([int(d[0].strftime('%m'))-1,d[1]])
+                row_keys.append({'name':str(series),'data':rows}) 
+                rows=[]
+                series-=1
+                s-=1
+            else:
+                series-=1
+                s-=1
 
         sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
         rst2 = conn.queryAll(sql2) 
@@ -86,8 +90,13 @@ class Parameter:
     def GET(self,pid):
         id_pos_ka = int(pid)
         conn = Agent._connection
-        sql = "SELECT waktu,suhu,ph,tds,tss,ot,no3,no2,nh3,po4,cl,fe,mn,na,kok,kob,mbas,cl_2,m_n_l,kmno4,f,s,so4,cn,pb,cu,ni,cr,cr6,b_coli,lab FROM kualitas_air WHERE id_pos= %d and YEAR(waktu)=(SELECT MAX(YEAR(waktu)) from kualitas_air where id_pos = %d)" % (int(pid),int(pid))
-        rst = conn.queryAll(sql)
+        tahun = web.input().get('tahun')
+        if not tahun:
+            sql = "SELECT waktu,suhu,ph,tds,tss,ot,no3,no2,nh3,po4,cl,fe,mn,na,kok,kob,mbas,cl_2,m_n_l,kmno4,f,s,so4,cn,pb,cu,ni,cr,cr6,b_coli,lab FROM kualitas_air WHERE id_pos= %d and YEAR(waktu)=(SELECT MAX(YEAR(waktu)) from kualitas_air where id_pos = %d)" % (int(pid),int(pid))
+            rst = conn.queryAll(sql)
+        else:
+            sql = "SELECT waktu,suhu,ph,tds,tss,ot,no3,no2,nh3,po4,cl,fe,mn,na,kok,kob,mbas,cl_2,m_n_l,kmno4,f,s,so4,cn,pb,cu,ni,cr,cr6,b_coli,lab FROM kualitas_air WHERE id_pos= %d and YEAR(waktu)=%d" % (int(pid),int(tahun))
+            rst = conn.queryAll(sql)
 
         waktu = []
         suhu = []
@@ -156,12 +165,16 @@ class Parameter:
         sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
         rst2 = conn.queryAll(sql2) 
         pos_name = rst2[0][0]
+
+        sql3 = "select MIN(YEAR(waktu)) as min_year,MAX(YEAR(waktu)) as max_year from kualitas_air where id_pos = %d" %(int(pid))
+        rst3 = conn.queryAll(sql3)
+        min_year = rst3[0][0]
+        max_year = rst3[0][1]
+        pilihan_tahun = [a for a in range(min_year,int(max_year)+1,1)]
         #tbl_param = []
         # for d in rst:
         #     tbl_param.append([int(d[0].strftime('%b')),d[1],d[2],d[3]])
-
-
-        return render.kualitas_air.parameter({'id_pos_ka':id_pos_ka,'waktu':waktu,'suhu':suhu,'ph':ph,'tds':tds,'tss':tss,'ot':ot,'no3':no3,'no2':no2,'nh3':nh3,'po4':po4,'cl':cl,'fe':fe,'mn':mn,'na':na,'kok':kok,'kob':kob,'mbas':mbas,'cl_2':cl_2,'m_n_l':m_n_l,'kmno4':kmno4,'f':f,'s':s,'so4':so4,'cn':cn,'pb':pb,'cu':cu,'ni':ni,'cr':cr,'cr6':cr6,'b_coli':b_coli,'lab':lab,'pos_name':pos_name})
+        return render.kualitas_air.parameter({'id_pos_ka':id_pos_ka,'waktu':waktu,'suhu':suhu,'ph':ph,'tds':tds,'tss':tss,'ot':ot,'no3':no3,'no2':no2,'nh3':nh3,'po4':po4,'cl':cl,'fe':fe,'mn':mn,'na':na,'kok':kok,'kob':kob,'mbas':mbas,'cl_2':cl_2,'m_n_l':m_n_l,'kmno4':kmno4,'f':f,'s':s,'so4':so4,'cn':cn,'pb':pb,'cu':cu,'ni':ni,'cr':cr,'cr6':cr6,'b_coli':b_coli,'lab':lab,'pos_name':pos_name,'pilihan_tahun':pilihan_tahun})
 
     def POST(self,tahun):
         tahun = int(tahun)
