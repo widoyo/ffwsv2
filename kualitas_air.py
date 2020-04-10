@@ -61,15 +61,19 @@ class Chart:
         while s!=0:
             sql = "SELECT waktu,ip from kualitas_air WHERE id_pos = %d and YEAR(waktu) = %d" % (int(pid),int(series))
             rst = conn.queryAll(sql)
-            for d in rst:
-                if d[1] == None:
-                    rows.append([int(d[0].strftime('%m'))-1,int(0)])
-                else:
-                    rows.append([int(d[0].strftime('%m'))-1,d[1]])
-            row_keys.append({'name':str(series),'data':rows}) 
-            rows=[]
-            series-=1
-            s-=1
+            if rst:
+                for d in rst:
+                    if d[1] == None:
+                        rows.append([int(d[0].strftime('%m'))-1,int(0)])
+                    else:
+                        rows.append([int(d[0].strftime('%m'))-1,d[1]])
+                row_keys.append({'name':str(series),'data':rows}) 
+                rows=[]
+                series-=1
+                s-=1
+            else:
+                series-=1
+                s-=1
 
         sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
         rst2 = conn.queryAll(sql2) 
