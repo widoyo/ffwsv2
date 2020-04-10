@@ -32,15 +32,44 @@ $ cr6 = ctx.get('cr6')
 $ b_coli = ctx.get('b_coli')
 $ lab = ctx.get('lab')
 $ pos_name = ctx.get('pos_name')
+$ pilihan_tahun = ctx.get('pilihan_tahun')
 $var p_kualitas_air: active
 
+$var extra_header:
+  <style type="text/css">
+      .table.boldtable > tbody td {
+          font-weight: bold;
+          font-size: 8pt;
+          width: 10px;
+      }
+      .dropdown-menu>div>a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: 400;
+        line-height: 1.428571429;
+        color: #333;
+        white-space: nowrap;
+      }
+  </style>
+
 <div class="container">
-  <h2><a href="/kualitasair/chart/$id_pos_ka"><span class="glyphicon glyphicon-chevron-left"></span></a> Parameter Uji Pos $pos_name</h2>
+  <h2><a href="/kualitasair/chart/$id_pos_ka"><span class="glyphicon glyphicon-chevron-left"></span></a> Parameter Uji Pos $pos_name 
+    <div class="dropdown" style="float:right;">
+      <a href="#" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <b>Pilih Tahun</b> <span class="caret"></span>
+      </a>
+      <div class="dropdown-menu" style="min-width: 112px;">
+        $for tahun in pilihan_tahun:
+            <div><a class="dropdown-item" href="/kualitasair/parameter/$id_pos_ka?tahun=$tahun">$tahun</a></div>
+      </div>
+    </div>
+  </h2>
   <div class="table-responsive">
     <table class="table table-sm table-hover table-bordered boldtable">
       <td style="background-color: yellow;"></td>
     $for d in waktu:
-        <td style="background-color: yellow;">$d</td>
+        <td style="background-color: yellow;width: 80px;">$d</td>
 
       <tr>
         <td style="background-color: yellow;">Suhu (C)</td>
@@ -73,25 +102,25 @@ $var p_kualitas_air: active
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NO3 (mg/L)</td>
+        <td style="background-color: yellow;">NO<sub>3</sub> (mg/L)</td>
         $for d in no3:
             <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NO2 (mg/L)</td>
+        <td style="background-color: yellow;">NO<sub>2</sub> (mg/L)</td>
         $for d in no2:
             <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NH3 (mg/L)</td>
+        <td style="background-color: yellow;">NH<sub>3</sub> (mg/L)</td>
         $for d in nh3:
             <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">PO4 (mg/L)</td>
+        <td style="background-color: yellow;">PO<sub>4</sub> (mg/L)</td>
         $for d in po4:
             <td>$d</td>
       </tr>
@@ -117,7 +146,10 @@ $var p_kualitas_air: active
       <tr>
         <td style="background-color: yellow;">Na</td>
         $for d in na:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
@@ -135,11 +167,14 @@ $var p_kualitas_air: active
       <tr>
         <td style="background-color: yellow;">MBAS</td>
         $for d in mbas:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cl_2 (mg/L)</td>
+        <td style="background-color: yellow;">Cl<sub>2</sub> (mg/L)</td>
         $for d in cl_2:
             <td>$d</td>
       </tr>
@@ -147,13 +182,19 @@ $var p_kualitas_air: active
       <tr>
         <td style="background-color: yellow;">M&L</td>
         $for d in m_n_l:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">KMnO4</td>
+        <td style="background-color: yellow;">KMnO<sub>4</sub></td>
         $for d in kmno4:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
@@ -169,7 +210,7 @@ $var p_kualitas_air: active
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">SO4 (mg/L)</td>
+        <td style="background-color: yellow;">SO<sub>4</sub> (mg/L)</td>
         $for d in so4:
             <td>$d</td>
       </tr>
@@ -195,7 +236,10 @@ $var p_kualitas_air: active
       <tr>
         <td style="background-color: yellow;">Ni</td>
         $for d in ni:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
@@ -205,7 +249,7 @@ $var p_kualitas_air: active
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cr6 (mg/L)</td>
+        <td style="background-color: yellow;">Cr<sup>6+</sup> (mg/L)</td>
         $for d in cr6:
             <td>$d</td>
       </tr>

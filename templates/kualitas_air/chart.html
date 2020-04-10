@@ -102,13 +102,19 @@ $var js_foot:
         },
 
         tooltip: {
-		        pointFormat: '{point.y:.2f}'
-		    },
+            valueDecimals: 2,
+            headerFormat: '<span style="font-size:12px">{point.x}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:4px">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
 	      plotOptions: {
 		        series: {
 		            borderWidth: 0,
 		            dataLabels: {
-		                enabled: true,
+		                enabled: false,
 		                format: '{point.y:.2f}'
 		            }
 		        }
