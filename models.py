@@ -408,6 +408,7 @@ class Agent(SQLObject):
     daily = MultipleJoin('WadukDaily', joinColumn='pos_id', orderBy=['-waktu'])
     elev_puncak = FloatCol()
 
+    petugas = MultipleJoin('Petugas',joinColumn='agent_id')
 
     def lengkung(self):
         return self.lengkung_kapasitas.split('\n')
@@ -1275,7 +1276,6 @@ class Petugas(SQLObject):
     class sqlmeta:
         table = 'petugas'
         defaultOrder = ('nama')
-
 
 
 class Gate(SQLObject):

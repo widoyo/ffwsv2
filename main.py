@@ -283,7 +283,7 @@ class Login:
         if not auth(i.username, i.password):
             session.autherror = '1'
             return web.seeother('/login?next=%s' % web.ctx.env.get('PATH_INFO'))
-        dest = 'adm_ch_tma_bendungan_kualitasair'.split('_')
+        dest = 'adm_ch_tma_klimatologi_kualitasair'.split('_')
 
         redirect = '/' + dest[0]
         if session.table_name:
