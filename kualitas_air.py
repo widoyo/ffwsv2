@@ -47,19 +47,18 @@ class ShowByName:
 
 class Chart:
     def GET(self,pid):
-        #return "test chart"
-        test = ""
         conn = Agent._connection
-
-        sql3 = "SELECT YEAR(MAX(waktu)) FROM kualitas_air WHERE id_pos= %d" % (int(pid))
+        sql3 = "SELECT YEAR(MAX(waktu)),YEAR(MIN(waktu)) FROM kualitas_air WHERE id_pos= %d" % (int(pid))
         rst3 = conn.queryAll(sql3)
-        series = rst3[0][0]
+        series_max = int(rst3[0][0])
+        series_min = int(rst3[0][1])
 
-        s = 10
+
+        step = (series_max - series_min) + 1
         rows = []
         row_keys = []
-        while s!=0:
-            sql = "SELECT waktu,ip from kualitas_air WHERE id_pos = %d and YEAR(waktu) = %d" % (int(pid),int(series))
+        while step!=0:
+            sql = "SELECT waktu,ip from kualitas_air WHERE id_pos = %d and YEAR(waktu) = %d" % (int(pid),int(series_max))
             rst = conn.queryAll(sql)
             if rst:
                 for d in rst:
@@ -67,13 +66,13 @@ class Chart:
                         rows.append([int(d[0].strftime('%m'))-1,int(0)])
                     else:
                         rows.append([int(d[0].strftime('%m'))-1,d[1]])
-                row_keys.append({'name':str(series),'data':rows}) 
+                row_keys.append({'name':str(series_max),'data':rows}) 
                 rows=[]
-                series-=1
-                s-=1
+                series_max-=1
+                step-=1
             else:
-                series-=1
-                s-=1
+                series_max-=1
+                step-=1
 
         sql2 = "SELECT cname from lokasi where id = %d" % (int(pid))
         rst2 = conn.queryAll(sql2) 
@@ -84,7 +83,7 @@ class Chart:
         row_keys_str = a.replace("'","")
 
         id_pos_ka = int(pid)
-        return render.kualitas_air.chart({'test':test,'data':row_keys_str,'pname':pos_name,'series':series,'id_pos_ka':id_pos_ka})
+        return render.kualitas_air.chart({'data':row_keys_str,'pname':pos_name,'id_pos_ka':id_pos_ka})
 
 class Parameter:
     def GET(self,pid):
