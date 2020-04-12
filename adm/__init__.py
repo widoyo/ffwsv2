@@ -28,7 +28,8 @@ urls = (
     '/ch/update', 'CHUpdate',
     '/ch/(\w+\.*\-*\w+)', 'ChShow',
     '/tma', 'TmaIndex',
-    '/tma/(\w+)', 'TmaShow',
+    '/tma/update', 'TMAUpdate',
+    '/tma/(\w+\.*\-*\w+)', 'TmaShow',
     '/user', 'Users',
     '/petugas','DataPetugas',
     '/klimatologi/(\w+\.*\-*\w+)', 'KlimatShow',
@@ -96,7 +97,7 @@ def get_ch_daily_on_pos(pos, today=datetime.date.today()):
 
 def get_tma_daily_on_pos(pos, today=datetime.date.today()):
     pos = [a for a in AgentTma.select(OR(AgentTma.q.AgentType==2,AgentTma.q.AgentType==0)) if a.table_name == pos][0]
-    sql = "SELECT waktu, jam, manual FROM tma WHERE agent_id=%s AND YEAR(waktu)=%s AND MONTH(waktu)=%s ORDER BY waktu, CAST(jam AS SIGNED)" % (pos.id, today.year, today.month)
+    sql = "SELECT waktu, jam, manual, id FROM tma WHERE agent_id=%s AND YEAR(waktu)=%s AND MONTH(waktu)=%s ORDER BY waktu, CAST(jam AS SIGNED)" % (pos.id, today.year, today.month)
     rs = conn.queryAll(sql)
     out = []
     t = None
@@ -104,10 +105,11 @@ def get_tma_daily_on_pos(pos, today=datetime.date.today()):
     for r in rs:
         jam = len(r[1]) == 1 and '0' + r[1] or r[1]
         if t != r[0]:
-            rows[r[0]] = {jam: {'lokal': r[2], 'ttg': r[2] + pos.DPL}}
+            rows[r[0]] = {jam: {'lokal': {'lokal': r[2], 'id': r[3]}, 'ttg': r[2] + pos.DPL, 'id': r[3]}}
+            
             t = r[0]
             next
-        rows[t].update({jam: {'lokal': r[2], 'ttg': r[2] + pos.DPL}})
+        rows[t].update({jam: {'lokal': {'lokal': r[2], 'id': r[3]}, 'ttg': r[2] + pos.DPL, 'id': r[3]}})
     return rows
 
 
@@ -190,7 +192,7 @@ class TmaShow:
         print(ordered_date)
         print('')
         print(tg)
-        return render.adm.tma.show({'pos': pos, 'data': rs, 'dated': ordered_date, 'tg': tg})
+        return render.adm.tma.show_editable({'pos': pos, 'data': rs, 'dated': ordered_date, 'tg': tg})
 
     @login_required
     def POST(self, table_name):
@@ -202,7 +204,7 @@ class TmaShow:
         sql = "SELECT id FROM tma WHERE agent_id=%s AND waktu='%s' AND jam='%s'" % (pos.id, to_date(inp.waktu), inp.jam)
         rs = conn.queryAll(sql)
         print('pos.id: ', pos.id)
-        if pos.id >= 200 and pos.id not in [231, 233]:
+        if pos.id >= 200 and pos.id not in [231, 233, 237, 238, 239]:
             inp_manual = float(inp.tma) - pos.DPL
         else:
             inp_manual = float(inp.tma)
@@ -221,6 +223,19 @@ class CHUpdate:
             ch = CurahHujan.get(int(inp.get('pk')))
             ch.set(**{inp.get('name'): float(inp.get('value',0))})
             ch.syncUpdate()
+        except SQLObjectNotFound:
+            return web.notfound()
+
+        return {"Ok": "true"}
+
+class TMAUpdate:
+    @login_required
+    def POST(self):
+        inp = web.input()
+        try:
+            tma = TinggiMukaAir.get(int(inp.get('pk')))
+            tma.set(**{inp.get('name'): float(inp.get('value',0))})
+            tma.syncUpdate()
         except SQLObjectNotFound:
             return web.notfound()
 
