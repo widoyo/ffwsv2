@@ -16,9 +16,8 @@ MQTT_HOST = 'mqtt.bbws-bsolo.net'
 MQTT_PORT = 14983
 MQTT_TOPIC = 'data_manual'
 
-from models import AgentCh, AgentTma, conn, Authuser, WadukDaily, TinggiMukaAir, BendungAlert
-from models import NO_VNOTCH, FAIL_VNOTCH
-from models import CurahHujan
+from models import AgentCh, Agent, AgentTma, conn, Authuser, TinggiMukaAir
+from models import CurahHujan, KlimatManual
 from models import Petugas
 
 from helper import to_date, json_serializer
@@ -32,7 +31,7 @@ urls = (
     '/tma/(\w+)', 'TmaShow',
     '/user', 'Users',
     '/petugas','DataPetugas',
-    '/klimatologi/add','InputData'
+    '/klimatologi/(\w+\.*\-*\w+)', 'KlimatShow',
 )
 
 
@@ -135,6 +134,23 @@ class ChIndex:
         return render.adm.ch.index()
 
 
+class KlimatShow:
+    @login_required
+    def GET(self, table_name):
+        agent_id = dict([a.split('\t') for a in open('agent_table.txt').readlines()]).get(table_name)
+        pos = Agent.get(agent_id)
+        webinput = web.input(sampling=str(datetime.date.today() - datetime.timedelta(days=1)))
+        tg = datetime.datetime.strptime(webinput.sampling, '%Y-%m-%d').date()
+        rst = KlimatManual.select(AND(func.YEAR(KlimatManual.q.sampling)==tg.year, 
+            func.MONTH(KlimatManual.q.sampling)==tg.month, KlimatManual.q.agent==agent_id))
+            
+        return render.adm.klimatologi.show({'tg': tg, 'pos': pos, 'data': rst})
+
+    def POST(self, table_name):
+        pass
+
+
+
 class ChShow:
     @login_required
     def GET(self, table_name):
@@ -231,7 +247,7 @@ class Index:
         elif session.is_admin in (1, 2, 3):
             direct_to = '/adm/' + dest[session.is_admin]
         elif session.is_admin == 9:
-            return render.adm.index()
+            return render.adm.index({})
         return web.seeother(redirect_to, absolute=True)
 
 

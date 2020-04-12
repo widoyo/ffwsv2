@@ -22,7 +22,6 @@ from models import Agent, NewsTicker, Authuser, conn, HIDROLOGI
 
 from curahhujan import app_ch
 from tma import app_tma
-from bendungan import app_bendungan
 from about import app_about
 from kekeringan import app_kekeringan
 from kualitas_air import app_kualitas_air
@@ -45,7 +44,6 @@ urls = (
     '/incoming', 'Incoming',
     '/curahhujan', app_ch,
     '/tma', app_tma,
-    '/bendungan', app_bendungan,
     '/api', app_api,
     '/adm', app_adm,
     '/sensor', app_sensor,
@@ -288,8 +286,6 @@ class Login:
         redirect = '/' + dest[0]
         if session.table_name:
             redirect += '/' + dest[session.is_admin] + '/' + session.table_name
-        else:
-            redirect += '/' + dest[session.is_admin]
         print('redirect:', redirect)
 
 

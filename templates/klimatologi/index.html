@@ -21,58 +21,28 @@ $var js_foot:
     </script>
 <div class="container">
     <h2>Status:  <span id="datepicker" data-date="${tanggal.strftime('%Y/%m/%d')}">${tanggal.strftime('%d %b %Y')}</span> <span style="font-size: 14px" class="glyphicon glyphicon-calendar"></span></h2>
-    <form method="GET"><input type="hidden" id="dp_input" name="d"></form>
-$for a, b in pos:
-    <div class="row card">
-        <div class="col-sm-2">
-            <h3>$a.cname</h3>
-            <ul style="list-style: none;padding-left: 0px;">
-                <li><span class="glyphicon glyphicon-star-empty"></span> $a.kab</li>
-                <li><span class="glyphicon glyphicon-map-marker"></span> <a href="https://maps.google.com?q=$a.ll">Peta</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-10">
-            <table class="table table-bordered boldtable" style="width: 100%">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>07:00</th>
-                        <th>10:00</th>
-                        <th>13:00</th>
-                        <th>16:00</th>
-                        <th>19:00</th>
-                        <th>22:00</th>
-                        <th>02:00</th>
-                        <th>04:00</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Suhu (&deg;C)</td>
-                $for z in b.get('suhu'):
-                    <td class="text-right">$z</td>
-                </tr>
-                    <tr>
-                        <td>Kelembaban (%)</td>
-                $for z in b.get('kelembaban'):
-                    <td class="text-right">$z</td>
-                </tr>
-                    <tr>
-                        <td>Kec. Angin (Km/Jam)</td>
-                $for z in b.get('arah_angin'):
-                    <td class="text-right">$z</td>
-                </tr>
-                    <tr>
-                        <td>Radiasi Matahari (Watt/M<sup>2</sup>)</td>
-                $for z in b.get('radiasi_mthr'):
-                    <td class="text-right">$z</td>
-                </tr>
-                    <tr>
-                        <td>Penguapan</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-    </div>
+    <table class="table table-stripped">
+	    <thead>
+		    <tr>
+			    <th>Pos</th>
+			    <th>Curah Hujan (mm)</th>
+			    <th>Suhu (&deg; C)</th>
+			    <th>Kelembaban (%)</th>
+			    <th>Kec. Angin (m/24jam)</th>
+			    <th>Durasi Penyinaran (menit)</th>
+			    <th>Penguapan (mm/24jam)</th>
+		    </tr>
+	    </thead>
+	    <tbody>
+        $for k in pos:
+	    <tr><td>$k.agent.cname</td>
+                <td>$k.sampling</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
 </div>

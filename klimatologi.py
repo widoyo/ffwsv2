@@ -7,13 +7,16 @@
 """
 import datetime
 import web
+from sqlobject import func
+
 from common_data import KLIMATOLOGI_POS
-from models import Agent
+from models import Agent, KlimatManual
 from helper import to_date
 
 urls = (
     '$', 'Index',
 )
+
 
 app_klimatologi = web.application(urls, locals())
 session = web.session.Session(app_klimatologi, web.session.DiskStore('sessions'),
@@ -32,9 +35,9 @@ class Index:
             tanggal = datetime.date.today()
         poses = dict([l.split('\t') for l in open(
             'agent_table.txt').readlines()])
-        agent_klimatologi = [Agent.get(poses.get(a)) for a in KLIMATOLOGI_POS]
-        agent_klimatologi = [(a, a.get_segmented_klimatologi(tanggal)) for a in agent_klimatologi]
-        return render.klimatologi.index({'pos': agent_klimatologi, 'tanggal': tanggal, 'sebelum': tanggal - datetime.timedelta(days=1), 'sesudah': tanggal + datetime.timedelta(days=1)})
+        klimat_manual = KlimatManual.select(func.DATE(KlimatManual.q.sampling) == tanggal.strftime('%Y-%m-%d'))
+
+        return render.klimatologi.index({'pos': klimat_manual, 'tanggal': tanggal, 'sebelum': tanggal - datetime.timedelta(days=1), 'sesudah': tanggal + datetime.timedelta(days=1)})
 
 
 def test_segmented_klimatologi():

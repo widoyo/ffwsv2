@@ -8,7 +8,7 @@ import decimal
 import psycopg2 as pg
 from sqlobject import AND, OR
 
-from models import TinggiMukaAir, CurahHujan, Flow, WadukDaily
+from models import TinggiMukaAir, CurahHujan
 from models import Agent, conn, HIDROLOGI, KLIMATOLOGI
 from helper import to_date
 from common_data import BSOLO_LOGGER
@@ -19,6 +19,7 @@ urls = (
     '/sensor/(.*)', 'Sensor',  # Showing single device
     '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
     '/tma', 'Tma', # Data TMA serupa /tma
+    '/tmax', 'Tmax',
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
 )
@@ -88,6 +89,16 @@ class Tma():
                                 tma[s].telemetri}})
             data.append(row)
         return json.dumps({'tanggal': tanggal, 'tma': data}, default=json_serialize)
+
+
+class Tmax():
+    def GET(self):
+        data=[]
+        alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)=2020 AND agent_id=2 ORDER BY waktu,jam")
+        for a in alldata:
+            row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
 
 
 def ts(x):

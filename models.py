@@ -67,135 +67,6 @@ class RequestResponse(SQLObject):
         idType = str
 
 
-class AgentBd(SQLObject):
-    AgentId = StringCol(length=25, alternateID=True, dbName='AgentID')
-    AgentName = StringCol(length=25, dbName='AgentName', unique=True)
-    AgentType = FloatCol(dbName='AgentType')
-    TippingFactor = FloatCol(default=None, dbName='TippingFactor')
-    ll = StringCol()
-    prima_id = StringCol(length=12) # ID Logger prima, mis: '1711-2'
-    logger_model = IntCol() # GPA, SCU, Cuwin, BPPT, Prima
-    cname = StringCol(length=50) # Common Name
-    sedimen = FloatCol(dbName='Sedimen')
-    bts_elev_awas = FloatCol(dbName='bts_elev_awas')
-    bts_elev_siaga = FloatCol(dbName='bts_elev_siaga')
-    bts_elev_waspada = FloatCol(dbName='bts_elev_waspada')
-    wilayah = IntCol(default=1)
-    lbi = FloatCol(default=0, notNone=False)  # Luas Baku Irigasi, utk bendungan
-    volume = FloatCol(default=0, notNone=False)  # volume untuk bendungan
-    lengkung_kapasitas = StringCol(length=1024, default=None)  # data lengkung
-    expose = BoolCol(default=True)
-    elev_puncak = FloatCol()
-    batas_rembesan = FloatCol()
-    vn_tin1_limit = FloatCol()
-    vn_tin2_limit = FloatCol()
-    vn_tin3_limit = FloatCol()
-    vn_q1_limit = FloatCol()
-    vn_q2_limit = FloatCol()
-    vn_q3_limit = FloatCol()
-    vn1_panjang_saluran = FloatCol()
-    vn2_panjang_saluran = FloatCol()
-    vn3_panjang_saluran = FloatCol()
-    pie1a_elev_dasar_pipa = IntCol()
-    pie1b_elev_dasar_pipa = IntCol()
-    pie1c_elev_dasar_pipa = IntCol()
-    pie2a_elev_dasar_pipa = IntCol()
-    pie2b_elev_dasar_pipa = IntCol()
-    pie2c_elev_dasar_pipa = IntCol()
-    pie3a_elev_dasar_pipa = IntCol()
-    pie3b_elev_dasar_pipa = IntCol()
-    pie3c_elev_dasar_pipa = IntCol()
-    pie4a_elev_dasar_pipa = IntCol()
-    pie4b_elev_dasar_pipa = IntCol()
-    pie4c_elev_dasar_pipa = IntCol()
-    pie5a_elev_dasar_pipa = IntCol()
-    pie5b_elev_dasar_pipa = IntCol()
-    pie5c_elev_dasar_pipa = IntCol()
-    pie1a_panjang_pipa = IntCol()
-    pie1b_panjang_pipa = IntCol()
-    pie1c_panjang_pipa = IntCol()
-    pie2a_panjang_pipa = IntCol()
-    pie2b_panjang_pipa = IntCol()
-    pie2c_panjang_pipa = IntCol()
-    pie3a_panjang_pipa = IntCol()
-    pie3b_panjang_pipa = IntCol()
-    pie3c_panjang_pipa = IntCol()
-    pie4a_panjang_pipa = IntCol()
-    pie4b_panjang_pipa = IntCol()
-    pie4c_panjang_pipa = IntCol()
-    pie5a_panjang_pipa = IntCol()
-    pie5b_panjang_pipa = IntCol()
-    pie5c_panjang_pipa = IntCol()
-    pie1a_batas_tek_pori = FloatCol()
-    pie1b_batas_tek_pori = FloatCol()
-    pie1c_batas_tek_pori = FloatCol()
-    pie2a_batas_tek_pori = FloatCol()
-    pie2b_batas_tek_pori = FloatCol()
-    pie2c_batas_tek_pori = FloatCol()
-    pie3a_batas_tek_pori = FloatCol()
-    pie3b_batas_tek_pori = FloatCol()
-    pie3c_batas_tek_pori = FloatCol()
-    pie4a_batas_tek_pori = FloatCol()
-    pie4b_batas_tek_pori = FloatCol()
-    pie4c_batas_tek_pori = FloatCol()
-    pie5a_batas_tek_pori = FloatCol()
-    pie5b_batas_tek_pori = FloatCol()
-    pie5c_batas_tek_pori = FloatCol()
- 
-    def get_status_rembesan1(self, tanggal=datetime.date.today()):
-        statuses = "-_Normal_Anomali".split('_')
-        ret = 0
-        rwaktu = datetime.datetime(tanggal.year, tanggal.month, tanggal.day, 0, 0)
-        try:
-            rs = [d for d in self.daily if d.waktu == rwaktu][0]
-            rembesan = rs.vnotch_q1
-        except:
-            rembesan = None
-        print(rembesan, self.batas_rembesan)
-        if self.batas_rembesan and rembesan:
-            ret = (self.batas_rembesan > rembesan) and 1 or 2
-        return statuses[ret]
-
-    def get_status_rembesan2(self, tanggal=datetime.date.today()):
-        statuses = "-_Normal_Anomali".split('_')
-        ret = 0
-        rwaktu = datetime.datetime(tanggal.year, tanggal.month, tanggal.day, 0, 0)
-        try:
-            rs = [d for d in self.daily if d.waktu == rwaktu][0]
-            rembesan = rs.vnotch_q2
-        except:
-            rembesan = None
-        print(rembesan, self.batas_rembesan)
-        if self.batas_rembesan and rembesan:
-            ret = (self.batas_rembesan > rembesan) and 1 or 2
-        return statuses[ret]
-    def get_status_rembesan3(self, tanggal=datetime.date.today()):
-        statuses = "-_Normal_Anomali".split('_')
-        ret = 0
-        rwaktu = datetime.datetime(tanggal.year, tanggal.month, tanggal.day, 0, 0)
-        try:
-            rs = [d for d in self.daily if d.waktu == rwaktu][0]
-            rembesan = rs.vnotch_q3
-        except:
-            rembesan = None
-        print(rembesan, self.batas_rembesan)
-        if self.batas_rembesan and rembesan:
-            ret = (self.batas_rembesan > rembesan) and 1 or 2
-        return statuses[ret]
-
-
-    def lengkung(self):
-        return self.lengkung_kapasitas.split('\n')
-
-
-    class sqlmeta:
-        idName = 'AgentID'
-        table = 'agent'
-
-    @property
-    def table_name(self):
-        return self.AgentName.lower().replace('.', '_').replace(' ', '_')
-
 class AgentTma(SQLObject):
     AgentId = StringCol(length=25, alternateID=True, dbName='AgentID')
     AgentName = StringCol(length=25, dbName='AgentName', unique=True)
@@ -408,7 +279,6 @@ class Agent(SQLObject):
     daily = MultipleJoin('WadukDaily', joinColumn='pos_id', orderBy=['-waktu'])
     elev_puncak = FloatCol()
 
-    petugas = MultipleJoin('Petugas',joinColumn='agent_id')
 
     def lengkung(self):
         return self.lengkung_kapasitas.split('\n')
@@ -1261,6 +1131,88 @@ class Agent(SQLObject):
         defaultOrder = ('wilayah', 'AgentName')
 
 
+class Periodik(SQLObject):
+    '''Data Periodik per 5 menit'''
+    agent = ForeignKey('Agent') # lokasi
+    device = StringCol(length=25) # id logger
+    sampling = DateTimeCol()
+    rain = FloatCol() # dalam mm
+    wlevel = IntCol() # dalam cm
+    temp = IntCol() # dalam derajat Celcius
+    humi = IntCol() # dalam persen
+    kec_angin = IntCol() # dlm km/jam
+    arah_angin = IntCol() # dalam derajat
+    penyinaran = IntCol() # intensitas
+    penguapan = FloatCol() # dalam mm
+    batt = FloatCol() # Catu daya sistem
+    sq = IntCol() # sinyal quality
+    cdate = DateTimeCol(default=DateTimeCol.now)
+
+    class sqlmeta:
+        table = 'periodik'
+
+
+
+class PeriodikJam(SQLObject):
+    '''Data Periodik per jam'''
+    agent = ForeignKey('Agent') # lokasi
+    sampling = DateTimeCol()
+    rain = FloatCol() # dalam mm
+    wlevel = IntCol() # dalam cm
+    temp = IntCol() # dalam derajat Celcius
+    humi = IntCol() # dalam persen
+    kec_angin = IntCol() # dlm km/jam
+    arah_angin = IntCol() # dalam derajat
+    penyinaran = IntCol() # intensitas
+    penguapan = FloatCol() # dalam mm
+    batt = FloatCol() # Catu daya sistem
+    sq = IntCol() # sinyal quality
+    cdate = DateTimeCol(default=DateTimeCol.now)
+
+    class sqlmeta:
+        table = 'periodikjam'
+
+
+class PeriodikHari(SQLObject):
+    '''Data Periodik per hari'''
+    agent = ForeignKey('Agent') # lokasi
+    sampling = DateCol()
+    rain = FloatCol() # dalam mm
+    wlevel = IntCol() # dalam cm
+    temp = IntCol() # dalam derajat Celcius
+    humi = IntCol() # dalam persen
+    kec_angin = IntCol() # dlm km/jam
+    arah_angin = IntCol() # dalam derajat
+    penyinaran = IntCol() # intensitas
+    penguapan = FloatCol() # dalam mm
+    batt = FloatCol() # Catu daya sistem
+    sq = IntCol() # sinyal quality
+    cdate = DateTimeCol(default=DateTimeCol.now)
+
+    class sqlmeta:
+        table = 'periodikhari'
+
+
+class KlimatManual(SQLObject):
+    sampling = DateTimeCol()
+    agent = ForeignKey('Agent')
+    ch_m = FloatCol()
+    temp_min_m = FloatCol()
+    temp_max_m = FloatCol()
+    humi_m = FloatCol()
+    kec_angin_m = FloatCol()
+    penyinaran_m = IntCol()
+    penguapan_m = FloatCol()
+    cuser = StringCol(length=15)
+    cdate = DateTimeCol()
+    muser = StringCol(length=15)
+    mdate = DateTimeCol()
+
+    class sqlmeta:
+        table = 'klimatmanual'
+        defaultOrder = ('sampling')
+
+
 class Petugas(SQLObject):
     nama = StringCol(length=35)
     alamat = StringCol(length=100)
@@ -1278,98 +1230,6 @@ class Petugas(SQLObject):
         defaultOrder = ('nama')
 
 
-class Gate(SQLObject):
-    bendung = ForeignKey('Agent')
-    name = StringCol(length=35)
-    io = EnumCol(enumValues=('i', 'o'))
-    flows = MultipleJoin('Flow', orderBy=['-waktu'])
-
-    class sqlmeta:
-        table = 'gate'
-
-
-class Flow(SQLObject):
-    gate = ForeignKey('Gate')
-    waktu = DateCol()
-    opened = FloatCol(notNull=False)  # Bukaan Pintu dalam satuan meter
-    value = FloatCol()  # Debit air yang lewat (Q) dalam meter kubik per detik
-    timed = IntCol()  # Lamanya pintu dibuka (T) dalam satuan detik
-
-    class sqlmeta:
-        table = 'flow'
-
-
-class WadukDaily(SQLObject):
-    '''Data harian Waduk/Bendungan'''
-    pos = ForeignKey('Agent')
-    waktu = DateTimeCol()
-    tma6 = FloatCol(default=None)
-    vol6 = FloatCol(default=None)
-    tma12 = FloatCol(default=None)
-    vol12 = FloatCol(default=None)
-    tma18 = FloatCol(default=None)
-    vol18 = FloatCol(default=None)
-    rembesan = FloatCol(default=None)
-    curahhujan = FloatCol(default=0)
-    intake_q = FloatCol(default=0)
-    intake_v = FloatCol(default=0)
-    inflow_q = FloatCol(default=0)
-    inflow_v = FloatCol(default=0)
-    outflow_q = FloatCol(default=0)
-    outflow_v = FloatCol(default=0)
-    spillway_q = FloatCol(default=0)
-    spillway_v = FloatCol(default=0)
-    vnotch_tin = FloatCol(default=None)
-    vnotch_q = FloatCol(default=None)
-    vnotch_tin1 = FloatCol(default=None)
-    vnotch_q1 = FloatCol(default=None)
-    vnotch_tin2 = FloatCol(default=None)
-    vnotch_q2 = FloatCol(default=None)
-    vnotch_tin3 = FloatCol(default=None)
-    vnotch_q3 = FloatCol(default=None)
-    mtime = DateTimeCol(default=datetime.datetime.now)
-    a1 = FloatCol(default=None)
-    b1 = FloatCol(default=None)
-    c1 = FloatCol(default=None)
-    a2 = FloatCol(default=None)
-    b2 = FloatCol(default=None)
-    c2 = FloatCol(default=None)
-    a3 = FloatCol(default=None)
-    b3 = FloatCol(default=None)
-    c3 = FloatCol(default=None)
-    a4 = FloatCol(default=None)
-    b4 = FloatCol(default=None)
-    c4 = FloatCol(default=None)
-    a5 = FloatCol(default=None)
-    b5 = FloatCol(default=None)
-    c5 = FloatCol(default=None)
-    po_outflow_q = FloatCol(default=None)
-    po_inflow_q = FloatCol(default=None)
-    po_tma = FloatCol(default=None)
-    po_vol = FloatCol(default=None)
-    po_outflow_v = FloatCol(default=None)
-    po_inflow_v = FloatCol(default=None)
-    po_bona = FloatCol(default=None)
-    po_bonb = FloatCol(default=None)
-    vol_bona = FloatCol(default=0)
-    vol_bonb = FloatCol(default=0)
-    
-
-    class sqlmeta:
-        table = 'waduk_daily'
-
-
-class BendungAlert(SQLObject):
-    '''TMA / Kondisi banjir Waduk'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    tanggall = DateCol()
-    jam = TimeCol()
-    tmab = FloatCol(default=None)
-    spillwayb_q = FloatCol(default=None)
-
-    class sqlmeta:
-        table = 'bendung_alert'
-
 class CurahHujanTerkini(SQLObject):
     '''Curah Hujan sewaktu-waktu'''
     bendungan = ForeignKey('Agent', dbName='bendungan_id')
@@ -1379,282 +1239,6 @@ class CurahHujanTerkini(SQLObject):
 
     class sqlmeta:
         table = 'curahhujan_terkini'
-
-#-----------class Form Petugas Bendungan-----------------------
-class BendungFormA(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    bukaan_pintu1 = FloatCol(default=None)
-    vol_pintu1 = FloatCol(default=0)
-    debit_rerata_pintu1 = FloatCol(default=0)
-    jam_pintu1 = TimeCol(default=None)
-    bukaan_pintu2 = FloatCol(default=None)
-    vol_pintu2 = FloatCol(default=0)
-    debit_rerata_pintu2 = FloatCol(default=0)
-    jam_pintu2 = TimeCol(default=None)
-    h_pelimpahutama = FloatCol(default=None)
-    vol_pelimpahutama = FloatCol(default=0)
-    debit_pelimpahutama = FloatCol(default=0)
-    jam_pelimpahutama = TimeCol(default=None)
-    vol_total_pelepasan = FloatCol(default=0)
-    debit_rerata_total_pelepasan = FloatCol(default=0)
-    keterangan = StringCol(default=None)
-   
-
-    class sqlmeta:
-        table = 'bendung_form_a'
-
-class BendungFormA1(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    luas_baku = FloatCol(default=None)
-    nama_di = StringCol(default=None)
-    luas_terlayani = FloatCol(default=None)
-    padi_jenistanaman = StringCol(default=None)
-    palawija_jenistanaman = StringCol(default=None)
-    bero_jenistanaman = StringCol(default=None)
-    padi_umurtanaman = StringCol(default=None)
-    palawija_umurtanaman = StringCol(default=None)
-    padi_sisaumur = StringCol(default=None)
-    palawija_sisaumur = StringCol(default=None)
-    keterangan = StringCol(default=None)
-   
-
-    class sqlmeta:
-        table = 'bendung_form_a1'
-
-class BendungFormB(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    retakan_puncak_bendung = StringCol(default=None)
-    penurunan_puncak_bendung = StringCol(default=None)
-    kelurusan_puncak_bendung = StringCol(default=None)
-    retakan_lereng_hulu = StringCol(default=None)
-    penurunan_lereng_hulu = StringCol(default=None)
-    tonjolan_lereng_hulu = StringCol(default=None)
-    retakan_lereng_hilir = StringCol(default=None)
-    penurunan_lereng_hilir = StringCol(default=None)
-    tonjolan_lereng_hilir = StringCol(default=None)
-    retakan_pd_beton = StringCol(default=None)
-    gerusan_ujung_hilir = StringCol(default=None)
-    mengetahui_petugas = IntCol(default=None)
-    mengetahui_koordinator = IntCol(default=None)
-    
-
-    class sqlmeta:
-        table = 'bendung_form_b'
-
-class BendungFormB1_1(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    kondisi_cuaca = StringCol(default=None)
-    tinggi = FloatCol(default=None)
-    panjang = FloatCol(default=None)
-    kond_jln_atas_mercu = StringCol(default=None)
-    tanda_penurunan_mercu = StringCol(default=None)
-    tanda_pergerakan_mercu = StringCol(default=None)
-    kond_pembuang_mercu = StringCol(default=None)
-    kond_pagar_mercu = StringCol(default=None)
-    tanda_gerakan_lerenghulu = StringCol(default=None)
-    tonjolan_lubangbenam_retakan_lerenghulu = StringCol(default=None)
-    erosi_penurunan_lerenghulu = StringCol(default=None)
-    dimana_kedalaman_lebarpanjangretakan_lerenghulu = StringCol(default=None)
-    tumbuhan_sarangbinatang_lerenghulu = StringCol(default=None)
-    tanda_retak_platbeton = StringCol(default=None)
-    dimana_kedalaman_lebarpanjangretakan_platbeton = StringCol(default=None)
-    parimeter_joint_platbeton = StringCol(default=None)
-    kond_beton_platbeton = StringCol(default=None)
-    erosi_platbeton = StringCol(default=None)
-    kond_permukaan_buitmen = StringCol(default=None)
-    erosi_buitmen = StringCol(default=None)
-    tanda_gerakan_riprap = StringCol(default=None)
-    rusak_krn_cuaca_riprap = StringCol(default=None)
-    pelapukan_riprap = StringCol(default=None)
-    erosi_riprap = StringCol(default=None)
-    slip_dbwhair_riprap = StringCol(default=None)
-    tanda_gerakan_lerenghilir = StringCol(default=None)
-    tonjolan_lubangbenam_retak_lerenghilir = StringCol(default=None)
-    erosi_penurunan_longsorantanah_lerenghilir = StringCol(default=None)
-    dimana_kedalaman_lebarpanjangretakan_lerenghilir = StringCol(default=None)
-    slip_dbwhair_lerenghilir = StringCol(default=None)
-    tanda_rembesan = StringCol(default=None)
-    dimana_kuantitas_warna_rembesan = StringCol(default=None)
-    kondtumbuhan = StringCol(default=None)
-    jns_plindung_lereng = StringCol(default=None)
-    
-
-    class sqlmeta:
-        table = 'bendung_form_b1_1'
-
-class BendungFormB1_2(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    jenis_bendung = StringCol(default=None)
-    pintu_jml_jenis_bendung = StringCol(default=None)
-    pengoperasian_bendung = StringCol(default=None)
-    operasidarurat_bendung = StringCol(default=None)
-    pelimpahbantu_bendung = StringCol(default=None)
-    jplimphbantu_bendung = StringCol(default=None)
-    kondisi_salpengahantar = StringCol(default=None)
-    lantdasar_salpenghantar = StringCol(default=None)
-    lereng_salpenghantar = StringCol(default=None)
-    kondisi_spillweir = StringCol(default=None)
-    auserosi_spillweir = StringCol(default=None)
-    lokasi_spillweir = StringCol(default=None)
-    kondisi_dinding = StringCol(default=None)
-    auserosi_dinding = StringCol(default=None)
-    dmn_dinding = StringCol(default=None)
-    kondisijoint_dinding = StringCol(default=None)
-    kondisisaluran_dinding = StringCol(default=None)
-    kond_salcuram = StringCol(default=None)
-    auserosi_salcuram = StringCol(default=None)
-    lapbasah_salcuram = StringCol(default=None)
-    dmn_salcuram = StringCol(default=None)
-    jenis_kolam = StringCol(default=None)
-    kondisi_kolam = StringCol(default=None)
-    auserosi_kolam = StringCol(default=None)
-    lapbasah_kolam = StringCol(default=None)
-    dmn_kolam = StringCol(default=None)
-    ketidakwajaran_kinerja = StringCol(default=None)
-    tandaslip_dsekitar = StringCol(default=None)
-    tandarembesan_dsekitar = StringCol(default=None)
-    jenistumbuhan_dsekitar = StringCol(default=None)
-    gangguan_dsekitar = StringCol(default=None)
-
-    class sqlmeta:
-        table = 'bendung_form_b1_2'
-
-class BendungFormB1_3(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    lok_piezometer = StringCol(default=None)
-    jumlah_piezometer = StringCol(default=None)
-    jenis_piezometer = StringCol(default=None)
-    kond_baik_piezometer = StringCol(default=None)
-    kond_tdkbaik_piezometer = StringCol(default=None)
-    lok_alt_rembesan = StringCol(default=None)
-    jml_alt_rembesan = StringCol(default=None)
-    jns_alt_rembesan = StringCol(default=None)
-    kond_altbaik_rembesan = StringCol(default=None)
-    kond_alttdkbaik_rembesan = StringCol(default=None)
-    lok_altpnurunan = StringCol(default=None)
-    jml_altpnurunan = StringCol(default=None)
-    jns_altpnurunan = StringCol(default=None)
-    kond_altbaikpnurunan = StringCol(default=None)
-    kond_alttdkbaikpnurunan = StringCol(default=None)
-    lok_multilayer = StringCol(default=None)
-    jml_multilayer = StringCol(default=None)
-    jns_multilayer = StringCol(default=None)
-    kond_baikmultilayer = StringCol(default=None)
-    kond_tdkbaikmultilayer = StringCol(default=None)
-    lok_observasi = StringCol(default=None)
-    jml_observasi = StringCol(default=None)
-    jns_observasi = StringCol(default=None)
-    kond_baikobservasi = StringCol(default=None)
-    kond_tdkbaikobservasi = StringCol(default=None)
-    lok_inclinometer = StringCol(default=None)
-    jml_inclinometer = StringCol(default=None)
-    jns_inclinometer = StringCol(default=None)
-    kond_baikinclinometer = StringCol(default=None)
-    kond_tdkbaikinclinometer = StringCol(default=None)
-    tandaerosi_kakibendung = StringCol(default=None)
-    aliranlubang_kakibendung = StringCol(default=None)
-    lapsbasah_kakibendung = StringCol(default=None)
-    dmn_kakibendung = StringCol(default=None)
-    lihat_lubang_benam_tumpuanbendung = StringCol(default=None)
-    slip_tumpuanbendung = StringCol(default=None)
-    tndapatahan_tumpuanbendung = StringCol(default=None)
-    retakan_tumpuanbendung = StringCol(default=None)
-
-
-    class sqlmeta:
-        table = 'bendung_form_b1_3'
-
-class BendungFormB1_4(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    lok_inlet = StringCol(default=None)
-    jns_inlet = StringCol(default=None)
-    akses_inlet = StringCol(default=None)
-    kond_inlet = StringCol(default=None)
-    auserosi_inlet = StringCol(default=None)
-    lapbas_inlet = StringCol(default=None)
-    dmnlok_inlet = StringCol(default=None)
-    kondsamb_inlet = StringCol(default=None)
-    kondsalbuang_inlet = StringCol(default=None)
-    pintu_hidromekanik = StringCol(default=None)
-    katupjenis_hidromekanik = StringCol(default=None)
-    metodoperasi_hidromekanik = StringCol(default=None)
-    pengoperasiandarurat_hidromekanik = StringCol(default=None)
-    kond_hidromekanik = StringCol(default=None)
-    lok_outlet = StringCol(default=None)
-    jns_outlet = StringCol(default=None)
-    akses_outlet = StringCol(default=None)
-    kond_outlet = StringCol(default=None)
-    auserosi_outlet = StringCol(default=None)
-    lapsbas_outlet = StringCol(default=None)
-    dmnlok_outlet = StringCol(default=None)
-    kondsamb_outlet = StringCol(default=None)
-    kondsalbuang_outlet = StringCol(default=None)
-    ukur_gorong = StringCol(default=None)
-    kond_gorong = StringCol(default=None)
-    auserosi_gorong = StringCol(default=None)
-    lapsbas_gorong = StringCol(default=None)
-    dmnlok_gorong = StringCol(default=None)
-    kondsamb_gorong = StringCol(default=None)
-    kondsalbuang_gorong = StringCol(default=None)
-    endapan_gorong = StringCol(default=None)
-    endapan_waduk = StringCol(default=None)
-    tebingsungai_hilir = StringCol(default=None)
-    erosipengikisan_hilir = StringCol(default=None)
-    pengaruhtumbuhan_hilir = StringCol(default=None)
-    habitatterdekat_hilir = StringCol(default=None)
-    jumlahpenduduk_hilir = StringCol(default=None)
-
-    class sqlmeta:
-        table = 'bendung_form_b1_4'
-
-class BendungFormB3(SQLObject):
-    '''Form petugas bendungan tentang kondisi bendungan'''
-    bendungan = ForeignKey('Agent', dbName='bendungan_id')
-    waktu = DateCol()
-    mslah_pbendung = StringCol(default=None)
-    tndkan_pbendung = StringCol(default=None)
-    mslah_lerhulubend = StringCol(default=None)
-    tndkan_lerhulubend = StringCol(default=None)
-    mslah_lerhilirbend = StringCol(default=None)
-    tndkan_lerhilirbend = StringCol(default=None)
-    mslah_instrumentasi = StringCol(default=None)
-    tndkan_instrumentasi = StringCol(default=None)
-    mslah_pmbuang = StringCol(default=None)
-    tndkan_pmbuang = StringCol(default=None)
-    mslah_tumpuan = StringCol(default=None)
-    tndkan_tumpuan = StringCol(default=None)
-    mslah_plimpah = StringCol(default=None)
-    tndkan_plimpah = StringCol(default=None)
-    mslah_inlet = StringCol(default=None)
-    tndkan_inlet = StringCol(default=None)
-    mslah_hidromekanik = StringCol(default=None)
-    tndkan_hidromekanik = StringCol(default=None)
-    mslah_outlet = StringCol(default=None)
-    tndkan_outlet = StringCol(default=None)
-    mslah_waduk = StringCol(default=None)
-    tndkan_waduk = StringCol(default=None)
-    mslah_bagsungai = StringCol(default=None)
-    tndkan_bagsungai = StringCol(default=None)
-    mslah_lain = StringCol(default=None)
-    tndkan_lain = StringCol(default=None)
-
-    class sqlmeta:
-        table = 'bendung_form_b3'
-
 
 class TinggiMukaAir(SQLObject):
     '''
