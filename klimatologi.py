@@ -32,10 +32,10 @@ class Index:
         try:
             tanggal = to_date(web.input().get('d'))
         except:
-            tanggal = datetime.date.today()
+            tanggal = datetime.date.today() - datetime.timedelta(days=1)
         poses = dict([l.split('\t') for l in open(
             'agent_table.txt').readlines()])
-        klimat_manual = KlimatManual.select(func.DATE(KlimatManual.q.sampling) == tanggal.strftime('%Y-%m-%d'))
+        klimat_manual = KlimatManual.select(func.DATE(KlimatManual.q.sampling) == tanggal)
 
         return render.klimatologi.index({'pos': klimat_manual, 'tanggal': tanggal, 'sebelum': tanggal - datetime.timedelta(days=1), 'sesudah': tanggal + datetime.timedelta(days=1)})
 

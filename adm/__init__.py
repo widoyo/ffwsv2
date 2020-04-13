@@ -139,6 +139,7 @@ class ChIndex:
 class KlimatShow:
     @login_required
     def GET(self, table_name):
+        '''Masuk ke sini jika authuser.is_admin == 4'''
         agent_id = dict([a.split('\t') for a in open('agent_table.txt').readlines()]).get(table_name)
         pos = Agent.get(agent_id)
         webinput = web.input(sampling=str(datetime.date.today() - datetime.timedelta(days=1)))
@@ -149,7 +150,41 @@ class KlimatShow:
         return render.adm.klimatologi.show({'tg': tg, 'pos': pos, 'data': rst})
 
     def POST(self, table_name):
-        pass
+        agent_id = dict([a.split('\t') for a in open('agent_table.txt').readlines()]).get(table_name)
+        pos = Agent.get(agent_id)
+        try:
+            pos = [a for a in AgentCh.select(AgentCh.q.AgentType==1) if a.table_name == table_name][0]
+        except IndexError:
+            return web.notfound()
+        inp = web.input()
+        float_list = 'ch_m,temp_min_m,temp_max_m,humi_m,kec_angin_m,penguapan_m'.split(',')
+        for kol in float_list:
+            if inp.get(kol):
+                inp.update({kol: float(inp.get(kol))})
+            else:
+                inp.update({kol: None})
+
+        inp.update({'penyinaran_m': inp.get('penyinaran_m') and int(inp.get('penyinaran_m')) or None})
+        inp.update({'agentID': pos.id, 'cuser': session.username, 'cdate': datetime.datetime.now()})
+        inp.update({'sampling': to_date(inp.get('sampling'))})
+        if 'csrf_token' in inp:
+            del inp['csrf_token']
+        rst = KlimatManual.select(AND(KlimatManual.q.agent==pos, 
+                func.DATE(KlimatManual.q.sampling)==inp.get('sampling')))
+        if rst.count():
+            rst[0].set(**inp)
+        else:
+            km = KlimatManual(**inp)
+
+        # table curahhujan perlu ditambah/update
+        ch = CurahHujan.select(AND(CurahHujan.q.agent==pos,
+            func.DATE(CurahHujan.q.waktu) == inp.get('sampling')))
+        if ch.count():
+            ch[0].set(**{'manual': inp.get('ch_m')})
+        else:
+            ch = CurahHujan(**{'waktu': inp.get('sampling'), 
+                'manual': inp.get('ch_m'), 'agent': pos})
+        return web.redirect('/adm/klimatologi/' + table_name, absolute=True)
 
 
 

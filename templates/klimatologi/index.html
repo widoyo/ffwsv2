@@ -36,12 +36,12 @@ $var js_foot:
 	    <tbody>
         $for k in pos:
 	    <tr><td>$k.agent.cname</td>
-                <td>$k.sampling</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>$k.ch_m</td>
+		<td>${k.temp_min_m} | ${k.temp_max_m}</td>
+		<td>${k.humi_m}</td>
+		<td>${k.kec_angin_m}</td>
+		<td>${k.penyinaran_m}</td>
+		<td>${k.penguapan_m}</td>
             </tr>
         </tbody>
     </table>

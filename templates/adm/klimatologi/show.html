@@ -59,7 +59,7 @@ $var js_foot:
     <h4>Form Input Klimatologi<a data-toggle="collapse" href="#formklimat"><span class="glyphicon glyphicon-triangle-right"></span></a></h4>
     <hr>
 <div class="collapse" id="formklimat">
-	<form>
+	<form method="post" action="/adm/klimatologi/${pos.table_name}">
 		<div class="form-group">
 			<label for="">Tanggal</label>
 			<input type="hidden" name="csrf_token" value="${csrf_token()}">
