@@ -18,10 +18,12 @@ urls = (
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
     '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
+    '/chcustom','CHCustom', # api ch untuk kebutuhan olah data custom staff hidrologi
     '/tma', 'Tma', # Data TMA serupa /tma
     '/tmax', 'Tmax',
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
+    '/agentch','AgentCH'
 )
 
 app_api = web.application(urls, locals())
@@ -40,6 +42,16 @@ def json_serialize(obj):
         return float(obj)
     raise TypeError ("Type %s not serializable" % type(obj))
 
+class AgentCH():
+    def GET(self):
+        HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == KLIMATOLOGI, Agent.q.AgentType == 0.0), Agent.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = []
+        for a in agents:
+            row = {'pos':a.cname or a.AgentName,'table_name':a.table_name,'pos_id':a.AgentId}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
 
 class CurahHujanApi():
     def GET(self):
@@ -61,6 +73,24 @@ class CurahHujanApi():
                    'telemetri': rain.get('total'), 'manual': rain.get('manual')}
             data.append(row)
         return json.dumps({'tanggal': tanggal, 'curahhujan': data}, default=json_serialize)
+
+
+class CHCustom():
+    def GET(self):
+        tanggalmin = web.input().get('tanggalmin')
+        tanggalmax = web.input().get('tanggalmax')
+        pos_ch = web.input().get('pos_ch')
+        if not tanggalmin or not tanggalmax:
+            return json.dumps({'response':'pilih tanggal minimal dan tanggal maksimal untuk rentang waktu'})
+        else:
+            tanggalmin = tanggalmin.replace('/','-')
+            tanggalmax = tanggalmax.replace('/','-')
+            data=[]
+            alldata = Agent._connection.queryAll("SELECT SamplingDate,SamplingTime,Rain FROM {} WHERE SamplingDate BETWEEN '{}' and '{}' and Rain > 0".format(str(pos_ch),tanggalmin,tanggalmax))
+            for a in alldata:
+                row={'SamplingDate':a[0],'SamplingTime':str(a[1]),'Rain':a[2]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize)
 
 
 class Tma():
