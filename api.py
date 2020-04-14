@@ -86,7 +86,7 @@ class CHCustom():
             tanggalmin = tanggalmin.replace('/','-')
             tanggalmax = tanggalmax.replace('/','-')
             data=[]
-            alldata = Agent._connection.queryAll("SELECT SamplingDate,SamplingTime,Rain FROM {} WHERE SamplingDate BETWEEN '{}' and '{}' and Rain > 0".format(str(pos_ch),tanggalmin,tanggalmax))
+            alldata = Agent._connection.queryAll("SELECT SamplingDate,SamplingTime,Rain FROM {0} WHERE SamplingDate BETWEEN '{1}' and '{2}' and Rain > 0".format(str(pos_ch),tanggalmin,tanggalmax))
             for a in alldata:
                 row={'SamplingDate':a[0],'SamplingTime':str(a[1]),'Rain':a[2]}
                 data.append(row)
