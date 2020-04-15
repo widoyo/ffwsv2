@@ -21,15 +21,13 @@ from models import CurahHujan, KlimatManual
 from models import Petugas
 
 from adm.user import adm_user
-from adm.curahhujan import ch
+from adm.curahhujan import adm_ch
 
 from helper import to_date, json_serializer
 
 urls = (
     '', 'Index',
-    '/ch', 'ChIndex',
-    '/ch/update', 'CHUpdate',
-    '/ch/(\w+\.*\-*\w+)', 'ChShow',
+    '/ch', adm_ch, #'ChIndex',
     '/tma', 'TmaIndex',
     '/tma/update', 'TMAUpdate',
     '/tma/(\w+\.*\-*\w+)', 'TmaShow',
@@ -60,12 +58,6 @@ class DataPetugas:
         petugas = Petugas.select()
         return render.adm.petugas.petugas({'petugas': petugas})
 
-class InputData:
-    def GET(self):
-        webinput = web.input(sampling=str(datetime.date.today() - datetime.timedelta(days=1)))
-        tg = datetime.datetime.strptime(webinput.sampling, '%Y-%m-%d').date()
-        return render.adm.klimatologi.add({'tg': tg})
-
 def pub_object(obj):
     if type(obj) == TinggiMukaAir:
         what = 'tma'
@@ -87,16 +79,6 @@ def csrf_protected(func):
                     """Cross-site request forgery (CSRF) attempt (or stale browser form, <a href='#'>Kembali</a>""")
         return func(*args, **kwargs)
     return decorated
-
-
-def get_ch_daily_on_pos(pos, today=datetime.date.today()):
-    pos = [a for a in AgentCh.select(AgentCh.q.AgentType==1) if a.table_name == pos][0]
-    sql = "SELECT id, waktu, manual FROM curahhujan WHERE agent_id=%s AND YEAR(waktu)=%s AND MONTH(waktu)=%s ORDER BY waktu" % (pos.id, today.year, today.month)
-    rs = conn.queryAll(sql)
-    out = []
-    for r in rs:
-        out.append(dict(id = r[0], waktu=r[1], ch=r[2]))
-    return out
 
 
 def get_tma_daily_on_pos(pos, today=datetime.date.today()):
@@ -216,30 +198,6 @@ class KlimatUpdate:
         return {"Ok": "true"}
 
 
-class ChShow:
-    @login_required
-    def GET(self, table_name):
-        pos = [a for a in AgentCh.select(AgentCh.q.AgentType==1) if a.table_name == table_name][0]
-        webinput = web.input(sampling=str(datetime.date.today() - datetime.timedelta(days=1)))
-        tg = datetime.datetime.strptime(webinput.sampling, '%Y-%m-%d').date()
-        return render.adm.ch.show({'pos': pos, 'tg': tg, 'data': get_ch_daily_on_pos(pos.table_name, tg)})
-
-    @login_required
-    def POST(self, table_name):
-        try:
-            pos = [a for a in AgentCh.select(AgentCh.q.AgentType==1) if a.table_name == table_name][0]
-        except IndexError:
-            return web.notfound()
-        inp = web.input()
-        sql = "SELECT id FROM curahhujan WHERE agent_id=%s AND waktu='%s'" % (pos.id, to_date(inp.waktu))
-        rs = conn.queryAll(sql)
-        if not rs:
-            ch = CurahHujan(agent=pos, waktu=to_date(inp.waktu), manual=float(inp.hujan))
-            # publish to MQTT Broker
-            #pub_object(ch)
-        return web.redirect('/adm/ch/' + table_name, absolute=True)
-
-
 class TmaShow:
     @login_required
     def GET(self, table_name):
@@ -277,19 +235,6 @@ class TmaShow:
             #pub_object(tma)
         return web.redirect('/adm/tma/' + table_name, absolute=True)
 
-
-class CHUpdate:
-    @login_required
-    def POST(self):
-        inp = web.input()
-        try:
-            ch = CurahHujan.get(int(inp.get('pk')))
-            ch.set(**{inp.get('name'): float(inp.get('value',0))})
-            ch.syncUpdate()
-        except SQLObjectNotFound:
-            return web.notfound()
-
-        return {"Ok": "true"}
 
 class TMAUpdate:
     @login_required
