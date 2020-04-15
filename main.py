@@ -282,6 +282,8 @@ class Login:
             session.autherror = '1'
             return web.seeother('/login?next=%s' % web.ctx.env.get('PATH_INFO'))
         dest = 'adm_ch_tma_klimatologi_kualitasair'.split('_')
+        if session.is_admin > len(dest):
+            return "403"
 
         redirect = '/' + dest[0]
         if session.table_name:

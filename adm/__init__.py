@@ -203,6 +203,16 @@ class KlimatUpdate:
         except SQLObjectNotFound:
             return web.notfound()
 
+        if inp.get('name') == 'ch_m':
+            ch = CurahHujan.select(AND(CurahHujan.q.agent==km.agent,
+                func.DATE(CurahHujan.q.waktu) == km.sampling))
+            if ch.count():
+                ch[0].set(**{'manual': inp.get('ch_m')})
+            else:
+                ch = CurahHujan(**{'waktu': km.sampling, 
+                    'manual': inp.get('ch_m'), 'agent': km.agent})
+
+
         return {"Ok": "true"}
 
 
