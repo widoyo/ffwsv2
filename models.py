@@ -1204,9 +1204,9 @@ class KlimatManual(SQLObject):
     penyinaran_m = IntCol()
     penguapan_m = FloatCol()
     cuser = StringCol(length=15)
-    cdate = DateTimeCol()
-    muser = StringCol(length=15)
-    mdate = DateTimeCol()
+    cdate = DateTimeCol(default=DateTimeCol.now)
+    muser = StringCol(length=15, default=None)
+    mdate = DateTimeCol(default=None)
 
     class sqlmeta:
         table = 'klimatmanual'
