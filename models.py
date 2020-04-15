@@ -278,7 +278,7 @@ class Agent(SQLObject):
     tmas = MultipleJoin('TinggiMukaAir', orderBy=['-waktu'])
     daily = MultipleJoin('WadukDaily', joinColumn='pos_id', orderBy=['-waktu'])
     elev_puncak = FloatCol()
-
+    petugas = MultipleJoin('Petugas')
 
     def lengkung(self):
         return self.lengkung_kapasitas.split('\n')

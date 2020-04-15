@@ -5,7 +5,7 @@
     @author: Widoyo
     @date: 28 Nop 2017
 """
-import datetime, time
+import datetime, time, json
 import web
 from sqlobject import AND, OR
 from models import Agent, KLIMATOLOGI, WILAYAH, conn
@@ -56,7 +56,7 @@ class MapCurahhujan:
                     rain = float(rain or 0)
             else:
                 rain = 0
-            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname, 'll': a.ll, 'tname': a.table_name,'petugas':[p.nama for p in a.petugas]}
+            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname, 'll': a.ll, 'tname': a.table_name,'petugas':[p.nama for p in a.petugas],'kode':[p.kode for p in a.petugas]}
             if a.table_name in all_prima.keys():
                 p_.update({'device': all_prima.get(a.table_name)})
             all_pos.append(p_)
@@ -300,11 +300,10 @@ class MapCurahhujan:
                 <div class="panel-title"><h6>${pos.name}</h6></div></div>
                 <div class="panel-body">
                 <table class="table">
-                <tr><td>M</td><td></td></tr>
-                <tr><td>T</td><td></td></tr>
+                <td>Prima ID</td><td>${pos.device}</td>
                 </table>
                 </div>
-                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas}</div>
+                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas} <b>${pos.kode}</b></div>
                 </div>`
             var lat = parseFloat(pos.ll.split(',')[0]);
             var lng = parseFloat(pos.ll.split(',')[1]);
@@ -340,7 +339,8 @@ class MapTma:
                                   Agent.q.expose == True)).orderBy(
                                       ["wilayah", "-DPL", "-siaga3"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
-        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'petugas': [p.nama for p in a.petugas]} for a in agents]
+        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'device':a.prima_id,'petugas': [p.nama for p in a.petugas],'kode':[p.kode for p in a.petugas]} for a in agents]
+        all_pos = json.dumps(all_pos)
         js_foot = """
         <script>
         var map;
@@ -564,11 +564,10 @@ class MapTma:
                 <div class="panel-title"><h6>${pos.name}</h6></div></div>
                 <div class="panel-body">
                 <table class="table">
-                <tr><td>M</td><td></td></tr>
-                <tr><td>T</td><td></td></tr>
+                <td>Prima ID</td><td>${pos.device}</td>
                 </table>
                 </div>
-                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas}</div>
+                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas} <b>${pos.kode}</b></div>
                 </div>`
             var lat = parseFloat(pos.ll.split(',')[0]);
             var lng = parseFloat(pos.ll.split(',')[1]);
