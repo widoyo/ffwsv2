@@ -20,6 +20,9 @@ from models import AgentCh, Agent, AgentTma, conn, Authuser, TinggiMukaAir
 from models import CurahHujan, KlimatManual
 from models import Petugas
 
+from adm.user import adm_user
+from adm.curahhujan import ch
+
 from helper import to_date, json_serializer
 
 urls = (
@@ -32,6 +35,7 @@ urls = (
     '/tma/(\w+\.*\-*\w+)', 'TmaShow',
     '/user', 'Users',
     '/petugas','DataPetugas',
+    '/klimatologi/update', 'KlimatUpdate',
     '/klimatologi/(\w+\.*\-*\w+)', 'KlimatShow',
 )
 
@@ -186,6 +190,20 @@ class KlimatShow:
                 'manual': inp.get('ch_m'), 'agent': pos})
         return web.redirect('/adm/klimatologi/' + table_name, absolute=True)
 
+
+
+class KlimatUpdate:
+    @login_required
+    def POST(self):
+        inp = web.input()
+        try:
+            km = KlimatManual.get(int(inp.get('pk')))
+            km.set(**{inp.get('name'): float(inp.get('value',0))})
+            km.syncUpdate()
+        except SQLObjectNotFound:
+            return web.notfound()
+
+        return {"Ok": "true"}
 
 
 class ChShow:
