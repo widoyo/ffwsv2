@@ -166,10 +166,10 @@ class KlimatShow:
         ch = CurahHujan.select(AND(CurahHujan.q.agent==pos,
             func.DATE(CurahHujan.q.waktu) == inp.get('sampling')))
         if ch.count():
-            ch[0].set(**{'manual': inp.get('ch_m')})
+            ch[0].set(**{'manual': float(inp.get('ch_m', 0))})
         else:
             ch = CurahHujan(**{'waktu': inp.get('sampling'), 
-                'manual': inp.get('ch_m'), 'agent': pos})
+                'manual': float(inp.get('ch_m', 0)), 'agent': pos})
         return web.redirect('/adm/klimatologi/' + table_name, absolute=True)
 
 
@@ -189,11 +189,11 @@ class KlimatUpdate:
             ch = CurahHujan.select(AND(CurahHujan.q.agent==km.agent,
                 CurahHujan.q.waktu == km.sampling.date()))
             if ch.count():
-                ch[0].set(**{'manual': inp.get('ch_m')})
+                ch[0].set(**{'manual': float(inp.get('ch_m', 0))})
                 ch[0].syncUpdate()
             else:
                 ch = CurahHujan(**{'waktu': km.sampling, 
-                    'manual': inp.get('ch_m'), 'agent': km.agent})
+                    'manual': float(inp.get('ch_m', 0)), 'agent': km.agent})
 
 
         return {"Ok": "true"}
