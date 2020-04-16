@@ -189,11 +189,11 @@ class KlimatUpdate:
             ch = CurahHujan.select(AND(CurahHujan.q.agent==km.agent,
                 CurahHujan.q.waktu == km.sampling.date()))
             if ch.count():
-                ch[0].set(**{'manual': float(inp.get('ch_m', 0))})
+                ch[0].set(**{'manual': float(inp.get('value', 0))})
                 ch[0].syncUpdate()
             else:
                 ch = CurahHujan(**{'waktu': km.sampling, 
-                    'manual': float(inp.get('ch_m', 0)), 'agent': km.agent})
+                    'manual': float(inp.get('value', 0)), 'agent': km.agent})
 
 
         return {"Ok": "true"}
