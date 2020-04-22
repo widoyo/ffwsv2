@@ -26,7 +26,8 @@ $var js_foot:
 		    <tr>
 			    <th>Pos</th>
 			    <th>Curah Hujan (mm)</th>
-			    <th>Suhu (&deg; C)</th>
+                <th>Suhu Min(&deg; C)</th>
+                <th>Suhu Max(&deg; C)</th>
 			    <th>Kelembaban (%)</th>
 			    <th>Kec. Angin (m/24jam)</th>
 			    <th>Durasi Penyinaran (menit)</th>
@@ -35,13 +36,14 @@ $var js_foot:
 	    </thead>
 	    <tbody>
         $for k in pos:
-	    <tr><td>$k.agent.cname</td>
-                <td>$k.ch_m</td>
-		<td>${k.temp_min_m} | ${k.temp_max_m}</td>
-		<td>${k.humi_m}</td>
-		<td>${k.kec_angin_m}</td>
-		<td>${k.penyinaran_m}</td>
-		<td>${k.penguapan_m}</td>
+            <tr><td>$k.agent.cname</td>
+                    <td>$k.ch_m</td>
+            <td>${k.temp_min_m}</td>
+            <td>${k.temp_max_m}</td>
+            <td>${k.humi_m}</td>
+            <td>${k.kec_angin_m}</td>
+            <td>${k.penyinaran_m}</td>
+            <td>${k.penguapan_m}</td>
             </tr>
         </tbody>
     </table>
