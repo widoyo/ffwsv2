@@ -21,28 +21,32 @@ $var js_foot:
     </script>
 <div class="container">
     <h2>Status:  <span id="datepicker" data-date="${tanggal.strftime('%Y/%m/%d')}">${tanggal.strftime('%d %b %Y')}</span> <span style="font-size: 14px" class="glyphicon glyphicon-calendar"></span></h2>
-    <table class="table table-stripped">
+    <table class="table table-bordered boldtable mt-50">
 	    <thead>
 		    <tr>
-			    <th>Pos</th>
-			    <th>Curah Hujan (mm)</th>
-			    <th>Suhu (&deg; C)</th>
-			    <th>Kelembaban (%)</th>
-			    <th>Kec. Angin (m/24jam)</th>
-			    <th>Durasi Penyinaran (menit)</th>
-			    <th>Penguapan (mm/24jam)</th>
+			    <th rowspan="2">Pos</th>
+					<th rowspan="2">Curah Hujan<br>(mm)</th>
+			    <th colspan="2">Suhu (&deg;C)</th>
+					<th rowspan="2">Kelembaban<br>(%)</th>
+					<th rowspan="2">Kec. Angin<br>(m/24jam)</th>
+					<th rowspan="2">Durasi Penyinaran<br>(menit)</th>
+					<th rowspan="2">Penguapan<br>(mm/24jam)</th>
 		    </tr>
+				<tr>
+					<th>Min</th>
+					<th>Max</th>
+				</tr>
 	    </thead>
 	    <tbody>
         $for k in pos:
-	    <tr><td>$k.agent.cname</td>
+          <tr><td>$k.agent.cname</td>
                 <td>$k.ch_m</td>
-		<td>${k.temp_min_m} | ${k.temp_max_m}</td>
-		<td>${k.humi_m}</td>
-		<td>${k.kec_angin_m}</td>
-		<td>${k.penyinaran_m}</td>
-		<td>${k.penguapan_m}</td>
-            </tr>
+								<td>${k.temp_min_m}</td><td>${k.temp_max_m}</td>
+              <td>${k.humi_m}</td>
+              <td>${k.kec_angin_m}</td>
+              <td>${k.penyinaran_m}</td>
+							<td>${k.penguapan_m}</td>
+          </tr>
         </tbody>
     </table>
 </div>
