@@ -1,8 +1,14 @@
 $def with(ctx)
 $ pos = ctx.get('pos')
+$ poses = ctx.get('poses')
 $ data = ctx.get('data')
+$ wilayah = ctx.get('wilayah')
 $var p_curahhujan: active
 $var extra_header:
+    <style>
+        .list-post li {font-size: larger;padding-top:4px;padding-bottom:4px;}
+        .item-wilayah {padding: 5px 0 0 10px;;font-weight:bold;}
+    </style>
     <link rel="stylesheet" href="/static/css/datepicker3.css">
 $var js_foot:
     <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
@@ -20,7 +26,7 @@ $var js_foot:
               });
             var chart = new Highcharts.Chart({
                 chart: { type: 'column', renderTo: 'column_chart' },
-                title: { text: '' },
+                title: { text: 'Curah Hujan $data.bulan.strftime("%b %Y")' },
                 tooltip: {
                     valueDecimals: 2,
                     headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
@@ -51,13 +57,23 @@ $var js_foot:
 <!-- -->
 <div class="container">
     <div class="row">
-        <div class="col-sm-3">
-            <h2><a href="/curahhujan" title="Daftar Pos Hujan" style="text-decoration: none;"><span class="glyphicon glyphicon-chevron-left"></span></a> Pos $pos.cname</h2>
+        <div class="col-sm-6">
+            <h2><a href="/curahhujan" title="Daftar Pos Hujan" style="text-decoration: none;"><span class="glyphicon glyphicon-chevron-left"></span></a> 
+                <span class="dropdown">
+                    <a id="ddPos" href="#" class="dropdown-toggle" style="text-decoration:none;" data-target="#" data-toggle="dropdown" aria-haspopup="true" expanded="false">Pos $pos.cname <span class="caret"></span></a>
+            <ul class="dropdown-menu list-pos">
+        $code:
+            wil = "0"
+        $for a in poses:
+            $if a.wilayah != wil:
+                $code:
+                    wil = a.wilayah
+                <li class="bg-primary item-wilayah">${wilayah[wil]}</li>
+            <li><a href="/curahhujan/${a.AgentId}/${data.bulan.strftime("%Y")}/${data.bulan.strftime("%m")}">$a.cname</a></li>
+        </ul>
+        </span></h2>
         </div>
-        <div class="col-sm-4 text-center">
-            <h3 id="datepicker">Curah Hujan $data.bulan.strftime("%b %Y")</h3> 
-        </div>
-        <div class="col-sm-5" style="padding-top: 20px;">
+        <div class="col-sm-6" style="padding-top: 20px;">
             <div class="btn-group" role="group" style="float: right;">
                 <a href="/curahhujan/$pos.AgentId" class="btn btn-primary">Jam-jaman</a>
                 <a href="#" class="btn btn-default">Harian</a>
