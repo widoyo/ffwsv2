@@ -47,6 +47,11 @@ class Jamjaman:
             pos = AgentCh.get(pid)
         except SQLObjectNotFound:
             return web.notfound()
+
+        HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
+        agents = AgentCh.select(AND(OR(AgentCh.q.AgentType == KLIMATOLOGI, AgentCh.q.AgentType == 0.0), AgentCh.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+
         now = datetime.datetime.now()
         try:
             tanggal = to_date(web.input().get('d'))
@@ -67,7 +72,7 @@ class Jamjaman:
         ch_ = dict([(c[0].hour, c[1]) for c in ch_per_jam])
         for l in labels:
             ch_set.append((l, float(ch_.get(l, 0) or '0')))
-        return render.curahhujan.jamjaman({'pos': pos, 'tanggal': tanggal,
+        return render.curahhujan.jamjaman({'pos': pos, 'tanggal': tanggal,'poses':agents,'wilayah':WILAYAH,
             'sebelum': sebelum, 'sesudah': sesudah,
             'data': {'categories': labels, 'series': ch_set}})
 
