@@ -1157,52 +1157,54 @@ class PeriodikJam(SQLObject):
     '''Data Periodik per jam'''
     agent = ForeignKey('Agent') # lokasi
     sampling = DateTimeCol()
-    rain = FloatCol() # dalam mm
-    wlevel = IntCol() # dalam cm
-    temp = IntCol() # dalam derajat Celcius
-    humi = IntCol() # dalam persen
-    kec_angin = IntCol() # dlm km/jam
-    arah_angin = IntCol() # dalam derajat
-    penyinaran = IntCol() # intensitas
-    penguapan = FloatCol() # dalam mm
-    batt = FloatCol() # Catu daya sistem
-    sq = IntCol() # sinyal quality
+    rain = FloatCol(default=None) # dalam mm
+    wlevel = IntCol(default=None) # dalam cm
+    temp = IntCol(default=None) # dalam derajat Celcius
+    humi = IntCol(default=None) # dalam persen
+    kec_angin = IntCol(default=None) # dlm km/jam
+    arah_angin = IntCol(default=None) # dalam derajat
+    penyinaran = IntCol(default=None) # intensitas
+    penguapan = FloatCol(default=None) # dalam mm
+    batt = FloatCol(default=None) # Catu daya sistem
+    sq = IntCol(default=None) # sinyal quality
     cdate = DateTimeCol(default=DateTimeCol.now)
 
     class sqlmeta:
         table = 'periodikjam'
+        defaultOrder = ('-sampling')
 
 
 class PeriodikHari(SQLObject):
     '''Data Periodik per hari'''
     agent = ForeignKey('Agent') # lokasi
     sampling = DateCol()
-    rain = FloatCol() # dalam mm
-    wlevel = IntCol() # dalam cm
-    temp = IntCol() # dalam derajat Celcius
-    humi = IntCol() # dalam persen
-    kec_angin = IntCol() # dlm km/jam
-    arah_angin = IntCol() # dalam derajat
-    penyinaran = IntCol() # intensitas
-    penguapan = FloatCol() # dalam mm
-    batt = FloatCol() # Catu daya sistem
-    sq = IntCol() # sinyal quality
+    rain = FloatCol(default=None) # dalam mm
+    wlevel = IntCol(default=None) # dalam cm
+    temp = IntCol(default=None) # dalam derajat Celcius
+    humi = IntCol(default=None) # dalam persen
+    kec_angin = IntCol(default=None) # dlm km/jam
+    arah_angin = IntCol(default=None) # dalam derajat
+    penyinaran = IntCol(default=None) # intensitas
+    penguapan = FloatCol(default=None) # dalam mm
+    batt = FloatCol(default=None) # Catu daya sistem
+    sq = IntCol(default=None) # sinyal quality
     cdate = DateTimeCol(default=DateTimeCol.now)
 
     class sqlmeta:
         table = 'periodikhari'
+        defaultOrder = ('-sampling')
 
 
 class KlimatManual(SQLObject):
     sampling = DateTimeCol()
     agent = ForeignKey('Agent')
-    ch_m = FloatCol()
-    temp_min_m = FloatCol()
-    temp_max_m = FloatCol()
-    humi_m = FloatCol()
-    kec_angin_m = FloatCol()
-    penyinaran_m = IntCol()
-    penguapan_m = FloatCol()
+    ch_m = FloatCol(default=None)
+    temp_min_m = FloatCol(default=None)
+    temp_max_m = FloatCol(default=None)
+    humi_m = FloatCol(default=None)
+    kec_angin_m = FloatCol(default=None)
+    penyinaran_m = IntCol(default=None)
+    penguapan_m = FloatCol(default=None)
     cuser = StringCol(length=15)
     cdate = DateTimeCol(default=DateTimeCol.now)
     muser = StringCol(length=15, default=None)
