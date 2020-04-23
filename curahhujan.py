@@ -272,6 +272,9 @@ class Index:
             return web.notfound()
         if agent.AgentType not in (1.0, 0.0):
             return web.notfound()
+        HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
+        agents = AgentCh.select(AND(OR(AgentCh.q.AgentType == KLIMATOLOGI, AgentCh.q.AgentType == 0.0), AgentCh.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
         ch = agent.get_ch(tahun, bulan)
         data = []
         for a in ch:
@@ -293,7 +296,6 @@ class Index:
             data = Struct(**{'series': series, 'categories': [s+1 for s in range(len(series))],'bulan': datetime.date(tahun, int(bulan), 1)})
             to_render = render.curahhujan.harian
         elif data:
-            print(data)
             # hujan per bulan pada 'tahun'
             th = data[0][0].year
             series[th] = [0 for r in range(0, 12)]
@@ -306,7 +308,8 @@ class Index:
                     series[th][d[0].month-1] = d[1]
             data = [Struct(**{'tahun': k, 'series': v})
                     for k, v in sorted(series.items())]
-        ctx = {'pos': agent, 'data': data}
+        ctx = {'pos': agent, 'data': data, 'poses': agents, 
+               'wilayah': WILAYAH}
         return to_render(ctx)
 
 
