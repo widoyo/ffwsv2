@@ -6,6 +6,13 @@ import web
 from helper import to_date, json_serializer
 from models import conn, AgentCh, CurahHujan
 
+import paho.mqtt.publish as publish
+import json
+MQTT_HOST = 'mqtt.bbws-bsolo.net'
+MQTT_PORT = 14983
+MQTT_TOPIC = 'data_manual'
+from helper import to_date, json_serializer
+
 
 urls = (
     '', 'ChIndex',
@@ -30,6 +37,11 @@ def csrf_token():
 globals = {'session': session, 'csrf_token': csrf_token}
 render = web.template.render('templates/', base='base_adm', globals=globals)
 
+def pub_object(obj):
+    if type(obj) == CurahHujan:
+        what = 'ch'
+    data = json.dumps(dict(meta={'what': what}, object=obj.sqlmeta.asDict()), default=json_serializer)
+    publish.single(MQTT_TOPIC, payload=data, hostname=MQTT_HOST, port=MQTT_PORT)
 
 def login_required(func):
     def func_wrapper(*args, **kwargs):
@@ -91,7 +103,7 @@ class ChShow:
         if not rs:
             ch = CurahHujan(agent=pos, waktu=to_date(inp.waktu), manual=float(inp.hujan))
             # publish to MQTT Broker
-            #pub_object(ch)
+            pub_object(ch)
         return web.redirect('/adm/ch/' + table_name, absolute=True)
 
 class ChTerjadi:
