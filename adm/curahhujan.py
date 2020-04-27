@@ -91,7 +91,7 @@ class ChShow:
         if not rs:
             ch = CurahHujan(agent=pos, waktu=to_date(inp.waktu), manual=float(inp.hujan))
             # publish to MQTT Broker
-            #pub_object(ch)
+            pub_object(ch)
         return web.redirect('/adm/ch/' + table_name, absolute=True)
 
 class ChTerjadi:

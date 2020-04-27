@@ -233,7 +233,7 @@ class TmaShow:
         print(pos.sqlmeta.asDict())
         if not rs:
             tma = TinggiMukaAir(agent=pos, waktu=to_date(inp.waktu), jam=inp.jam, manual=inp_manual)
-            #pub_object(tma)
+            pub_object(tma)
         return web.redirect('/adm/tma/' + table_name, absolute=True)
 
 
