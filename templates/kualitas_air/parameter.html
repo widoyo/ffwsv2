@@ -31,6 +31,11 @@ $ cr = ctx.get('cr')
 $ cr6 = ctx.get('cr6')
 $ b_coli = ctx.get('b_coli')
 $ lab = ctx.get('lab')
+$ zn = ctx.get('zn')
+$ arsen = ctx.get('arsen')
+$ fenol = ctx.get('fenol')
+$ cd = ctx.get('cd')
+$ fe_coli = ctx.get('fe_coli')
 $ pos_name = ctx.get('pos_name')
 $ pilihan_tahun = ctx.get('pilihan_tahun')
 $var p_kualitas_air: active
@@ -68,83 +73,133 @@ $var extra_header:
   <div class="table-responsive">
     <table class="table table-sm table-hover table-bordered boldtable">
       <td style="background-color: yellow;">Parameter Uji</td>
+      <td style="background-color: yellow;">Satuan</td>
     $for d in waktu:
-        <td style="background-color: yellow;width: 80px;">$d</td>
+        <td style="background-color: yellow;width: 50px;">$d</td>
 
       <tr>
-        <td style="background-color: yellow;">Suhu (C)</td>
+        <td style="background-color: yellow;">Suhu</td>
+        <td style="background-color: yellow;">&#8451;</td>
         $for d in suhu:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
         <td style="background-color: yellow;">Ph</td>
+        <td style="background-color: yellow;"></td>
         $for d in ph:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">TDS (mg/L)</td>
+        <td style="background-color: yellow;">Residu Terlarut</td>
+        <td style="background-color: yellow;">mg/L TDS</td>
         $for d in tds:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">TSS (mg/L)</td>
+        <td style="background-color: yellow;">Residu Tersuspensi</td>
+        <td style="background-color: yellow;">mg/L TSS</td>
         $for d in tss:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">OT (mg/L)</td>
+        <td style="background-color: yellow;">DO</td>
+        <td style="background-color: yellow;">mg/L OT</td>
         $for d in ot:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NO<sub>3</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Nitrat</td>
+        <td style="background-color: yellow;">mg/L NO<sub>3</sub></td>
         $for d in no3:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NO<sub>2</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Nitrit</td>
+        <td style="background-color: yellow;">mg/L NO<sub>2</sub></td>
         $for d in no2:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">NH<sub>3</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Amoniak</td>
+        <td style="background-color: yellow;">mg/L NH<sub>3</sub> </td>
         $for d in nh3:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">PO<sub>4</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Phospat</td>
+        <td style="background-color: yellow;">mg/L PO<sub>4</sub></td>
         $for d in po4:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cl (mg/L)</td>
+        <td style="background-color: yellow;">Klorida</td>
+        <td style="background-color: yellow;">mg/L Cl</td>
         $for d in cl:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Fe (mg/L)</td>
+        <td style="background-color: yellow;">Besi</td>
+        <td style="background-color: yellow;">mg/L Fe</td>
         $for d in fe:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Mn (mg/L)</td>
+        <td style="background-color: yellow;">Mangan</td>
+        <td style="background-color: yellow;">mg/L Mn</td>
         $for d in mn:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Na</td>
+        <td style="background-color: yellow;">Natrium</td>
+        <td style="background-color: yellow;">mg/L Na</td>
         $for d in na:
             $if d == None:
                 <td>-</td>
@@ -153,19 +208,28 @@ $var extra_header:
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">KOK (mg/L)</td>
+        <td style="background-color: yellow;">COD</td>
+        <td style="background-color: yellow;">mg/L KOK</td>
         $for d in kok:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">KOB (mg/L)</td>
+        <td style="background-color: yellow;">BOD</td>
+        <td style="background-color: yellow;">mg/L KOB</td>
         $for d in kob:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">MBAS</td>
+        <td style="background-color: yellow;">Detergen</td>
+        <td style="background-color: yellow;">&#181;/L MBAS</td>
         $for d in mbas:
             $if d == None:
                 <td>-</td>
@@ -174,13 +238,18 @@ $var extra_header:
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cl<sub>2</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Klorin Bebas</td>
+        <td style="background-color: yellow;">mg/L Cl<sub>2</sub></td>
         $for d in cl_2:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">M&L</td>
+        <td style="background-color: yellow;">Minyak & Lemak</td>
+        <td style="background-color: yellow;">&#181;/L M&L</td>
         $for d in m_n_l:
             $if d == None:
                 <td>-</td>
@@ -189,7 +258,8 @@ $var extra_header:
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">KMnO<sub>4</sub></td>
+        <td style="background-color: yellow;">Nilai Permanganat</td>
+        <td style="background-color: yellow;">mg/L KMnO<sub>4</sub></td>
         $for d in kmno4:
             $if d == None:
                 <td>-</td>
@@ -198,43 +268,68 @@ $var extra_header:
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">F (mg/L)</td>
+        <td style="background-color: yellow;">Flourida</td>
+        <td style="background-color: yellow;">mg/L F</td>
         $for d in f:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">S (mg/L)</td>
+        <td style="background-color: yellow;">Sulfida</td>
+        <td style="background-color: yellow;">mg/L S</td>
         $for d in s:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">SO<sub>4</sub> (mg/L)</td>
+        <td style="background-color: yellow;">Sulfat</td>
+        <td style="background-color: yellow;">mg/L SO<sub>4</sub></td>
         $for d in so4:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cn (mg/L)</td>
+        <td style="background-color: yellow;">Sianida</td>
+        <td style="background-color: yellow;">mg/L CN</td>
         $for d in cn:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Pb (mg/L)</td>
+        <td style="background-color: yellow;">Timbal</td>
+        <td style="background-color: yellow;">mg/L Pb</td>
         $for d in pb:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cu (mg/L)</td>
+        <td style="background-color: yellow;">Tembaga</td>
+        <td style="background-color: yellow;">mg/L Cu</td>
         $for d in cu:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Ni</td>
+        <td style="background-color: yellow;">Nikel</td>
+        <td style="background-color: yellow;">mg/L Ni</td>
         $for d in ni:
             $if d == None:
                 <td>-</td>
@@ -243,27 +338,92 @@ $var extra_header:
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cr (mg/L)</td>
+        <td style="background-color: yellow;">Krom Total</td>
+        <td style="background-color: yellow;">mg/L Cr</td>
         $for d in cr:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Cr<sup>6+</sup> (mg/L)</td>
+        <td style="background-color: yellow;">Crom Heksavalen</td>
+        <td style="background-color: yellow;">mg/L Cr<sup>6+</sup></td>
         $for d in cr6:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
 
       <tr>
-        <td style="background-color: yellow;">Total Coliform (JPT/100 mL)</td>
+        <td style="background-color: yellow;">Seng</td>
+        <td style="background-color: yellow;">mg/L Zn</td>
+        $for d in zn:
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
+      </tr>
+
+      <tr>
+        <td style="background-color: yellow;">Arsen</td>
+        <td style="background-color: yellow;">mg/L</td>
+        $for d in arsen:
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
+      </tr>
+
+      <tr>
+        <td style="background-color: yellow;">Fenol</td>
+        <td style="background-color: yellow;">mg/L</td>
+        $for d in fenol:
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
+      </tr>
+
+      <tr>
+        <td style="background-color: yellow;">Kadmium</td>
+        <td style="background-color: yellow;">mg/L Cd</td>
+        $for d in cd:
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
+      </tr>
+
+      <tr>
+        <td style="background-color: yellow;">Total Coliform</td>
+        <td style="background-color: yellow;">JPT/100 mL</td>
         $for d in b_coli:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
+      </tr>
+
+      <tr>
+        <td style="background-color: yellow;">Fecal Coliform</td>
+        <td style="background-color: yellow;">JPT/100 mL</td>
+        $for d in fe_coli:
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
       
       <tr>
-        <td style="background-color: yellow;">Lab Uji</td>
+        <td colspan="2" style="background-color: yellow;">Lab Uji</td>
         $for d in lab:
-            <td>$d</td>
+            $if d == None:
+                <td>-</td>
+            $else:
+                <td>$d</td>
       </tr>
     </table>
   </div>
