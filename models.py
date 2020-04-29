@@ -456,18 +456,13 @@ class Agent(SQLObject):
         for j in range(0, 24):
             jams.append(dari + datetime.timedelta(hours=j))
         hingga = dari + datetime.timedelta(hours=24)
-        sql = "SELECT SamplingDate, HOUR(SamplingTime), \
+        sql = "SELECT SamplingDate, SamplingTime, \
                 SUM(Rain * %(tipping_factor)s) FROM %(table_name)s \
                 WHERE CONCAT(SamplingDate, ' ', SamplingTime) BETWEEN \
                 '%(dari)s' AND '%(hingga)s' \
                 GROUP BY SamplingDate, HOUR(SamplingTime)" % dict(tipping_factor=self.TippingFactor,
                         table_name=self.table_name, dari=dari, hingga=hingga)
-        def timedelta_to_time(td):
-            secs = td.seconds
-            hour = int(secs / 3600)
-            minute = int(secs / 60) % 60
-            return datetime.time(hour, minute, 0)
-        return [(datetime.datetime.combine(r[0], timedelta_to_time(r[1])), r[2]) for r in self._connection.queryAll(sql)]
+        return [(datetime.datetime.fromtimestamp(int(r[0].strftime('%s')) + r[1].seconds), r[2]) for r in self._connection.queryAll(sql)]
 
     def get_aday_klimatologi(self, tanggal=datetime.date.today()):
         '''Return dict

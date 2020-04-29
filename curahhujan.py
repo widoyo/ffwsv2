@@ -394,7 +394,6 @@ class Info:
             data = Struct(**{'series': series, 'categories': [s+1 for s in range(len(series))],'bulan': datetime.date(tahun, int(bulan), 1)})
             to_render = render.curahhujan.harian
         elif data:
-            print(data)
             # hujan per bulan pada 'tahun'
             th = data[0][0].year
             series[th] = [0 for r in range(0, 12)]

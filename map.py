@@ -339,11 +339,12 @@ class MapTma:
                                   Agent.q.expose == True)).orderBy(
                                       ["wilayah", "-DPL", "-siaga3"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
-        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'device':a.prima_id,'petugas': [p.nama for p in a.petugas],'kode':[p.kode for p in a.petugas]} for a in agents]
+        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'device':a.prima_id} for a in agents]
         all_pos = json.dumps(all_pos)
         js_foot = """
         <script>
         var map;
+        var dataLayer = [];
         var kmlSrc = [
             { title: 'Bendungan', fname: 'bendungan' },
             { title: 'Bendungan On Going', fname: 'bendungan_og'},
@@ -354,8 +355,10 @@ class MapTma:
         ];
         function toggleKml(checked, id){
             if (checked){
-                map.data.addGeoJson('/static/gis/'+ kmlSrc[id].fname +'.json', {idPropertyName: kmlSrc[id].fname});
+                dataLayer[id].loadGeoJson('/static/gis/'+ kmlSrc[id].fname +'.json', {idPropertyName: kmlSrc[id].fname});
+                dataLayer[id].setMap(map);
             } else {
+                dataLayer[id].setMap(null);
             }
         }
         function init_map() {
@@ -549,6 +552,7 @@ class MapTma:
           var infoWindow = new google.maps.InfoWindow;
           let chk = "";
           for (let e in kmlSrc){
+              dataLayer[e] = new google.maps.Data();
               chk += `<div class="checkbox"><label><input id="kml_${e}" onclick="toggleKml(this.checked, ${e})" type="checkbox" name="${kmlSrc[e].fname}">${kmlSrc[e].title}</label></div>`;
           };
           let ctrlForm = `<div class="panel panel-default"><div class="panel-body">
