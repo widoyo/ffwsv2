@@ -339,19 +339,29 @@ class MapTma:
                                   Agent.q.expose == True)).orderBy(
                                       ["wilayah", "-DPL", "-siaga3"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
-        all_pos = [{'id': a.AgentId, 'name': a.cname, 'll': a.ll ,'device':a.prima_id} for a in agents]
+        all_pos = []
+        for a in agents:
+            try:
+                petugas = a.petugas[0].nama
+                petugas_kode = a.petugas[0].kode
+            except:
+                petugas = '-'
+                petugas_kode = '-'
+            row = {'id': a.AgentId, 'name': a.cname, 'll': a.ll
+                    ,'device':a.prima_id, 'petugas_nama': petugas,
+                   'petugas_kode': petugas_kode} 
+            all_pos.append(row)
         all_pos = json.dumps(all_pos)
         js_foot = """
         <script>
         var map;
         var dataLayer = [];
         var kmlSrc = [
-            { title: 'Bendungan', fname: 'bendungan' },
-            { title: 'Bendungan On Going', fname: 'bendungan_og'},
             { title: 'Tanggul Pacitan', fname: 'tanggul_pacitan'},
             { title: 'Tanggul Bojonegoro', fname: 'tanggul_bojonegoro'},
             { title: 'Embung', fname: 'embung'},
-            { title: 'DAS WS BSolo', fname: 'ws_bsolo_das'}
+            { title: 'Bendungan', fname: 'bendungan' },
+            { title: 'Bendungan On Going', fname: 'bendungan_on_going'},
         ];
         function toggleKml(checked, id){
             if (checked){
@@ -571,7 +581,9 @@ class MapTma:
                 <td>Prima ID</td><td>${pos.device}</td>
                 </table>
                 </div>
-                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas} <b>${pos.kode}</b></div>
+                <div class="panel-footer"><span class="glyphicon
+                glyphicon-user"></span>&nbsp;&nbsp;${pos.petugas_nama} <br>
+                <span class="glyphicon glyphicon-barcode"></span>&nbsp;&nbsp;<b>${pos.petugas_kode}</b></div>
                 </div>`
             var lat = parseFloat(pos.ll.split(',')[0]);
             var lng = parseFloat(pos.ll.split(',')[1]);
