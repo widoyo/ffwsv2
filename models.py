@@ -1114,10 +1114,9 @@ class Agent(SQLObject):
             sdate = now.strftime('%Y-%m-%d')
             stime = now.strftime('%H:%M:00')
             return conn.queryAll("SELECT * FROM %s WHERE SamplingDate <= '%s' \
-                                 AND SamplingTime <= '%s' \
                                  ORDER BY SamplingDate DESC, \
                                  SamplingTime DESC \
-                                 LIMIT 0, 1" % (self.table_name, sdate, stime))[0]
+                                 LIMIT 0, 1" % (self.table_name, sdate))[0]
         except:
             return None
 
