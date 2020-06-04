@@ -408,3 +408,41 @@ class Info:
                     for k, v in sorted(series.items())]
         ctx = {'pos': agent, 'data': data}
         return to_render(ctx)
+
+from models import PeriodikJam
+
+def salinKeJamjaman(tablename, tgl=datetime.date.today(), timpa=False):
+    '''Membaca data Rain dari <table>(5 menitan)
+    menjadi satu jam, simpan ke table 'periodikjam'
+    '''
+    aid = dict([a.split('\t') for a in
+                open('agent_table.txt').readlines()])[tablename]
+    agent = AgentCh.get(aid)
+    sql = "SELECT SamplingDate, HOUR(SamplingTime), \
+            SUM(Rain * %(tipping_factor)s) FROM %(tablename)s \
+            WHERE SamplingDate='%(tgl)s' \
+            GROUP BY HOUR(SamplingTime) \
+            ORDER BY SamplingTime"
+    for c in conn.queryAll(sql % dict(tipping_factor=agent.TippingFactor,
+                                      tablename=tablename, tgl=tgl)):
+        sampling = datetime.datetime.fromtimestamp(
+            int(c[0].strftime('%s')) + int(c[1]) * 3600)
+        row = dict(agent=agent, sampling=sampling, rain=c[2])
+        pj = PeriodikJam.select(AND(PeriodikJam.q.sampling==sampling, PeriodikJam.q.agent==agent))
+        if not pj.count():
+            PeriodikJam(**row)
+        if timpa:
+            pj[0].rain = c[2]
+
+def menitKeJamRain(tgl=datetime.date.today(), timpa=False):
+    for a in Agent.select(OR(Agent.q.AgentType==1),
+                          Agent.q.AgentType==0)):
+        salinKeJamjaman(a.table_name, tgl, timpa)
+
+
+if __name__ == '__main__':
+    awal = datetime.date(2015,1,1)
+    t = awal
+    for i in range(60):
+        #salinKeJamjaman('pabelan', t)
+        t += datetime.timedelta(days=1)
