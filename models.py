@@ -1,4 +1,5 @@
 import datetime
+from hashlib import md5
 
 from sqlobject import *
 from web.utils import commify
@@ -1126,6 +1127,17 @@ class Agent(SQLObject):
         defaultOrder = ('wilayah', 'AgentName')
 
 
+class Spi(SQLObject):
+    '''Data Kekeringan Meteorologis (SPI)'''
+    agent = ForeignKey('AgentCh')
+    sampling = DateCol()
+    spi = FloatCol()
+
+    class sqlmeta:
+        table = 'spi'
+        defaultOrder = ('sampling')
+
+
 class Periodik(SQLObject):
     '''Data Periodik per 5 menit'''
     agent = ForeignKey('Agent') # lokasi
@@ -1337,8 +1349,12 @@ class Authuser(SQLObject):
     is_admin = IntCol(default=0)
     table_name = StringCol(notNone=False, default=None)
 
+    def set_password(self, password):
+        self.password = md5(password).hexdigest()
+
     class sqlmeta:
         table = 'passwd'
+
 
 
 class NewsTicker(SQLObject):
