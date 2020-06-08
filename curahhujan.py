@@ -435,8 +435,8 @@ def salinKeJamjaman(tablename, tgl=datetime.date.today(), timpa=False):
             pj[0].rain = c[2]
 
 def menitKeJamRain(tgl=datetime.date.today(), timpa=False):
-    for a in Agent.select(OR(Agent.q.AgentType==1),
-                          Agent.q.AgentType==0)):
+    for a in AgentCh.select(OR(AgentCh.q.AgentType==1,
+                          AgentCh.q.AgentType==0)):
         salinKeJamjaman(a.table_name, tgl, timpa)
 
 

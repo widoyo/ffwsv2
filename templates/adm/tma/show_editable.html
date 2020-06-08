@@ -13,8 +13,10 @@ $var extra_header:
     </style>
     <style type="text/css">
         .datepicker {
+          border: solid 1px;max-width:fit-content;cursor:pointer;
             z-index: 9999;/*ubah posisi datepicker*/
                     }
+        .piket {display: none; color: #900;}
     </style>
 $var js_foot:
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -93,49 +95,40 @@ $var js_foot:
     </div>
     <div class="row">
     <div class="col-xs-6">
-        <div class="form-check form-check-inline">
-            <b>Jam</b><br>
+      <b>Jam</b> (<a href="#" onClick="javascript:\$('.piket').toggle()">tampilkan Jam Piket Banjir</a>)<br>
+        <div class="form-check form-check-inline piket">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="06" class="form-check-input">
-        6 (pagi)</label>
+                <input name="jam" type="radio" value="02" class="form-check-input"> 02 (piket banjir)</label>
         </div>
-        <div class="form-check form-check-inline">
+        <div class="form-check form-check-inline piket">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="12" class="form-check-input">12 (siang)</label>
-        </div>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label">
-                <input name="jam" type="radio" value="18" class="form-check-input">18 (sore)</label>
-        </div>
-
-        <b> Khusus Petugas Piket Banjir <a data-toggle="collapse" href="#form-pb"><span class="glyphicon glyphicon-triangle-right"></span></a></b>
-        <div id="form-pb" class="collapse">
-        <b>Jam</b><br>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label">
-                <input name="jam" type="radio" value="20" class="form-check-input">20 (malam hari)</label>
+                <input name="jam" type="radio" value="04" class="form-check-input"> 04 (piket banjir)</label>
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="22" class="form-check-input">22 (malam hari)</label>
+                <input name="jam" type="radio" value="06" class="form-check-input"> 06 (pagi)</label> </div>
+        <div class="form-check form-check-inline">
+            <label class="form-check-label">
+                <input name="jam" type="radio" value="12" class="form-check-input"> 12 (siang)</label>
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="00" class="form-check-input">00 (dini hari)</label>
+                <input name="jam" type="radio" value="18" class="form-check-input"> 18 (sore)</label>
+        </div>
+        <div class="form-check form-check-inline piket">
+            <label class="form-check-label">
+                <input name="jam" type="radio" value="20" class="form-check-input"> 20 (piket banjir)</label>
+        </div>
+        <div class="form-check form-check-inline piket">
+            <label class="form-check-label">
+                <input name="jam" type="radio" value="22" class="form-check-input"> 22 (piket banjir)</label>
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="02" class="form-check-input">02 (pagi hari)</label>
+                <input name="jam" type="radio" value="23" class="form-check-input"> 24 (malam)</label>
         </div>
-        <div class="form-check form-check-inline">
-            <label class="form-check-label">
-                <input name="jam" type="radio" value="04" class="form-check-input">04 (pagi hari)</label>
-        </div>
-        </div>
-        
     </div>
     </div>
-        <br/>
     <div class="row">
     <div class="col-xs-6 form-group">
         <label>TMA
