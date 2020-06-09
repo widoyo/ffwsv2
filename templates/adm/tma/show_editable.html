@@ -17,6 +17,7 @@ $var extra_header:
             z-index: 9999;/*ubah posisi datepicker*/
                     }
         .piket {display: none; color: #900;}
+        .tpiket {/*display: none*/ }
     </style>
 $var js_foot:
     <script src="//cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.0/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
@@ -125,7 +126,7 @@ $var js_foot:
         </div>
         <div class="form-check form-check-inline">
             <label class="form-check-label">
-                <input name="jam" type="radio" value="23" class="form-check-input"> 24 (malam)</label>
+                <input name="jam" type="radio" value="0" class="form-check-input"> 24 (malam)</label>
         </div>
     </div>
     </div>
@@ -148,31 +149,34 @@ $var js_foot:
             <thead>
                 <tr>
                     <th rowspan="2">Hari, Tgl</th>
-                    <th colspan="2">TMA 00</th>
-                    <th colspan="2">TMA 02</th>
-                    <th colspan="2">TMA 04</th>
+                    <th colspan="2" class="tpiket">TMA 00</th>
+                    <th colspan="2" class="tpiket">TMA 02</th>
+                    <th colspan="2" class="tpiket">TMA 04</th>
                     <th colspan="2">TMA 06</th>
                     <th colspan="2">TMA 12</th>
                     <th colspan="2">TMA 18</th>
-                    <th colspan="2">TMA 20</th>
-                    <th colspan="2">TMA 22</th>
+                    <th colspan="2" class="tpiket">TMA 20</th>
+                    <th colspan="2" class="tpiket">TMA 22</th>
+                    <th colspan="2">TMA 24</th>
 
                 </tr>
                 <tr>
+                    <th class="tpiket">Lokal (M)</th>
+                    <th class="tpiket">TTG (M)</th>
+                    <th class="tpiket">Lokal (M)</th>
+                    <th class="tpiket">TTG (M)</th>
+                    <th class="tpiket">Lokal (M)</th>
+                    <th class="tpiket">TTG (M)</th>
                     <th>Lokal (M)</th>
                     <th>TTG (M)</th>
                     <th>Lokal (M)</th>
                     <th>TTG (M)</th>
                     <th>Lokal (M)</th>
                     <th>TTG (M)</th>
-                    <th>Lokal (M)</th>
-                    <th>TTG (M)</th>
-                    <th>Lokal (M)</th>
-                    <th>TTG (M)</th>
-                    <th>Lokal (M)</th>
-                    <th>TTG (M)</th>
-                    <th>Lokal (M)</th>
-                    <th>TTG (M)</th>
+                    <th class="tpiket">Lokal (M)</th>
+                    <th class="tpiket">TTG (M)</th>
+                    <th class="tpiket">Lokal (M)</th>
+                    <th class="tpiket">TTG (M)</th>
                     <th>Lokal (M)</th>
                     <th>TTG (M)</th>
                 </tr>
@@ -191,15 +195,16 @@ $var js_foot:
                         pk18 = data.get(d).get('18')and data.get(d).get('18').get('lokal').get('id') or ""
                         pk20 = data.get(d).get('20')and data.get(d).get('20').get('lokal').get('id') or ""         
                         pk22 = data.get(d).get('22')and data.get(d).get('22').get('lokal').get('id') or ""
+                        pk24 = data.get(d).get('23')and data.get(d).get('23').get('lokal').get('id') or ""
                
-                    <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk00" data-name="manual">${data.get(d).get('00')and data.get(d).get('00').get('lokal').get('lokal') or '-'}</a></td>
-                    <td class="text-right">${data.get(d).get('00') and data.get(d).get('00').get('ttg') or '-'}</td>
+                    <td class="text-right tpiket"><a href="#" class="editable" data-type="text" data-pk="$pk00" data-name="manual">${data.get(d).get('00')and data.get(d).get('00').get('lokal').get('lokal') or '-'}</a></td>
+                    <td class="text-right tpiket">${data.get(d).get('00') and data.get(d).get('00').get('ttg') or '-'}</td>
                     
-                      <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk02" data-name="manual">${data.get(d).get('02')and data.get(d).get('02').get('lokal').get('lokal') or '-'}</a></td>
-                    <td class="text-right">${data.get(d).get('02') and data.get(d).get('02').get('ttg') or '-'}</td>
+                      <td class="text-right tpiket"><a href="#" class="editable" data-type="text" data-pk="$pk02" data-name="manual">${data.get(d).get('02')and data.get(d).get('02').get('lokal').get('lokal') or '-'}</a></td>
+                    <td class="text-right tpiket">${data.get(d).get('02') and data.get(d).get('02').get('ttg') or '-'}</td>
                     
-                    <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk04" data-name="manual">${data.get(d).get('04')and data.get(d).get('04').get('lokal').get('lokal') or '-'}</a></td>
-                    <td class="text-right">${data.get(d).get('04') and data.get(d).get('04').get('ttg') or '-'}</td>
+                    <td class="text-right tpiket"><a href="#" class="editable" data-type="text" data-pk="$pk04" data-name="manual">${data.get(d).get('04')and data.get(d).get('04').get('lokal').get('lokal') or '-'}</a></td>
+                    <td class="text-right tpiket">${data.get(d).get('04') and data.get(d).get('04').get('ttg') or '-'}</td>
                     
                     <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk6" data-name="manual">${data.get(d).get('06')and data.get(d).get('06').get('lokal').get('lokal') or '-'}</a></td>
                    <td class="text-right">${data.get(d).get('06') and data.get(d).get('06').get('ttg') or '-'}</td>
@@ -210,13 +215,13 @@ $var js_foot:
                     <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk18" data-name="manual">${data.get(d).get('18')and data.get(d).get('18').get('lokal').get('lokal') or '-'}</a></td>
                     <td class="text-right">${data.get(d).get('18') and data.get(d).get('18').get('ttg') or '-'}</td>
 
-                    <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk20" data-name="manual">${data.get(d).get('20')and data.get(d).get('20').get('lokal').get('lokal') or '-'}</a></td>
-                   <td class="text-right">${data.get(d).get('20') and data.get(d).get('20').get('ttg') or '-'}</td>
+                    <td class="text-right tpiket"><a href="#" class="editable" data-type="text" data-pk="$pk20" data-name="manual">${data.get(d).get('20')and data.get(d).get('20').get('lokal').get('lokal') or '-'}</a></td>
+                   <td class="text-right tpiket">${data.get(d).get('20') and data.get(d).get('20').get('ttg') or '-'}</td>
                     
-                     <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk22" data-name="manual">${data.get(d).get('22')and data.get(d).get('22').get('lokal').get('lokal') or '-'}</a></td>
-                    <td class="text-right">${data.get(d).get('22') and data.get(d).get('22').get('ttg') or '-'}</td>
-                    
-
+                     <td class="text-right tpiket"><a href="#" class="editable" data-type="text" data-pk="$pk22" data-name="manual">${data.get(d).get('22')and data.get(d).get('22').get('lokal').get('lokal') or '-'}</a></td>
+                    <td class="text-right tpiket">${data.get(d).get('22') and data.get(d).get('22').get('ttg') or '-'}</td>
+                     <td class="text-right"><a href="#" class="editable" data-type="text" data-pk="$pk24" data-name="manual">${data.get(d).get('23')and data.get(d).get('23').get('lokal').get('lokal') or '-'}</a></td>
+                    <td class="text-right">${data.get(d).get('23') and data.get(d).get('23').get('ttg') or '-'}</td>
                 </tr>
             </tbody>
         </table>
