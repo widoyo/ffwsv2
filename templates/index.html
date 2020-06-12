@@ -115,6 +115,7 @@ $ wilayah = ctx.get('wilayah')
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
+
   <section id="hero">
 
     <div class="container">
@@ -126,6 +127,10 @@ $ wilayah = ctx.get('wilayah')
             <div class="text-center text-lg-left">
               <a href="#details" class="btn-get-started scrollto">Selengkapnya</a>
             </div>
+            $if session.get('username'):
+                <div class="d-flex justify-content-end mt-4">
+                  <a class="btn btn-block btn-danger" href="/logout" role="button"><span id="berkedip">Admin is On, Logout</span></a>
+                </div>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">

@@ -328,16 +328,17 @@ class Login:
         if not auth(i.username, i.password):
             session.autherror = '1'
             return web.seeother('/login?next=%s' % web.ctx.env.get('PATH_INFO'))
-        #dest = 'adm_ch_tma_klimatologi_kualitasair_kekeringan'.split('_')
-        redirect = '/adm'
-        '''
+        dest = 'adm_ch_tma_klimatologi_kualitasair_kekeringan'.split('_')
+        
         if session.is_admin > len(dest):
             return "403"
+
+        redirect = '/' + dest[0]
 
         if session.table_name:
             redirect += '/' + dest[session.is_admin] + '/' + session.table_name
         print('redirect:', redirect)
-'''
+
 
         try:
             ql = web.ctx.env['HTTP_REFERER'].split('?')[1]
