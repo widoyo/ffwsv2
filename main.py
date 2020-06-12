@@ -328,15 +328,16 @@ class Login:
         if not auth(i.username, i.password):
             session.autherror = '1'
             return web.seeother('/login?next=%s' % web.ctx.env.get('PATH_INFO'))
-        dest = 'adm_ch_tma_klimatologi_kualitasair'.split('_')
+        #dest = 'adm_ch_tma_klimatologi_kualitasair_kekeringan'.split('_')
+        redirect = '/adm'
+        '''
         if session.is_admin > len(dest):
             return "403"
 
-        redirect = '/' + dest[0]
         if session.table_name:
             redirect += '/' + dest[session.is_admin] + '/' + session.table_name
         print('redirect:', redirect)
-
+'''
 
         try:
             ql = web.ctx.env['HTTP_REFERER'].split('?')[1]
@@ -399,7 +400,7 @@ class get_tmb:
 
 class index:
     def GET(self):
-        id_tma = (204, 2, 12, 47, 5, 54, 240, 45)
+        id_tma = (204, 2, 12, 47, 5, 6, 41, 54, 240, 45)
         today = datetime.date.today()
         lalu = today - datetime.timedelta(days=(today.day + 59))
         lalu = lalu.replace(day=1)
@@ -432,7 +433,7 @@ class index:
             except:
                 pass
 
-        return render.index({'hujan': hujan, 'series': haris, 'pos_tma':
+        return render_plain.index({'hujan': hujan, 'series': haris, 'pos_tma':
                              pos_tma, 'wilayah': WILAYAH})
 
 
