@@ -47,7 +47,7 @@ $def with(content)
 
   <!-- Template Main CSS File -->
   <link href="/static/assets/css/style.css" rel="stylesheet">
-
+  $:content.get('extra_header', '')
   <!-- =======================================================
   * Template Name: Bootslander - v2.1.0
   * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
@@ -134,8 +134,6 @@ $def with(content)
 
   <!-- Template Main JS File -->
   <script src="/static/assets/js/main.js"></script>
-
     $:content.get('js_foot', '')
 </body>
-
 </html>
