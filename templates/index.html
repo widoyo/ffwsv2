@@ -115,6 +115,7 @@ $ wilayah = ctx.get('wilayah')
   </header><!-- End Header -->
 
   <!-- ======= Hero Section ======= -->
+
   <section id="hero">
 
     <div class="container">
@@ -126,6 +127,10 @@ $ wilayah = ctx.get('wilayah')
             <div class="text-center text-lg-left">
               <a href="#details" class="btn-get-started scrollto">Selengkapnya</a>
             </div>
+            $if session.get('username'):
+                <div class="d-flex justify-content-end mt-4">
+                  <a class="btn btn-block btn-danger" href="/logout" role="button"><span id="berkedip">Admin is On, Logout</span></a>
+                </div>
           </div>
         </div>
         <div class="col-lg-5 order-1 order-lg-2 hero-img" data-aos="zoom-out" data-aos-delay="300">
@@ -182,25 +187,6 @@ $ wilayah = ctx.get('wilayah')
       </div>
     </section><!-- End Details Section -->
 
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-up">
-          <h2>Berita</h2>
-          <p>Berita Video</p>
-        </div>
-
-        <div class="d-flex justify-content-center">
-          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch" data-aos="fade-right">
-            <a href="https://www.youtube.com/watch?v=tCMxsgsJQr0" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End About Section -->
-
-
     <!-- ======= Terkini Section ======= -->
     <section id="terkini" class="terkini">
       <div class="container">
@@ -235,6 +221,24 @@ $ wilayah = ctx.get('wilayah')
 
       </div>
     </section><!-- End Terkini Section -->
+
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+      <div class="container">
+
+        <div class="section-title" data-aos="fade-up">
+          <h2>Berita</h2>
+          <p>Berita Video</p>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch" data-aos="fade-right">
+            <a href="https://www.youtube.com/watch?v=tCMxsgsJQr0" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
 
 
     <!-- ======= Gallery Section ======= -->
