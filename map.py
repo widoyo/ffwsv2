@@ -15,7 +15,7 @@ urls = (
     '/curahhujan', 'MapCurahhujan',
     '/tma', 'MapTma',
     '/bendungan', 'MapBendungan',
-    '/kualitasair','Ka'
+    '/kualitasair','MapKa'
 )
 
 app_map = web.application(urls, locals())
@@ -23,7 +23,7 @@ session = web.session.Session(app_map, web.session.DiskStore('sessions'),
                               initializer={'username': None, 'role': None,
                                            'flash': None})
 globals = {'session': session}
-render = web.template.render('templates/', base='base', globals=globals)
+rendermap = web.template.render('templates/', base='basemap', globals=globals)
 
 
 class MapCurahhujan:
@@ -61,274 +61,36 @@ class MapCurahhujan:
                 p_.update({'device': all_prima.get(a.table_name)})
             all_pos.append(p_)
         js_foot = """
-        <script type="text/template" id="pos_infowindow">
-          <div class="item infowindow" id="pos_<%= index %>">
-            <span class="pos"><%= name %> </span>
-            <span class="meter">
-            </span>
-            <div class="">
-              <ul>
-                <li><i class="fa fa-bar-chart"></i> <a href="/curahhujan/<%= id %>">Hujan Tahunan</a></li>
-                <li><i class="fa fa-calendar"></i> <a href="/curahhujan/<%= id %><% print('/' + sampling.split('-')[0] + '/' + sampling.split('-')[1]) %>">Hujan Bulan</a></li>
-            </div>
-          </div>
-        </script>
         <script>
-        var ws = new WebSocket('ws://mqtt.bbws-bsolo.net:22286');
-        ws.onmessage = function (event) {
-            var data = JSON.parse(event.data);
-            if (data.device === undefined) { return; }
-            var device_id = data.device.split('/')[1];
-            var marker = undefined;
-            for (m in markers) {
-                if (markers[m].did == device_id) {
-                    marker = markers[m].markerObj;
-                    break;
-                }
-            }
-            var icon_src = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
-            if (data.tick > 0) {
-                // put did into rains_in
-                var index = rains_in.indexOf(device_id);
-                if (index == -1) {
-                    rains_in.push(device_id);
-                }
-                icon_src = 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png';
-                //icon_src = '/static/images/marker/gray_rain_2.gif';
-            } else {
-                var index = rains_in.indexOf(device_id);
-                if (index > -1) {
-                    rains_in.splice(device_id, 1);
-                }
-
-            }
-            if (marker != undefined) {
-                setIcon(marker, icon_src);
-            }
-        }
-        var markers = [];
-        var rains_in = [];
-        var primaIds = """ + str(all_prima) + """;
-        function setIcon(marker, icon_src='http://maps.google.com/mapfiles/ms/icons/green-dot.png') {
-            marker.setIcon(icon_src);
-        }
-        function init_map() {
-            var my_options = {
-                center: new google.maps.LatLng(-7.49592,111.568909),
-                zoom: 9,
-                styles: [
-    {
-        "featureType": "all",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "weight": "2.00"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#9c9c9c"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.man_made",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#eeeeee"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#7b7b7b"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#46bcec"
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#88b6f2" /* "#c8d7d4" */
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#000000"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    }
-],
-                mapTypeId: google.maps.MapTypeId.TERRAIN };
-            var map = new google.maps.Map(document.getElementById('map'), my_options);
-            var batas_das = new google.maps.KmlLayer(
-                {url: 'http://hidrologi.bbws-bsolo.net/static/batas_das.kml',
-                preserveViewport: true, map: map});
-
           var allPos = """ + str(all_pos) + """;
-          var infoWindow = new google.maps.InfoWindow;
-          _.each(allPos, function(pos) {
-            var iw = `<div class="panel panel-default">
+          for (var i = 0; i < allPos.length; i++) {
+             var iw = `<div class="panel panel-default">
                 <div class="panel-heading">
-                <div class="panel-title"><h6>${pos.name}</h6></div></div>
+                <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
                 <div class="panel-body">
                 <table class="table">
-                <td>Prima ID</td><td>${pos.device}</td>
+                <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
+                <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
                 </table>
                 </div>
-                <div class="panel-footer"><span class="glyphicon glyphicon-user"></span> ${pos.petugas} <b>${pos.kode}</b></div>
+                <div class="panel-footer"><span class="icofont-user"></span>&nbsp;&nbsp;${allPos[i].petugas} <br>
+                <span class="icofont-barcode"></span>&nbsp;&nbsp;<b>${allPos[i].kode}</b></div>
                 </div>`
-            var lat = parseFloat(pos.ll.split(',')[0]);
-            var lng = parseFloat(pos.ll.split(',')[1]);
-            var point = new google.maps.LatLng(lat, lng);
-            var marker = new google.maps.Marker({
-                icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
-                map: map,
-                optimized: false,
-                title: pos.name + ' (' + pos.device + ')',
-                position: point
-            })
-            markers.push({id: pos.id, did: pos.device, markerObj: marker});
-            bind_info_window(marker, map, infoWindow, iw);
-          });
-        };
-        function bind_info_window(marker, map, infowindow, html) {
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(html);
-                infowindow.open(map, marker);
-            })
-        };
+             var lat = parseFloat(allPos[i].ll.split(',')[0]);
+             var lng = parseFloat(allPos[i].ll.split(',')[1]);
+             marker = new L.marker([lat, lng],{icon: ch_icon})
+                .bindPopup(iw)
+                .addTo(map);
+          }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         """
-        return render.map.curahhujan({'poses': agents, 'js_foot': js_foot})
+        return rendermap.map.tma({'js_foot': js_foot})
 
 
 class MapTma:
@@ -348,267 +110,43 @@ class MapTma:
                 petugas = '-'
                 petugas_kode = '-'
             row = {'id': a.AgentId, 'name': a.cname, 'll': a.ll
-                    ,'device':a.prima_id, 'petugas_nama': petugas,
-                   'petugas_kode': petugas_kode} 
+                    ,'device':a.prima_id, 'petugas': petugas,
+                   'kode': petugas_kode} 
             all_pos.append(row)
         all_pos = json.dumps(all_pos)
         js_foot = """
         <script>
-        var map;
-        var dataLayer = [];
-        var kmlSrc = [
-            { title: 'Tanggul Pacitan', fname: 'tanggul_pacitan'},
-            { title: 'Tanggul Bojonegoro', fname: 'tanggul_bojonegoro'},
-            { title: 'Embung', fname: 'embung'},
-            { title: 'Bendungan', fname: 'bendungan' },
-            { title: 'Bendungan On Going', fname: 'bendungan_on_going'},
-        ];
-        function toggleKml(checked, id){
-            if (checked){
-                dataLayer[id].loadGeoJson('/static/gis/'+ kmlSrc[id].fname +'.json', {idPropertyName: kmlSrc[id].fname});
-                dataLayer[id].setMap(map);
-            } else {
-                dataLayer[id].setMap(null);
-            }
-        }
-        function init_map() {
-            var my_options = {
-                center: new google.maps.LatLng(-7.49592,111.568909),
-                zoom: 9,
-                styles: [
-    {
-        "featureType": "all",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "weight": "2.00"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "geometry.stroke",
-        "stylers": [
-            {
-                "color": "#9c9c9c"
-            }
-        ]
-    },
-    {
-        "featureType": "all",
-        "elementType": "labels.text",
-        "stylers": [
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "all",
-        "stylers": [
-            {
-                "color": "#f2f2f2"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "landscape.man_made",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "poi",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": -100
-            },
-            {
-                "lightness": 45
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#eeeeee"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#7b7b7b"
-            }
-        ]
-    },
-    {
-        "featureType": "road",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    },
-    {
-        "featureType": "road.highway",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "simplified"
-            }
-        ]
-    },
-    {
-        "featureType": "road.arterial",
-        "elementType": "labels.icon",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "transit",
-        "elementType": "all",
-        "stylers": [
-            {
-                "visibility": "off"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "all",
-        "stylers": [
-            {
-                "saturation": 100
-            },
-            {
-                "lightness": 15
-            },
-            {
-                "color": "#88b6f2" /* "#466cec" */
-            },
-            {
-                "visibility": "on"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "geometry.fill",
-        "stylers": [
-            {
-                "color": "#88b6f2"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": [
-            {
-                "color": "#000000"
-            }
-        ]
-    },
-    {
-        "featureType": "water",
-        "elementType": "labels.text.stroke",
-        "stylers": [
-            {
-                "color": "#ffffff"
-            }
-        ]
-    }
-],
-                mapTypeId: google.maps.MapTypeId.TERRAIN };
-            map = new google.maps.Map(document.getElementById('map'), my_options);
-            var batas_das = new google.maps.KmlLayer(
-                '/static/ws_bsolo_das.kml', {
-                preserveViewport: true, map: map});
-
           var allPos = """ + str(all_pos) + """;
-          var markers = {};
-          var infoWindow = new google.maps.InfoWindow;
-          let chk = "";
-          for (let e in kmlSrc){
-              dataLayer[e] = new google.maps.Data();
-              chk += `<div class="checkbox"><label><input id="kml_${e}" onclick="toggleKml(this.checked, ${e})" type="checkbox" name="${kmlSrc[e].fname}">${kmlSrc[e].title}</label></div>`;
-          };
-          let ctrlForm = `<div class="panel panel-default"><div class="panel-body">
-          <form style="font-size: 1.4rem;">
-          ${chk}
-          </form></div></div>`;
-          var ctrlDiv = document.createElement('div');
-          ctrlDiv.innerHTML = ctrlForm;
-          map.controls[google.maps.ControlPosition.RIGHT_TOP].push(ctrlDiv);
-          _.each(allPos, function(pos) {
-            var iw = `<div class="panel panel-default">
+          for (var i = 0; i < allPos.length; i++) {
+             var iw = `<div class="panel panel-default">
                 <div class="panel-heading">
-                <div class="panel-title"><h6>${pos.name}</h6></div></div>
+                <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
                 <div class="panel-body">
                 <table class="table">
-                <td>Prima ID</td><td>${pos.device}</td>
+                <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
+                <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
                 </table>
                 </div>
-                <div class="panel-footer"><span class="glyphicon
-                glyphicon-user"></span>&nbsp;&nbsp;${pos.petugas_nama} <br>
-                <span class="glyphicon glyphicon-barcode"></span>&nbsp;&nbsp;<b>${pos.petugas_kode}</b></div>
+                <div class="panel-footer"><span class="icofont-user"></span>&nbsp;&nbsp;${allPos[i].petugas} <br>
+                <span class="icofont-barcode"></span>&nbsp;&nbsp;<b>${allPos[i].kode}</b></div>
                 </div>`
-            var lat = parseFloat(pos.ll.split(',')[0]);
-            var lng = parseFloat(pos.ll.split(',')[1]);
-            var point = new google.maps.LatLng(lat, lng);
-            var marker = new google.maps.Marker({
-                icon: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
-                map: map,
-                position: point
-            });
-            markers[pos.id] = marker;
-            bind_info_window(marker, map, infoWindow, iw);
-          });
-        };
-        function bind_info_window(marker, map, infowindow, html) {
-            google.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent(html);
-                infowindow.open(map, marker);
-            })
-        };
+             var lat = parseFloat(allPos[i].ll.split(',')[0]);
+             var lng = parseFloat(allPos[i].ll.split(',')[1]);
+             marker = new L.marker([lat, lng],{icon: tma_icon})
+                .bindPopup(iw)
+                .addTo(map);
+          }
         </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
-        """
-        return render.map.tma({'poses': agents, 'js_foot': js_foot})
 
-class Ka:
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        """
+        return rendermap.map.tma({'js_foot': js_foot})
+
+class MapKa:
     def GET(self):
         conn = Agent._connection
 
@@ -883,7 +421,7 @@ class Ka:
                 position: point
             });
             markers[pos.id] = marker;
-            bind_info_window(marker, map, infoWindow, "<a href='/kualitasair/chart/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>"+"<br>"+"Data Terakhir : "+pos.last_time+"<br>"+"IP Terakhir : "+pos.ip_last_time);
+            bind_info_window(marker, map, infoWindow, "<a href='/kualitasair/chart/"+pos.id+"' style='font-weight: bold;font-size: 16px;'>"+ pos.name + "</a>"+"<br>"+"Data Terakhir : "+pos.last_time+"<br>"+"IP Terakhir : "+pos.ip_last_time+"<br>"+"Koordinat : "+pos.ll);
           });
         };
         function bind_info_window(marker, map, infowindow, html) {
@@ -897,4 +435,4 @@ class Ka:
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmnJGdC-ZhVd98H3mwMRv2GU2dlv1D7IA&callback=init_map"></script>
         """
 
-        return render.map.kualitasair({'js_foot': js_foot})
+        return rendermap.map.kualitasair({'js_foot': js_foot})
