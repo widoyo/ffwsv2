@@ -1,0 +1,104 @@
+$def with(content)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Sistem Informasi Hidrologi & Kualitas Air</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- blink -->
+  <style type="text/css">
+  .affix-top { margin-bottom: 0px !important; }
+  </style>
+
+  <!-- Favicons -->
+  <link href="/static/assets/img/logo_pu.png" rel="icon">
+  <link href="/static/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/icofont/icofont.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/venobox/venobox.css" rel="stylesheet">
+  <link href="/static/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="/static/assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="/static/assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/static/assets/css/style.css" rel="stylesheet">
+  $:content.get('extra_header', '')
+  <!-- =======================================================
+  * Template Name: Bootslander - v2.1.0
+  * Template URL: https://bootstrapmade.com/bootslander-free-bootstrap-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+<body class="d-flex flex-column min-vh-100">
+  <!-- ======= Header ======= -->
+  <header id="header" style="background: rgba(2,5,161,0.91)" class="fixed-top d-flex align-items-center">
+    <div class="container d-flex align-items-center">
+
+      <div class="logo mr-auto">
+        <!-- Uncomment below if you prefer to use an image logo -->
+         <a href="/"><img src="/static/assets/img/logo-web-v2.png" alt="" class="img-fluid"></a>
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="/">Home</a></li>
+          <li class="drop-down"><a href="">Data</a>
+            <ul>
+              <li><a href="/curahhujan">Curah Hujan</a></li>
+              <li><a href="/klimatologi">Klimatologi</a></li>
+              <li><a href="/tma">Tinggi Muka Air</a></li>
+              <li><a href="/kekeringan">Kekeringan</a></li>
+              <li><a href="/kualitasair">Kualitas Air</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="">Peta</a>
+            <ul>
+              <li><a href="/map/curahhujan">Curah Hujan</a></li>
+              <li><a href="/map/tma">Tinggi Muka Air</a></li>
+              <li><a href="/map/kualitasair">Kualitas Air</a></li>
+            </ul>
+          </li>
+          <li class="drop-down"><a href="">Publikasi</a>
+            <ul>
+              <li><a href="https://drive.google.com/file/d/1nKolg5kscywmX35AYat2eX6_-RsK24XG/view?usp=sharing" target="_blank">Majalah Siklus</a></li>
+            </ul>
+          </li>
+          <!-- <li><a href="#">Login</a></li> -->
+
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+  <div style="margin-top:48px;">&nbsp;</div>
+    $:content
+    $:content.get('js_foot', '')
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="/static/assets/vendor/jquery/jquery.min.js"></script>
+  <script src="/static/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/static/assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+  <script src="/static/assets/vendor/php-email-form/validate.js"></script>
+  <script src="/static/assets/vendor/venobox/venobox.min.js"></script>
+  <script src="/static/assets/vendor/waypoints/jquery.waypoints.min.js"></script>
+  <script src="/static/assets/vendor/counterup/counterup.min.js"></script>
+  <script src="/static/assets/vendor/owl.carousel/owl.carousel.min.js"></script>
+  <script src="/static/assets/vendor/aos/aos.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/static/assets/js/main.js"></script>
+</body>
+</html>

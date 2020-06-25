@@ -13,7 +13,7 @@ $var js_foot:
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script>
-      \$('#container').highcharts({
+      \$('#chartip').highcharts({
         chart: {
           type: 'column'
         },
@@ -37,63 +37,55 @@ $var js_foot:
                  },
           plotLines: [
             {
-                value: 1,
+                value: 0,
                 color: 'blue',
                 dashStyle: 'shortdash',
                 width: 2,
                 label: {
                     text: 'Memenuhi Baku Mutu',
-                    y:15
+                    y:-2,
+                    style: {
+                        fontSize: 10
+                    }
                 }
             }, 
             {
-                value: 5,
+                value: 1,
                 color: 'green',
                 dashStyle: 'shortdash',
                 width: 2,
                 label: {
                     text: 'Cemar Ringan',
-                    y:15
+                    y:-2,
+                    style: {
+                        fontSize: 10
+                    }
                 }
             },
             {
-                value: 10,
+                value: 5,
                 color: 'yellow',
                 dashStyle: 'shortdash',
                 width: 2,
                 label: {
                     text: 'Cemar Sedang',
-                    y:15
+                    y:-2,
+                    style: {
+                        fontSize: 10
+                    }
                 }
             },
             {
-                value: 15,
+                value: 10,
                 color: 'red',
                 dashStyle: 'shortdash',
                 width: 2,
                 label: {
                     text: 'Cemar Berat',
-                    y:15
-                }
-            },
-            {
-                value: 25,
-                color: 'red',
-                dashStyle: 'shortdash',
-                width: 2,
-                label: {
-                    text: 'Cemar Berat',
-                    y:15
-                }
-            },
-            {
-                value: 35,
-                color: 'red',
-                dashStyle: 'shortdash',
-                width: 2,
-                label: {
-                    text: 'Cemar Berat',
-                    y:15
+                    y:-2,
+                    style: {
+                        fontSize: 10
+                    }
                 }
             }
           ]
@@ -136,7 +128,7 @@ $var js_foot:
 
 <div class="container">
   <h2><a href="/kualitasair"><span class="glyphicon glyphicon-chevron-left"></span></a> Index Pencemaran Pos $pname <a href="/kualitasair/parameter/$id_pos_ka" class="btn btn-primary" style="float:right;">Parameter Uji</a></h2>
-  <div id="container" style="min-width: 600px; height: 450px; margin: 0 auto"></div>
+  <div id="chartip" style="width: 100%; height: 450px; margin: 0 auto"></div>
   <p>Evaluasi terhadap Nilai Index Pencemaran</p>
   <table class="table-legenda">
       <tr><!-- <td style="background-color: #00BFFF"></td> --><th>0 <= IP <= 1.0</th><td>Memenuhi Baku Mutu</td></tr>
