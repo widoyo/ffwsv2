@@ -116,7 +116,10 @@ class ChJam():
                 alldata = Agent._connection.queryAll("SELECT SamplingDate, HOUR(SamplingTime),SUM(Rain) FROM {0} WHERE SamplingDate='{1}' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime".format(str(pos_ch),day))
 
                 for a in alldata:
-                    row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':a[2]}
+                    if a[2] == None:
+                        row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':'0'}
+                    else:
+                        row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':a[2]}
                     data.append(row)
 
             return json.dumps(data, default=json_serialize)
