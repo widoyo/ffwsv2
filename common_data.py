@@ -41,7 +41,7 @@ CAUSE_TABLE = {  # Hulu
                'serenan': ('gunungan', 'wonogiri', 'bendung_colo', 'klaten'),
                'tangen_bridge': ('jurug', 'kalijambe', 'sragen'),
                #  Madiun
-               'badegan': ('purwantoro', 'kenteng'),
+               'badegan': ('purwantoro',),
                'bendo': ('sooko',),
                'ahmadyani': ('bangunsari', 'slahung', 'madiun'),
                'jati_weir': ('slahung', 'bangunsari'),
