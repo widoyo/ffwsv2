@@ -13,12 +13,15 @@ from models import Agent, conn, HIDROLOGI, KLIMATOLOGI
 from helper import to_date
 from common_data import BSOLO_LOGGER
 
+from datetime import date, timedelta
+
 urls = (
     '$', 'Api',
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
     '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
-    '/chcustom','CHCustom', # api ch untuk kebutuhan olah data custom staff hidrologi
+    '/chmenit','ChMenit', # api ch untuk kebutuhan olah data custom staff hidrologi
+    '/chjam','ChJam',
     '/tma', 'Tma', # Data TMA serupa /tma
     '/tmax', 'Tmax',
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
@@ -75,7 +78,7 @@ class CurahHujanApi():
         return json.dumps({'tanggal': tanggal, 'curahhujan': data}, default=json_serialize)
 
 
-class CHCustom():
+class ChMenit():
     def GET(self):
         tanggalmin = web.input().get('tanggalmin')
         tanggalmax = web.input().get('tanggalmax')
@@ -91,6 +94,33 @@ class CHCustom():
                 row={'SamplingDate':a[0],'SamplingTime':str(a[1]),'Rain':a[2]}
                 data.append(row)
             return json.dumps(data, default=json_serialize)
+
+class ChJam():
+    def GET(self):
+        tanggalmin = web.input().get('tanggalmin')
+        tanggalmax = web.input().get('tanggalmax')
+        pos_ch = web.input().get('pos_ch')
+        if not tanggalmin or not tanggalmax:
+            return json.dumps({'response':'pilih tanggal minimal dan tanggal maksimal untuk rentang waktu'})
+        else:
+            tanggalmin = tanggalmin.split('/')
+            tanggalmax = tanggalmax.split('/')
+
+            sdate = date(int(tanggalmin[0]), int(tanggalmin[1]), int(tanggalmin[2]))   # start date
+            edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
+            delta = edate - sdate       # as timedelta
+            data=[]
+            
+            for i in range(delta.days + 1):
+                day = sdate + timedelta(days=i)
+                alldata = Agent._connection.queryAll("SELECT SamplingDate, HOUR(SamplingTime),SUM(Rain) FROM {0} WHERE SamplingDate='{1}' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime".format(str(pos_ch),day))
+
+                for a in alldata:
+                    row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':a[2]}
+                    data.append(row)
+
+            return json.dumps(data, default=json_serialize)
+
 
 
 class Tma():
