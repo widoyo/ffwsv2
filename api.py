@@ -26,7 +26,8 @@ urls = (
     '/tmax', 'Tmax',
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
-    '/agentch','AgentCH'
+    '/agentch','AgentCH',
+    '/agenttma','AgentTma'
 )
 
 app_api = web.application(urls, locals())
@@ -35,7 +36,6 @@ session = web.session.Session(app_api, web.session.DiskStore('sessions'),
                                            'flash': None})
 globals = {'session': session}
 render = web.template.render('templates/', base='base', globals=globals)
-
 
 
 def json_serialize(obj):
@@ -49,6 +49,20 @@ class AgentCH():
     def GET(self):
         HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
         agents = Agent.select(AND(OR(Agent.q.AgentType == KLIMATOLOGI, Agent.q.AgentType == 0.0), Agent.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = []
+        for a in agents:
+            row = {'pos':a.cname or a.AgentName,'table_name':a.table_name,'pos_id':a.AgentId}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
+
+class AgentTma():
+    def GET(self):
+        HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
+                                     Agent.q.AgentType == 0),
+                                  Agent.q.expose == True)).orderBy(
+                                      ["wilayah", "urutan"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
         data = []
         for a in agents:
