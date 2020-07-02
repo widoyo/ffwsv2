@@ -162,6 +162,30 @@ class MapTma:
           }
         </script>
 
+        <script>
+            for (var i = 0; i < allPos.length; i++) {
+                var iw = `<div class="panel panel-default">
+                    <div class="panel-heading">
+                    <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
+                    <div class="panel-body">
+                    <table class="table">
+                    <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
+                    <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
+                    </table>
+                    </div>
+                    <div class="panel-footer"><span class="icofont-user"></span>&nbsp;&nbsp;${allPos[i].petugas} <br>
+                    <span class="icofont-barcode"></span>&nbsp;&nbsp;<b>${allPos[i].kode}</b></div>
+                    </div>`
+                var lat = parseFloat(allPos[i].ll.split(',')[0]);
+                var lng = parseFloat(allPos[i].ll.split(',')[1]);
+
+                var name = allPos[i].name,
+                marker = new L.Marker(new L.latLng([lat,lng]), {title: name,icon: tma_icon} );//se property searched;
+                marker.bindPopup(iw);
+                markersLayer.addLayer(marker);
+            }
+        </script>
+
         <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
