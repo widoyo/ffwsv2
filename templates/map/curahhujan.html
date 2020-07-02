@@ -50,6 +50,11 @@ $var extra_header:
     var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
     streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
 
+    var googleSat = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}',{
+        maxZoom: 20,
+        subdomains:['mt0','mt1','mt2','mt3']
+    });
+
     var map = L.map('mapid', {
     center: [-7.49592,111.568909],
     zoom: 9,
@@ -235,7 +240,8 @@ $var extra_header:
 
     var baseLayers = {
     "Grayscale": grayscale,
-    "Streets": streets
+    "Streets": streets,
+    "Satellite" : googleSat
     };
 
     var overlays = {
