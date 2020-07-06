@@ -124,21 +124,23 @@ class ChJam():
             edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
             delta = edate - sdate       # as timedelta
             data=[]
+
+            sql = "SELECT HOUR(SamplingTime),SUM(Rain) FROM %s WHERE SamplingDate='%s' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime"
             
             for i in range(delta.days + 1):
                 day = sdate + timedelta(days=i)
-                alldata = Agent._connection.queryAll("SELECT SamplingDate, HOUR(SamplingTime),SUM(Rain) FROM {0} WHERE SamplingDate='{1}' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime".format(str(pos_ch),day))
-
-                for a in alldata:
-                    if a[2] == None:
-                        row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':'0'}
+                s = sql % (str(pos_ch), day)
+                h_data = dict([d for d in conn.queryAll(s)])
+                # print("h_data",h_data)
+                t_data = [{"Tick":h_data.get(h, str(0)),"HOUR":str(h)} for h in range(0, 24)]
+                # print("data",t_data)
+                for a in t_data:
+                    if a.get("Tick") == None:
+                        row={'Tick':"0",'HOUR':a.get("HOUR"),'SamplingDate':day}
                     else:
-                        row={'SamplingDate':a[0],'HOUR':str(a[1]),'Tick':a[2]}
+                        row={'Tick':str(a.get("Tick")),'HOUR':a.get("HOUR"),'SamplingDate':day}
                     data.append(row)
-
             return json.dumps(data, default=json_serialize)
-
-
 
 class Tma():
     def GET(self):
@@ -205,9 +207,7 @@ def map_periodic(src):
         if i in src:
             ret.update({i: src.get(i)})
     return ret
-
-
-
+    
 
 class BsoloLogger:
     ''''''
