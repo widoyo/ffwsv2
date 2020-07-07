@@ -20,9 +20,10 @@ urls = (
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
     '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
-    '/chmenit','ChMenit', # api ch untuk kebutuhan olah data custom staff hidrologi
+    '/chmenit','ChMenit', # api ch untuk kebutuhan olah data staff hidrologi
     '/chjam','ChJam',
     '/tma', 'Tma', # Data TMA serupa /tma
+    '/tmajam','TmaJam',
     '/tmax', 'Tmax',
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
@@ -142,6 +143,39 @@ class ChJam():
                     data.append(row)
             return json.dumps(data, default=json_serialize)
 
+class TmaJam():
+    def GET(self):
+        tanggalmin = web.input().get('tanggalmin')
+        tanggalmax = web.input().get('tanggalmax')
+        pos_tma = web.input().get('pos_tma')
+        if not tanggalmin or not tanggalmax:
+            return json.dumps({'response':'pilih tanggal minimal dan tanggal maksimal untuk rentang waktu'})
+        else:
+            tanggalmin = tanggalmin.split('/')
+            tanggalmax = tanggalmax.split('/')
+
+            sdate = date(int(tanggalmin[0]), int(tanggalmin[1]), int(tanggalmin[2]))   # start date
+            edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
+            delta = edate - sdate       # as timedelta
+            data=[]
+
+            sql = "SELECT HOUR(SamplingTime),WLevel FROM %s WHERE SamplingDate='%s' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime"
+            
+            for i in range(delta.days + 1):
+                day = sdate + timedelta(days=i)
+                s = sql % (str(pos_tma), day)
+                h_data = dict([d for d in conn.queryAll(s)])
+                # print("h_data",h_data)
+                t_data = [{"Wlevel_cm":h_data.get(h, str(0)),"HOUR":str(h)} for h in range(0, 24)]
+                # print("data",t_data)
+                for a in t_data:
+                    if a.get("Wlevel_cm") == None:
+                        row={'Wlevel_cm':"0",'HOUR':a.get("HOUR"),'SamplingDate':day}
+                    else:
+                        row={'Wlevel_cm':str(a.get("Wlevel_cm")),'HOUR':a.get("HOUR"),'SamplingDate':day}
+                    data.append(row)
+            return json.dumps(data, default=json_serialize)
+
 class Tma():
     def GET(self):
         tanggal = web.input().get('d')
@@ -207,7 +241,7 @@ def map_periodic(src):
         if i in src:
             ret.update({i: src.get(i)})
     return ret
-    
+
 
 class BsoloLogger:
     ''''''
