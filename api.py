@@ -158,21 +158,20 @@ class TmaJam():
             edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
             delta = edate - sdate       # as timedelta
             data=[]
-
-            sql = "SELECT HOUR(SamplingTime),WLevel FROM %s WHERE SamplingDate='%s' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime"
+            listjam = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
             
             for i in range(delta.days + 1):
                 day = sdate + timedelta(days=i)
-                s = sql % (str(pos_tma), day)
-                h_data = dict([d for d in conn.queryAll(s)])
-                # print("h_data",h_data)
-                t_data = [{"Wlevel_cm":h_data.get(h, str(0)),"HOUR":str(h)} for h in range(0, 24)]
-                # print("data",t_data)
-                for a in t_data:
-                    if a.get("Wlevel_cm") == None:
-                        row={'Wlevel_cm':"0",'HOUR':a.get("HOUR"),'SamplingDate':day}
+                for a in listjam:  
+                    sql = "SELECT HOUR(SamplingTime),WLevel FROM {0} WHERE SamplingTime LIKE '{1}:00:00' AND SamplingDate='{2}' ORDER BY HOUR(SamplingTime)".format(str(pos_tma),a,day)
+                    #print(sql)
+                    alldata = Agent._connection.queryAll(sql)
+                    if len(alldata) == 0:
+                        #print('kosong')
+                        row={'Wlevel_cm':'0','HOUR':a,'SamplingDate':day}
                     else:
-                        row={'Wlevel_cm':str(a.get("Wlevel_cm")),'HOUR':a.get("HOUR"),'SamplingDate':day}
+                        #print(alldata[0])
+                        row={'Wlevel_cm':str(alldata[0][1]),'HOUR':a,'SamplingDate':day}
                     data.append(row)
             return json.dumps(data, default=json_serialize)
 
