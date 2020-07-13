@@ -24,7 +24,8 @@ urls = (
     '/chjam','ChJam',
     '/tma', 'Tma', # Data TMA serupa /tma
     '/tmajam','TmaJam',
-    '/tmax', 'Tmax',
+    '/mtma', 'ManualTma', #ambil data manual TMA dalam setahun
+    '/mch','ManualCH', #ambil data manual curah hujan dalam setahun
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
     '/agentch','AgentCH',
@@ -44,6 +45,11 @@ def json_serialize(obj):
         return obj.isoformat()
     if isinstance(obj, decimal.Decimal):
         return float(obj)
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+def json_serialize_mod(obj):
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
     raise TypeError ("Type %s not serializable" % type(obj))
 
 class AgentCH():
@@ -203,14 +209,34 @@ class Tma():
         return json.dumps({'tanggal': tanggal, 'tma': data}, default=json_serialize)
 
 
-class Tmax():
+class ManualTma():
     def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
         data=[]
-        alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)=2020 AND agent_id=2 ORDER BY waktu,jam")
+        alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu,jam".format(int(tahun),int(agent_id)))
         for a in alldata:
-            row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
+            if a[3] == None:
+                row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':"-"}
+            else:
+                row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
             data.append(row)
-        return json.dumps(data, default=json_serialize)
+        return json.dumps(data, default=json_serialize_mod)
+
+
+class ManualCH():
+    def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
+        data=[]
+        alldata = Agent._connection.queryAll("SELECT waktu,manual,origin_manual FROM curahhujan WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu".format(int(tahun),int(agent_id)))
+        for a in alldata:
+            if a[2] == None:
+                row={'waktu':a[0],'manual':a[1],'origin':"-"}
+            else:
+                row={'waktu':a[0],'manual':a[1],'origin':a[2]}
+            data.append(row)
+        return json.dumps(data, default=json_serialize_mod)
 
 
 def ts(x):
