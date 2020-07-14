@@ -213,30 +213,47 @@ class ManualTma():
     def GET(self):
         agent_id = web.input().get('agent_id')
         tahun = web.input().get('tahun')
+        origin = web.input().get('origin')
         data=[]
         alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu,jam".format(int(tahun),int(agent_id)))
-        for a in alldata:
-            if a[3] == None:
-                row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':"-"}
-            else:
-                row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
-            data.append(row)
-        return json.dumps(data, default=json_serialize_mod)
+        if int(origin) == 1:
+            for a in alldata:
+                if a[3] == None:
+                    row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':"-"}
+                else:
+                    row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+
+        if int(origin) == 0:
+            for a in alldata:
+                row={'waktu':a[0],'jam':a[1],'manual':a[2]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+
 
 
 class ManualCH():
     def GET(self):
         agent_id = web.input().get('agent_id')
         tahun = web.input().get('tahun')
+        origin = web.input().get('origin')
         data=[]
         alldata = Agent._connection.queryAll("SELECT waktu,manual,origin_manual FROM curahhujan WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu".format(int(tahun),int(agent_id)))
-        for a in alldata:
-            if a[2] == None:
-                row={'waktu':a[0],'manual':a[1],'origin':"-"}
-            else:
-                row={'waktu':a[0],'manual':a[1],'origin':a[2]}
-            data.append(row)
-        return json.dumps(data, default=json_serialize_mod)
+        if int(origin) == 1:
+            for a in alldata:
+                if a[2] == None:
+                    row={'waktu':a[0],'manual':a[1],'origin':"-"}
+                else:
+                    row={'waktu':a[0],'manual':a[1],'origin':a[2]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+        
+        if int(origin) == 0:
+            for a in alldata:
+                row={'waktu':a[0],'manual':a[1]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
 
 
 def ts(x):
