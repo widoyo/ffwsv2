@@ -10,6 +10,7 @@ import web
 from sqlobject import AND, OR
 from models import Agent, KLIMATOLOGI, WILAYAH, conn
 from models import HIDROLOGI
+from helper import to_date
 
 urls = (
     '/curahhujan', 'MapCurahhujan',
@@ -48,7 +49,7 @@ class MapCurahhujan:
                 rst = None
             if rst:
                 rain, sampling = rst[0]
-                print(rst[0])
+                # print(rst[0])
                 sampling = datetime.datetime.strptime(sampling, '%Y-%m-%d %H:%M:%S')
                 if datetime.datetime.now() - sampling > datetime.timedelta(minutes=10):
                     rain = 0
@@ -56,7 +57,15 @@ class MapCurahhujan:
                     rain = float(rain or 0)
             else:
                 rain = 0
-            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname, 'll': a.ll, 'tname': a.table_name,'petugas':[p.nama for p in a.petugas],'kode':[p.kode for p in a.petugas]}
+
+            if a.kab == None:
+                kab = "-"
+            else:
+                kab = a.kab
+
+            ch = a.get_segmented_rain(datetime.date.today())
+
+            p_ = {'id': a.AgentId, 'lrain': rain, 'name': a.cname+' ('+kab+')', 'll': a.ll, 'tname': a.table_name,'petugas':[p.nama for p in a.petugas],'kode':[p.kode for p in a.petugas],'ch_today':ch.get("total")}
             if a.table_name in all_prima.keys():
                 p_.update({'device': all_prima.get(a.table_name)})
             all_pos.append(p_)
@@ -69,6 +78,7 @@ class MapCurahhujan:
                 <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
                 <div class="panel-body">
                 <table class="table">
+                <tr><td><b>Curah Hujan</b></td><td><b>${allPos[i].ch_today} mm</b>&nbsp;&nbsp;<a href="/curahhujan/${allPos[i].id}">(Detail)</a></td></tr>
                 <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
                 <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
                 </table>
@@ -91,6 +101,7 @@ class MapCurahhujan:
                     <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
                     <div class="panel-body">
                     <table class="table">
+                    <tr><td><b>Curah Hujan</b></td><td><b>${allPos[i].ch_today} mm</b>&nbsp;&nbsp;<a href="/curahhujan/${allPos[i].id}">(Detail)</a></td></tr>
                     <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
                     <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
                     </table>
@@ -133,7 +144,12 @@ class MapTma:
             except:
                 petugas = '-'
                 petugas_kode = '-'
-            row = {'id': a.AgentId, 'name': a.cname, 'll': a.ll
+
+            if a.kab == None:
+                kab = "-"
+            else:
+                kab = a.kab
+            row = {'id': a.AgentId, 'name': a.cname+' ('+kab+')', 'll': a.ll
                     ,'device':a.prima_id, 'petugas': petugas,
                    'kode': petugas_kode} 
             all_pos.append(row)
