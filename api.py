@@ -368,6 +368,12 @@ class SensorGraph:
         '''@params:
             did: (str)device id
             sampling: (datetime'''
+            
+        try:
+            tanggal = to_date(web.input().get('sampling'))
+        except:
+        	tanggal = datetime.datetime.today()
+
         conn = pg.connect(dbname="bsolo3", user="bsolo3", password="4545-id")
         cursor = conn.cursor()
 
@@ -493,7 +499,7 @@ class SensorGraph:
             pname = "--"
         #print result
 
-        return render.sensor.sensor_graph({'data':str(data),'kategori':str(kategori),'did':did,'jenis_prima':jenis_prima,'pname':pname})
+        return render.sensor.sensor_graph({'data':str(data),'kategori':str(kategori),'did':did,'jenis_prima':jenis_prima,'pname':pname,'tanggal':tanggal})
         #return out["periodic"]
         
 
