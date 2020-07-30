@@ -29,7 +29,8 @@ urls = (
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
     '/agentch','AgentCH',
-    '/agenttma','AgentTma'
+    '/agenttma','AgentTma',
+    '/mklimat','KlimatManual' #get manual data climatology in year
 )
 
 app_api = web.application(urls, locals())
@@ -51,6 +52,17 @@ def json_serialize_mod(obj):
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
     raise TypeError ("Type %s not serializable" % type(obj))
+
+class KlimatManual():
+    def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
+        data=[]
+        alldata = Agent._connection.queryAll("SELECT DATE(sampling), ch_m, temp_min_m, temp_max_m, humi_m, kec_angin_m, penyinaran_m, penguapan_m FROM klimatmanual WHERE YEAR(sampling)={0} AND agent_id={1} ORDER BY sampling".format(int(tahun),int(agent_id)))
+        for a in alldata:
+            row={'sampling':a[0],'ch_mm':a[1],'temp_min_c':a[2],'temp_max_c':a[3],'humidity_percent':a[4],'kec_angin_meter24hour':a[5],'penyinaran_minutes':a[6],'penguapan_mm':a[7]}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
 
 class AgentCH():
     def GET(self):
