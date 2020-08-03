@@ -201,16 +201,12 @@ class Index:
         #         FROM kualitas_air k, lokasi l \
         #         WHERE k.id_pos=l.id AND YEAR(k.waktu)=%s \
         #         ORDER BY l.id, k.waktu" % rst[0][0]
-        sql = "SELECT MAX(k.waktu), k.ip, l.id, l.cname, l.ll, l.wilayah, l.urutan \
+        sql = "SELECT MAX(k.waktu), k.ip, l.id, l.cname, l.ll, l.wilayah, l.urutan, l.show \
                 FROM kualitas_air k, lokasi l \
-                WHERE k.id_pos=l.id GROUP BY l.id ORDER BY l.wilayah, l.urutan ASC"
+                WHERE k.id_pos=l.id and l.show = 1 GROUP BY l.id ORDER BY l.wilayah, l.urutan ASC"
         rst = conn.queryAll(sql)
         rows = []
         waktu = datetime.date.today()
         for d in rst:
-            #kode untuk menyembunyikan pos tertentu di tabel kualitas air
-            if d[3] == "Embanmati" or d[3] == "Grompol":
-                continue
             rows.append((d[2], d[3], d[0].strftime('%b %Y'), d[0].strftime('%Y'), d[5]))
-
         return render.kualitas_air.index({'data': rows,'wilayah':WILAYAH})
