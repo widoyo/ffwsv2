@@ -20,6 +20,14 @@ $var extra_header:
         }
     </style>
 
+    <!-- styling css layer leaflet js khusus tampilan peta -->
+    <style>
+        section {
+            padding: 0px 0;
+            overflow: hidden;
+        }
+    </style>
+
     <style>
         html, body, #container /*, and all other map parent selectors*/ {
         height: 100%;
@@ -270,7 +278,9 @@ $var extra_header:
 		layer: markersLayer,
 		initial: false,
 		zoom: 12,
-		marker: false
+		marker: false,
+        collapsed: false,
+        textPlaceholder : "Cari berdasarkan nama pos atau wilayah administratif.."
 	});
 
     controlSearch.on('search:locationfound', function(e) {
