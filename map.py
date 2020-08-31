@@ -71,30 +71,7 @@ class MapCurahhujan:
             all_pos.append(p_)
         js_foot = """
         <script>
-          var allPos = """ + str(all_pos) + """;
-          for (var i = 0; i < allPos.length; i++) {
-             var iw = `<div class="panel panel-default">
-                <div class="panel-heading">
-                <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
-                <div class="panel-body">
-                <table class="table">
-                <tr><td><b>Curah Hujan</b></td><td><b>${allPos[i].ch_today} mm</b>&nbsp;&nbsp;<a href="/curahhujan/${allPos[i].id}">(Detail)</a></td></tr>
-                <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
-                <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
-                </table>
-                </div>
-                <div class="panel-footer"><span class="icofont-user"></span>&nbsp;&nbsp;${allPos[i].petugas} <br>
-                <span class="icofont-barcode"></span>&nbsp;&nbsp;<b>${allPos[i].kode}</b></div>
-                </div>`
-             var lat = parseFloat(allPos[i].ll.split(',')[0]);
-             var lng = parseFloat(allPos[i].ll.split(',')[1]);
-             marker = new L.marker([lat, lng],{icon: ch_icon})
-                .bindPopup(iw)
-                .addTo(map);
-          }
-        </script>
-
-        <script>
+            var allPos = """ + str(all_pos) + """;
             for (var i = 0; i < allPos.length; i++) {
                 var iw = `<div class="panel panel-default">
                     <div class="panel-heading">
@@ -117,6 +94,42 @@ class MapCurahhujan:
                 marker.bindPopup(iw);
                 markersLayer.addLayer(marker);
             }
+        </script>
+
+        <script>
+        var ws = new WebSocket('ws://mqtt.bbws-bsolo.net:22286');
+        ws.onmessage = function (event) {
+            var data = JSON.parse(event.data);
+            if (data.device === undefined) { return; }
+            var device_id = data.device.split('/')[1];
+            for (ap in allPos) {
+                if (allPos[ap].device == device_id) {
+                    //console.log(device_id+" "+allPos[ap].name);
+                    var pos_hujan = 1;
+                    if (pos_hujan ==1) {
+                        var lat_ws = parseFloat(allPos[ap].ll.split(',')[0]);
+                        var lng_ws = parseFloat(allPos[ap].ll.split(',')[1]);
+                    }
+                    break;
+                } else {
+                    var pos_hujan = 0;
+                }
+            }
+
+            if (data.tick > 0) {
+                if (pos_hujan == 1){
+                    icon_hujan = ch_icon_rain;
+                }
+            } else {
+                icon_hujan = ch_icon;
+            }
+
+            //marker = new L.Marker(new L.latLng([lat_ws,lng_ws]), {icon: icon_hujan} );//se property searched;
+            //marker.bindPopup(iw);
+            //markersLayer.addLayer(marker);
+
+
+        }
         </script>
 
         <!-- Optional JavaScript -->
@@ -156,29 +169,7 @@ class MapTma:
         all_pos = json.dumps(all_pos)
         js_foot = """
         <script>
-          var allPos = """ + str(all_pos) + """;
-          for (var i = 0; i < allPos.length; i++) {
-             var iw = `<div class="panel panel-default">
-                <div class="panel-heading">
-                <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
-                <div class="panel-body">
-                <table class="table">
-                <tr><td>Prima ID</td><td>${allPos[i].device}</td></tr>
-                <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
-                </table>
-                </div>
-                <div class="panel-footer"><span class="icofont-user"></span>&nbsp;&nbsp;${allPos[i].petugas} <br>
-                <span class="icofont-barcode"></span>&nbsp;&nbsp;<b>${allPos[i].kode}</b></div>
-                </div>`
-             var lat = parseFloat(allPos[i].ll.split(',')[0]);
-             var lng = parseFloat(allPos[i].ll.split(',')[1]);
-             marker = new L.marker([lat, lng],{icon: tma_icon})
-                .bindPopup(iw)
-                .addTo(map);
-          }
-        </script>
-
-        <script>
+            var allPos = """ + str(all_pos) + """;
             for (var i = 0; i < allPos.length; i++) {
                 var iw = `<div class="panel panel-default">
                     <div class="panel-heading">
@@ -227,41 +218,6 @@ class MapKa:
         js_foot = """
         <script>
           var allPos = """ + str(all_pos) + """;
-          for (var i = 0; i < allPos.length; i++) {
-             var iw = `<div class="panel panel-default">
-                <div class="panel-heading">
-                <div class="panel-title"><h6>${allPos[i].name}</h6></div></div>
-                <div class="panel-body">
-                <table class="table">
-                <tr><td>Koordinat</td><td>${allPos[i].ll}</td></tr>
-                <tr><td>Data Terakhir</td><td>${allPos[i].last_time}</td></tr>
-                <tr><td>IP Terakhir</td><td>${allPos[i].ip_last_time}</td></tr>
-                </table>
-                </div>`
-             var lat = parseFloat(allPos[i].ll.split(',')[0]);
-             var lng = parseFloat(allPos[i].ll.split(',')[1]);
-             if(allPos[i].ip_last_time <= 1){
-                    var iconka = ka_icon_blue;
-             }
-             else if(allPos[i].ip_last_time > 1 && allPos[i].ip_last_time <= 5){
-                    var iconka = ka_icon_green;
-             }
-             else if(allPos[i].ip_last_time > 5 && allPos[i].ip_last_time <= 10){
-                    var iconka = ka_icon_yellow;
-             }
-             else if(allPos[i].ip_last_time > 10){
-                    var iconka = ka_icon_red;
-             }
-             else{
-                var iconka = ka_icon_orange;
-             }
-             marker = new L.marker([lat, lng],{icon: iconka})
-                .bindPopup(iw)
-                .addTo(map);
-          }
-        </script>
-
-        <script>
           for (var i = 0; i < allPos.length; i++) {
              var iw = `<div class="panel panel-default">
                 <div class="panel-heading">
