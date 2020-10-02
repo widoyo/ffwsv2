@@ -35,7 +35,7 @@ class Index:
             tanggal = datetime.date.today() - datetime.timedelta(days=1)
         poses = dict([l.split('\t') for l in open(
             'agent_table.txt').readlines()])
-        klimat_manual = KlimatManual.select(func.DATE(KlimatManual.q.sampling) == tanggal)
+        klimat_manual = KlimatManual.select(func.DATE(KlimatManual.q.sampling) == tanggal).orderBy(('agent_id',))
 
         return render.klimatologi.index({'pos': klimat_manual, 'tanggal': tanggal, 'sebelum': tanggal - datetime.timedelta(days=1), 'sesudah': tanggal + datetime.timedelta(days=1)})
 

@@ -4,6 +4,7 @@ $ series = ctx.get('data')
 $ did = ctx.get('did')
 $ jenis_prima = ctx.get('jenis_prima')
 $ pname = ctx.get('pname')
+$ tanggal = ctx.get('tanggal')
 $var js_foot:
 	<script>
 		var series = $:series;
@@ -55,6 +56,21 @@ $var js_foot:
       });
     </script>
 
+    <script type="text/javascript" src="/static/js/moment.min.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datepicker.js"></script>
+    <script>
+      \$('#datepicker').datepicker({
+        todayHighlight: true, 
+        format: 'yyyy/mm/dd',
+        autoclose: true});
+        \$('#datepicker').on('changeDate', function() {
+              console.log('changeDate');
+              \$('#dp_input').val(\$('#datepicker').datepicker('getFormattedDate'));
+              window.location = '/api/graph/'+'$did'+'?sampling=' + \$('#datepicker').datepicker('getFormattedDate');
+              });
+    </script>
+
 <div class="container">
+  <h3>Status:  <span id="datepicker" data-date="${tanggal.strftime('%Y/%m/%d')}">${tanggal.strftime('%d %b %Y')}</span> <span style="font-size: 14px" class="icofont-calendar"></span></h3>
   <div id="container" style="min-width: 600px; height: 450px; margin: 0 auto"></div>
 </div>

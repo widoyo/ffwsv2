@@ -13,17 +13,24 @@ from models import Agent, conn, HIDROLOGI, KLIMATOLOGI
 from helper import to_date
 from common_data import BSOLO_LOGGER
 
+from datetime import date, timedelta
+
 urls = (
     '$', 'Api',
     '/sensor', 'Sensor',  # List of incoming device(s)
     '/sensor/(.*)', 'Sensor',  # Showing single device
     '/curahhujan', 'CurahHujanApi', # curah hujan telemetri&manual
-    '/chcustom','CHCustom', # api ch untuk kebutuhan olah data custom staff hidrologi
+    '/chmenit','ChMenit', # api ch untuk kebutuhan olah data staff hidrologi
+    '/chjam','ChJam',
     '/tma', 'Tma', # Data TMA serupa /tma
-    '/tmax', 'Tmax',
+    '/tmajam','TmaJam',
+    '/mtma', 'ManualTma', #ambil data manual TMA dalam setahun
+    '/mch','ManualCH', #ambil data manual curah hujan dalam setahun
     '/graph/(.*)', 'SensorGraph',  # Showing single device graph
     '/logger', 'BsoloLogger',  # List of registered logger
-    '/agentch','AgentCH'
+    '/agentch','AgentCH',
+    '/agenttma','AgentTma',
+    '/mklimat','KlimatManual' #get manual data climatology in year
 )
 
 app_api = web.application(urls, locals())
@@ -34,7 +41,6 @@ globals = {'session': session}
 render = web.template.render('templates/', base='base', globals=globals)
 
 
-
 def json_serialize(obj):
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
@@ -42,10 +48,40 @@ def json_serialize(obj):
         return float(obj)
     raise TypeError ("Type %s not serializable" % type(obj))
 
+def json_serialize_mod(obj):
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError ("Type %s not serializable" % type(obj))
+
+class KlimatManual():
+    def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
+        data=[]
+        alldata = Agent._connection.queryAll("SELECT DATE(sampling), ch_m, temp_min_m, temp_max_m, humi_m, kec_angin_m, penyinaran_m, penguapan_m FROM klimatmanual WHERE YEAR(sampling)={0} AND agent_id={1} ORDER BY sampling".format(int(tahun),int(agent_id)))
+        for a in alldata:
+            row={'sampling':a[0],'ch_mm':a[1],'temp_min_c':a[2],'temp_max_c':a[3],'humidity_percent':a[4],'kec_angin_meter24hour':a[5],'penyinaran_minutes':a[6],'penguapan_mm':a[7]}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
+
 class AgentCH():
     def GET(self):
         HIDE_THIS = [a.strip() for a in open('HIDE_ARR.txt').read().split(',')]
         agents = Agent.select(AND(OR(Agent.q.AgentType == KLIMATOLOGI, Agent.q.AgentType == 0.0), Agent.q.expose == True)).orderBy(('wilayah', 'urutan', ))
+        agents = [a for a in agents if a.table_name not in HIDE_THIS]
+        data = []
+        for a in agents:
+            row = {'pos':a.cname or a.AgentName,'table_name':a.table_name,'pos_id':a.AgentId}
+            data.append(row)
+        return json.dumps(data, default=json_serialize)
+
+class AgentTma():
+    def GET(self):
+        HIDE_THIS = [a.strip() for a in open('HIDE_AWLR.txt').read().split(',')]
+        agents = Agent.select(AND(OR(Agent.q.AgentType == HIDROLOGI,
+                                     Agent.q.AgentType == 0),
+                                  Agent.q.expose == True)).orderBy(
+                                      ["wilayah", "urutan"])
         agents = [a for a in agents if a.table_name not in HIDE_THIS]
         data = []
         for a in agents:
@@ -75,7 +111,7 @@ class CurahHujanApi():
         return json.dumps({'tanggal': tanggal, 'curahhujan': data}, default=json_serialize)
 
 
-class CHCustom():
+class ChMenit():
     def GET(self):
         tanggalmin = web.input().get('tanggalmin')
         tanggalmax = web.input().get('tanggalmax')
@@ -92,6 +128,70 @@ class CHCustom():
                 data.append(row)
             return json.dumps(data, default=json_serialize)
 
+class ChJam():
+    def GET(self):
+        tanggalmin = web.input().get('tanggalmin')
+        tanggalmax = web.input().get('tanggalmax')
+        pos_ch = web.input().get('pos_ch')
+        if not tanggalmin or not tanggalmax:
+            return json.dumps({'response':'pilih tanggal minimal dan tanggal maksimal untuk rentang waktu'})
+        else:
+            tanggalmin = tanggalmin.split('/')
+            tanggalmax = tanggalmax.split('/')
+
+            sdate = date(int(tanggalmin[0]), int(tanggalmin[1]), int(tanggalmin[2]))   # start date
+            edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
+            delta = edate - sdate       # as timedelta
+            data=[]
+
+            sql = "SELECT HOUR(SamplingTime),SUM(Rain) FROM %s WHERE SamplingDate='%s' GROUP BY HOUR(SamplingTime) ORDER BY SamplingTime"
+            
+            for i in range(delta.days + 1):
+                day = sdate + timedelta(days=i)
+                s = sql % (str(pos_ch), day)
+                h_data = dict([d for d in conn.queryAll(s)])
+                # print("h_data",h_data)
+                t_data = [{"Tick":h_data.get(h, str(0)),"HOUR":str(h)} for h in range(0, 24)]
+                # print("data",t_data)
+                for a in t_data:
+                    if a.get("Tick") == None:
+                        row={'Tick':"0",'HOUR':a.get("HOUR"),'SamplingDate':day}
+                    else:
+                        row={'Tick':str(a.get("Tick")),'HOUR':a.get("HOUR"),'SamplingDate':day}
+                    data.append(row)
+            return json.dumps(data, default=json_serialize)
+
+class TmaJam():
+    def GET(self):
+        tanggalmin = web.input().get('tanggalmin')
+        tanggalmax = web.input().get('tanggalmax')
+        pos_tma = web.input().get('pos_tma')
+        if not tanggalmin or not tanggalmax:
+            return json.dumps({'response':'pilih tanggal minimal dan tanggal maksimal untuk rentang waktu'})
+        else:
+            tanggalmin = tanggalmin.split('/')
+            tanggalmax = tanggalmax.split('/')
+
+            sdate = date(int(tanggalmin[0]), int(tanggalmin[1]), int(tanggalmin[2]))   # start date
+            edate = date(int(tanggalmax[0]), int(tanggalmax[1]), int(tanggalmax[2]))   # end date
+            delta = edate - sdate       # as timedelta
+            data=[]
+            listjam = ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23']
+            
+            for i in range(delta.days + 1):
+                day = sdate + timedelta(days=i)
+                for a in listjam:  
+                    sql = "SELECT HOUR(SamplingTime),WLevel FROM {0} WHERE SamplingTime LIKE '{1}:00:00' AND SamplingDate='{2}' ORDER BY HOUR(SamplingTime)".format(str(pos_tma),a,day)
+                    #print(sql)
+                    alldata = Agent._connection.queryAll(sql)
+                    if len(alldata) == 0:
+                        #print('kosong')
+                        row={'Wlevel_cm':'0','HOUR':a,'SamplingDate':day}
+                    else:
+                        #print(alldata[0])
+                        row={'Wlevel_cm':str(alldata[0][1]),'HOUR':a,'SamplingDate':day}
+                    data.append(row)
+            return json.dumps(data, default=json_serialize)
 
 class Tma():
     def GET(self):
@@ -121,14 +221,51 @@ class Tma():
         return json.dumps({'tanggal': tanggal, 'tma': data}, default=json_serialize)
 
 
-class Tmax():
+class ManualTma():
     def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
+        origin = web.input().get('origin')
         data=[]
-        alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)=2020 AND agent_id=2 ORDER BY waktu,jam")
-        for a in alldata:
-            row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
-            data.append(row)
-        return json.dumps(data, default=json_serialize)
+        alldata = Agent._connection.queryAll("SELECT waktu,jam,manual,origin FROM tma WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu,jam".format(int(tahun),int(agent_id)))
+        if int(origin) == 1:
+            for a in alldata:
+                if a[3] == None:
+                    row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':"-"}
+                else:
+                    row={'waktu':a[0],'jam':a[1],'manual':a[2],'origin':a[3]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+
+        if int(origin) == 0:
+            for a in alldata:
+                row={'waktu':a[0],'jam':a[1],'manual':a[2]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+
+
+
+class ManualCH():
+    def GET(self):
+        agent_id = web.input().get('agent_id')
+        tahun = web.input().get('tahun')
+        origin = web.input().get('origin')
+        data=[]
+        alldata = Agent._connection.queryAll("SELECT waktu,manual,origin_manual FROM curahhujan WHERE YEAR(waktu)={0} AND agent_id={1} ORDER BY waktu".format(int(tahun),int(agent_id)))
+        if int(origin) == 1:
+            for a in alldata:
+                if a[2] == None:
+                    row={'waktu':a[0],'manual':a[1],'origin':"-"}
+                else:
+                    row={'waktu':a[0],'manual':a[1],'origin':a[2]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
+        
+        if int(origin) == 0:
+            for a in alldata:
+                row={'waktu':a[0],'manual':a[1]}
+                data.append(row)
+            return json.dumps(data, default=json_serialize_mod)
 
 
 def ts(x):
@@ -158,8 +295,6 @@ def map_periodic(src):
         if i in src:
             ret.update({i: src.get(i)})
     return ret
-
-
 
 
 class BsoloLogger:
@@ -245,6 +380,12 @@ class SensorGraph:
         '''@params:
             did: (str)device id
             sampling: (datetime'''
+            
+        try:
+            tanggal = to_date(web.input().get('sampling'))
+        except:
+        	tanggal = datetime.datetime.today()
+
         conn = pg.connect(dbname="bsolo3", user="bsolo3", password="4545-id")
         cursor = conn.cursor()
 
@@ -370,7 +511,7 @@ class SensorGraph:
             pname = "--"
         #print result
 
-        return render.sensor.sensor_graph({'data':str(data),'kategori':str(kategori),'did':did,'jenis_prima':jenis_prima,'pname':pname})
+        return render.sensor.sensor_graph({'data':str(data),'kategori':str(kategori),'did':did,'jenis_prima':jenis_prima,'pname':pname,'tanggal':tanggal})
         #return out["periodic"]
         
 
