@@ -29,10 +29,11 @@ $var js_foot:
 		</b>
 	</center>
     <br>
-    <table class="table table-bordered boldtable">
+    <table class="table">
         <thead>
           <tr>
             <th rowspan="3">Pos Hujan</th>
+            <th></th>
             <th>Total Telemetri</th>
           </tr>
         </thead>
@@ -45,7 +46,7 @@ $var js_foot:
             $code:
                 wil = c['pos'].wilayah
             <tr>
-                <td colspan="8" class="text-center col-wilayah">Wilayah $wilayah[c['pos'].wilayah]</td>
+                <td colspan="8" class="text-center" style="background-color: aqua;">Wilayah $wilayah[c['pos'].wilayah]</td>
             </tr>
 
         <tr>
@@ -53,7 +54,8 @@ $var js_foot:
             $if c['pos'].kab:
                 ($c['pos'].kab)
             </td>
-            <td class="text-right ch total">${'%.1f' % c['ch']['total']}</td>
+            <td>=</td>
+            <td class="text-right ch total">${'%.1f' % c['ch']['total']} mm</td>
         </tr>
     <!-- -->
              </tbody>
