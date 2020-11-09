@@ -352,8 +352,8 @@ class Agent(SQLObject):
         sql = "SELECT SamplingDate, SamplingTime, WLevel + " \
             "" + str(self.DPL*100) + " \
             FROM %(table_name)s \
-            WHERE CONCAT(SamplingDate, ' ', SamplingTime) \
-            BETWEEN '%(dari)s' AND '%(hingga)s' \
+            WHERE (SamplingDate \
+            BETWEEN '%(dari)s' AND '%(hingga)s') AND WLevel4 IS NOT NULL AND WLevel4 <> 9999\
             ORDER BY SamplingDate, SamplingTime"
         sql = sql % ({'table_name': self.table_name, 'dari': dari,
                       'hingga': hingga})
@@ -795,7 +795,7 @@ class Agent(SQLObject):
                 ttg_manual = r.manual + self.DPL
             else:
                 ttg_manual = r.manual
-            if r.jam == '00':
+            if r.jam == '0' or r.jam == '00':
                 jam00.manual = commify('%.2f' % ttg_manual)
                 jam00.manual_lokal = r.manual
                 jam00.mtime = r.mtime
