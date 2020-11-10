@@ -349,12 +349,22 @@ class Agent(SQLObject):
             dari = hingga - datetime.timedelta(days=3)
             dari = dari.replace(hour=7, minute=0, second=0)
         # DPL dikalikan 100 untuk jadi Centimeter
-        sql = "SELECT SamplingDate, SamplingTime, WLevel + " \
-            "" + str(self.DPL*100) + " \
-            FROM %(table_name)s \
-            WHERE (SamplingDate \
-            BETWEEN '%(dari)s' AND '%(hingga)s') AND WLevel4 IS NOT NULL AND WLevel4 <> 9999\
-            ORDER BY SamplingDate, SamplingTime"
+        # exxon_twi menggunakan query pengecualian
+        if self.table_name == 'exxon_twi':
+        	sql = "SELECT SamplingDate, SamplingTime, WLevel + " \
+	            "" + str(self.DPL*100) + " \
+	            FROM %(table_name)s \
+	            WHERE (SamplingDate \
+	            BETWEEN '%(dari)s' AND '%(hingga)s') \
+	            ORDER BY SamplingDate, SamplingTime"
+        # filter 9999 untuk sonar maks 10 m, filter 1068 untuk sonar maks 2m (tergantung merk sonar, intinya di filter maks nya)
+        else:
+	    	sql = "SELECT SamplingDate, SamplingTime, WLevel + " \
+	            "" + str(self.DPL*100) + " \
+	            FROM %(table_name)s \
+	            WHERE (SamplingDate \
+	            BETWEEN '%(dari)s' AND '%(hingga)s') AND WLevel4 IS NOT NULL AND WLevel4 <> 9999 AND WLevel4 <> 1068\
+	            ORDER BY SamplingDate, SamplingTime"
         sql = sql % ({'table_name': self.table_name, 'dari': dari,
                       'hingga': hingga})
         return self._connection.queryAll(sql)
