@@ -819,7 +819,13 @@ class Agent(SQLObject):
                WHERE SamplingDate='%s'" % (self.table_name, tanggal)
         rst = self._connection.queryAll(sql)
         hasil = {}
-        dict_rst = dict([(r[1].seconds, r[0]) for r in rst])
+        # dict_rst = dict([(r[1].seconds, r[0]) for r in rst])
+        dict_rst = {}
+        for r in rst:
+            if r[2] == 9999 or r[2] == 500 or r[2] == 1068:
+                dict_rst[r[1].seconds] = 0.01
+            else:
+                dict_rst[r[1].seconds] = r[0]
         at_least = 90 / 5 # 90=1.5jam
         for i, segment in enumerate(jam_dipilih):
             j = 0
