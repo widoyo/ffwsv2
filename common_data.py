@@ -10,7 +10,7 @@ KLIMATOLOGI_POS = ('pabelan', 'bendung_colo', 'baturetno', 'wonogiri', 'madiun',
 FTP_HOST = '117.20.58.227'
 CCTV_IMG_DIR = 'cctv-3g'
 #CCTV_IMG_DIR = 'cctv'
-CCTV_POS = ('jurug', )
+CCTV_POS = ()
 
 DEBIT_POS = {
     'serenan': {'a': 66.24, 'b': 0.1, 'c': 1.69},
